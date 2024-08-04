@@ -6,7 +6,7 @@ import UserControl from "../specific/Header/UserControl";
 const AppHeader = () => {
   return (
     <header className="box-border">
-      <section className="fixed top-0 h-[54px] w-full  max-h-16 border-b border-gray-100 ">
+      <section className="fixed top-0 h-[54px] w-full  max-h-16 border-b border-gray-100 z-50">
         <div className=" px-8 w-full mx-auto py-2 grid grid-cols-12">
           <div className="col-span-3 h-full hidden md:block">
             <Logo />

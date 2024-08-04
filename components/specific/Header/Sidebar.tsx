@@ -55,14 +55,16 @@ const Sidebar = () => {
 
   return (
     <section>
-        <Icon
-          icon={isMenuOpened ? "iconamoon:close-duotone" : "lucide:menu"}
-          className={`block md:hidden fixed top-1 md:left-8 left-4 text-5xl transition-all`}
-        />
+      <Icon
+        icon={isMenuOpened ? "iconamoon:close-duotone" : "lucide:menu"}
+        className={`block md:hidden fixed top-2 md:left-8 left-4 text-4xl transition-all`}
+      />
       <input
-        onChange={() => setIsMenuOpened((prevState) => !prevState)}
+        onChange={() => {
+          setIsMenuOpened((prevState) => !prevState);
+        }}
         type="checkbox"
-        className="absolute top-2 left-8 w-12 h-12 [&:checked+.menu]:left-0 opacity-0"
+        className="absolute top-2 left-5 w-9 h-9 [&:checked+.menu]:left-0 z-50 opacity-0"
       />
       <div className="fixed top-[54px] w-full max-w-full  md:max-w-72 h-screen border-r border-gray-100 py-6 menu transition-all duration-300 left-[-768px]  md:left-0 z-10 bg-white ">
         <h4 className="flex items-center px-8 font-medium ">

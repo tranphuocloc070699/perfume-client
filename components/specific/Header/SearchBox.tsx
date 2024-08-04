@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useCallback,useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import SearchResultBox, { ISearchResultList } from "./SearchResultBox";
 
 import _debounce from "lodash/debounce";
+import { useOutsideClick } from "@/hooks/useClickOutside";
 
 const searchResultList: ISearchResultList[] = [
   {
@@ -28,6 +29,10 @@ const SearchBox = () => {
   const [searchResult, setSearchResult] = useState<ISearchResultList[]>([]);
   const [isShowSearchResultBox, setIsShowSearchResultBox] = useState(false);
 
+  const searchResultRef = useOutsideClick(() => {
+    closeSearchResultBox();
+  });
+
   function handleDebounceFn(inputValue: string) {
     setSearchResult(searchResultList);
     setSearchLoading(false);
@@ -37,12 +42,10 @@ const SearchBox = () => {
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (!searchLoading) setSearchLoading(true);
-    if (!isShowSearchResultBox) setIsShowSearchResultBox(true);
+    if (!isShowSearchResultBox) openSearchResultBox();
     setValue(event.target.value);
     debounceFn(event.target.value);
   }
-
-  
 
   function openSearchBox() {
     setIsOpenSearchBox(true);
@@ -52,13 +55,19 @@ const SearchBox = () => {
     setIsOpenSearchBox(false);
   }
 
+  function openSearchResultBox() {
+    setIsShowSearchResultBox(true);
+  }
+
+  function closeSearchResultBox() {
+    setIsShowSearchResultBox(false);
+  }
+
   return (
     <section>
       <Icon
-        icon={
-          isOpenSearchBox ? "iconamoon:close-duotone" : `clarity:search-line`
-        }
-        className=" md:hidden fixed top-3 md:right-8 right-4 text-3xl transition-all z-30"
+        icon={isOpenSearchBox ? "iconamoon:close-duotone" : `fe:search`}
+        className=" md:hidden fixed top-2 md:right-8 right-4 text-4xl transition-all z-30 text-slate-700"
         onClick={isOpenSearchBox ? closeSearchBox : openSearchBox}
       />
       <div
@@ -68,7 +77,9 @@ const SearchBox = () => {
             : "md:block hidden"
         }`}
       >
-        <div className={`border border-gray-200 rounded-3xl  px-4 relative`}>
+        <div
+          className={`border border-gray-200 rounded-3xl  px-4 relative z-50`}
+        >
           <input
             value={value}
             onChange={(e) => handleChange(e)}
@@ -82,11 +93,15 @@ const SearchBox = () => {
             className="w-5 h-5 icon absolute left-0 top-[20%] ml-3 transition-all "
             color="#757575"
           />
-          {isShowSearchResultBox && (
-            <div className="absolute top-[123%] w-full left-0 right-0">
-              <SearchResultBox loading={searchLoading} data={searchResult} />
-            </div>
-          )}
+
+          <div
+            ref={searchResultRef}
+            className={`absolute top-[123%] w-full left-0 right-0 z-50 transition-all  ${
+              isShowSearchResultBox ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <SearchResultBox loading={searchLoading} data={searchResult} />
+          </div>
         </div>
       </div>
     </section>

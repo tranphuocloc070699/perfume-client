@@ -13,6 +13,7 @@ export default function Home() {
           icon="material-symbols-light:award-star-outline"
         >
           <ProductCardList data={[]} />
+          <div></div>
         </AppTitle>
       </section>
     </main>

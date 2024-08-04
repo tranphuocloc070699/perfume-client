@@ -11,9 +11,9 @@ const TextIcon = ({ data }: { data: ITextIconProps }) => {
     <span className="flex items-start gap-2">
       <Icon
         icon={data.icon}
-        className="text-slate-600 w-5 h-5 object-cover cursor-pointer"
+        className="text-slate-600 w-5 h-5 object-cover cursor-pointer font-semibold"
       />
-      <span className={"text-base font-light"}>{data.text}</span>
+      <span className={"text-base font-normal"}>{data.text}</span>
     </span>
   );
 };

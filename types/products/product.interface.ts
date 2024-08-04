@@ -6,5 +6,6 @@ export type IProduct = {
   createdAt: string;
   updatedAt: string;
   thumnail: string;
+  stylesThumbnail: string[];
   dateReleased: string;
 };

@@ -67,3 +67,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.scrollbar-1::-webkit-scrollbar {
+  width: 4px;
+  border-radius: 10px;
+}
