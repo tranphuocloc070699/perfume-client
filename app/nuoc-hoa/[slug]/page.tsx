@@ -5,14 +5,16 @@ import ProductDetailInfo from "@/components/specific/Product/Detail/ProductDetai
 const PerfumeDetail = () => {
   return (
     <div className="grid md:grid-cols-12">
-      <section className="md:col-span-9 flex flex-col gap-2">
+      <section className="md:col-span-9 flex flex-col gap-4">
         <div className="mt-6">
           <ProductDetailGallery />
         </div>
-        <h2 className="text-2xl text-slate-700 font-semibold mt-6">
+        <h2 className="text-3xl text-slate-700 font-bold mt-6">
           {fakeProductData.title}
         </h2>
-        <ProductDetailInfo />
+        <div className="mt-6 flex flex-col md:flex-row gap-8">
+          <ProductDetailInfo />
+        </div>
       </section>
       <section className="md:col-span-3">Related product</section>
     </div>

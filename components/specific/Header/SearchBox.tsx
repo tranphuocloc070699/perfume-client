@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 import SearchResultBox, { ISearchResultList } from "./SearchResultBox";
 
 import _debounce from "lodash/debounce";
-import { useOutsideClick } from "@/hooks/useClickOutside";
+import { useClickOutSide } from "@/hooks/useClickOutSide";
 
 const searchResultList: ISearchResultList[] = [
   {
@@ -29,7 +29,7 @@ const SearchBox = () => {
   const [searchResult, setSearchResult] = useState<ISearchResultList[]>([]);
   const [isShowSearchResultBox, setIsShowSearchResultBox] = useState(false);
 
-  const searchResultRef = useOutsideClick(() => {
+  const searchResultRef = useClickOutSide(() => {
     closeSearchResultBox();
   });
 

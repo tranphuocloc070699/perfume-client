@@ -1,21 +1,21 @@
 import { useEffect, useRef } from "react";
 
-export const useOutsideClick = (callback: () => void) => {
+export const useClickOutSide = (callback: () => void) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+    const handleClickOutSide = (event: MouseEvent | TouchEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
         callback();
       }
     };
 
-    document.addEventListener("mouseup", handleClickOutside);
-    document.addEventListener("touchend", handleClickOutside);
+    document.addEventListener("mouseup", handleClickOutSide);
+    document.addEventListener("touchend", handleClickOutSide);
 
     return () => {
-      document.removeEventListener("mouseup", handleClickOutside);
-      document.removeEventListener("touchend", handleClickOutside);
+      document.removeEventListener("mouseup", handleClickOutSide);
+      document.removeEventListener("touchend", handleClickOutSide);
     };
   }, [callback]);
 

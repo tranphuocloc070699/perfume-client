@@ -1,17 +1,17 @@
 import React from "react";
 import { IProductDetailInfo } from "@/types/product/product.interface";
 import Link from "next/link";
-const ProductDetailInfo = () => {
+const ProductDetailPrice = () => {
   const initData: IProductDetailInfo[] = [
     {
-      label: "Năm sản xuất",
+      label: "Giá hãng fullsize",
       value: {
         title: "2017",
         href: "/nuoc-hoa/2017",
       },
     },
     {
-      label: "Người pha chế (Perfumer)",
+      label: "",
       value: {
         title: "Uzumaki Naruto",
         href: "/nuoc-hoa/tac-gia/uzimaki-naruto",
@@ -36,7 +36,7 @@ const ProductDetailInfo = () => {
   return (
     <div className="rounded-md border border-slate-200 relative p-4">
       <span className="border border-slate-200 bg-gray-50 px-2 py-1 font-medium text-lg rounded-xl absolute top-[-14%] left-4">
-        Thông tin
+        Giá thị trường
       </span>
 
       <div className="mt-4">
@@ -57,4 +57,4 @@ const ProductDetailInfo = () => {
   );
 };
 
-export default ProductDetailInfo;
+export default ProductDetailPrice;
