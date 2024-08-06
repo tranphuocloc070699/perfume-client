@@ -8,13 +8,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import NextImg from "next/image";
-import { IProduct } from "@/types/products/product.interface";
+import { Product } from "@/types/product/product.model";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import CountingIcon from "@/components/common/CountingIcon";
 import TextIcon from "@/components/common/TextIcon";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-const ProductCardItem = ({ data }: { data: IProduct }) => {
+const ProductCardItem = ({ data }: { data: Product }) => {
   function onIconClick(id: number) {
     console.log("on click trigger with id: " + id);
   }
@@ -22,7 +22,7 @@ const ProductCardItem = ({ data }: { data: IProduct }) => {
     <div className="w-full relative flex flex-col bg-gradient-to-b from-slate-200 to-slate-50 rounded-xl ">
       <section className="flex items-start justify-between mb-4 px-4 py-4 rounded-2xl ">
         <h4 className="text-base  leading-5  text-slate-700 font-semibold mr-2 hover:underline">
-          <Link href={"/"}>{data.title}</Link>
+          <Link href={`/nuoc-hoa/${data.id}`}>{data.title}</Link>
         </h4>
 
         <div className="col-span-1 px-2 py-1 border border-slate-200 rounded-full flex items-center hover:shadow-md transition-all cursor-pointer bg-white">

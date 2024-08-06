@@ -9,28 +9,35 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { IProduct } from "@/types/products/product.interface";
+import { Product } from "@/types/product/product.model";
 import ProductCardItem from "./ProductCardItem";
-import { fakeProductData } from "@/types/products/product.data";
+import { fakeProductData } from "@/types/product/product.data";
 
-const ProductCardList = ({ data }: { data: IProduct[] }) => {
+const ProductCardList = ({ data }: { data: Product[] }) => {
   return (
     <Carousel
-    // plugins={[
-    //   Autoplay({
-    //     delay: 5000,
-    //   }),
-    // ]}
+      opts={{
+        align: "start",
+        slidesToScroll: 4,
+      }}
     >
       <CarouselContent className="-ml-8">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/6 pl-8">
-            <ProductCardItem data={fakeProductData} />
+        {Array.from({ length: 20 }).map((_, index) => (
+          <CarouselItem
+            key={index}
+            className="md:basis-1/2  xl:basis-1/4 2xl:basis-1/6 pl-8"
+          >
+            <ProductCardItem
+              data={{
+                ...fakeProductData,
+                title: fakeProductData.title + " " + (index + 1),
+              }}
+            />
           </CarouselItem>
         ))}
       </CarouselContent>
-      {/* <CarouselPrevious />
-      <CarouselNext /> */}
+      <CarouselPrevious className="rounded-sm -left-4 bg-white" />
+      <CarouselNext className="rounded-sm -right-4 bg-white" />
     </Carousel>
   );
 };

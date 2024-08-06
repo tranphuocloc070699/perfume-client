@@ -1,7 +1,7 @@
 import AppTitle from "@/components/common/AppTitle";
 import ProductCardItem from "@/components/specific/Product/ProductCardItem";
 import Image from "next/image";
-import { fakeProductData } from "@/types/products/product.data";
+import { fakeProductData } from "@/types/product/product.data";
 import ProductCardList from "@/components/specific/Product/ProductCardList";
 export default function Home() {
   return (

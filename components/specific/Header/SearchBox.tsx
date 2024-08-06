@@ -97,7 +97,9 @@ const SearchBox = () => {
           <div
             ref={searchResultRef}
             className={`absolute top-[123%] w-full left-0 right-0 z-50 transition-all  ${
-              isShowSearchResultBox ? "opacity-100" : "opacity-0"
+              isShowSearchResultBox && value.trim().length > 0
+                ? "block"
+                : "hidden"
             }`}
           >
             <SearchResultBox loading={searchLoading} data={searchResult} />

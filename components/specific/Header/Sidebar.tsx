@@ -57,7 +57,7 @@ const Sidebar = () => {
     <section>
       <Icon
         icon={isMenuOpened ? "iconamoon:close-duotone" : "lucide:menu"}
-        className={`block md:hidden fixed top-2 md:left-8 left-4 text-4xl transition-all`}
+        className={`z-50 block md:hidden fixed top-2 md:left-8 left-4 text-4xl transition-all`}
       />
       <input
         onChange={() => {

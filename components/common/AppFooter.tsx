@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const AppFooter = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <div className="h-96"></div>;
+};
 
-export default AppFooter
+export default AppFooter;
