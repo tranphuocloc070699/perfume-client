@@ -1,0 +1,19 @@
+ <div className="rounded-md border border-slate-200 relative p-4">
+      <span className="border border-slate-200 bg-gray-50 px-2 py-1 font-medium text-base rounded-xl absolute top-[-14%] left-4">
+        Thông tin
+      </span>
+      <div className="mt-4">
+        {initData.map((item) => (
+          <div key={item.label} className="flex items-center gap-2 text-base">
+            <h4 className="font-normal">{item.label}:</h4>
+            {item?.value?.href ? (
+              <Link href={item.value.href} className="font-medium  underline">
+                {item.value.title}
+              </Link>
+            ) : (
+              <span className="font-medium">{item.value.title}</span>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>

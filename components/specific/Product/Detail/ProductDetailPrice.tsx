@@ -1,59 +1,71 @@
-import React from "react";
-import { IProductDetailInfo } from "@/types/product/product.interface";
+import React, { useMemo } from "react";
+import {
+  IProductDetailInfo,
+  IProductDetailPrice,
+} from "@/types/product/product.interface";
 import Link from "next/link";
+import ProductCardBlock from "@/components/common/ProductCardBlock";
 const ProductDetailPrice = () => {
-  const initData: IProductDetailInfo[] = [
+  const initData: IProductDetailPrice[] = [
     {
-      label: "Giá hãng fullsize",
+      label: "Giá hãng fullsize 100ml",
       value: {
-        title: "2017",
-        href: "/nuoc-hoa/2017",
+        title: 2000000,
+        href: "https://google.com",
+        country: "US",
       },
     },
     {
-      label: "",
+      label: "Giá tại Fragrance X",
       value: {
-        title: "Uzumaki Naruto",
-        href: "/nuoc-hoa/tac-gia/uzimaki-naruto",
+        title: 1800000,
+        href: "https://google.com",
+        country: "US",
       },
     },
     {
-      label: "Thương hiệu",
+      label: "Giá tại thị trường Việt Nam",
       value: {
-        title: "Dior",
-        href: "/nuoc-hoa/thuong-hieu/dior",
-      },
-    },
-
-    {
-      label: "Quốc gia",
-      value: {
-        title: "Italia",
-        href: "/nuoc-hoa/quoc-gia/italia",
+        title: 1500000,
+        href: "https://google.com",
+        country: "VN",
       },
     },
   ];
-  return (
-    <div className="rounded-md border border-slate-200 relative p-4">
-      <span className="border border-slate-200 bg-gray-50 px-2 py-1 font-medium text-lg rounded-xl absolute top-[-14%] left-4">
-        Giá thị trường
-      </span>
 
-      <div className="mt-4">
+  const productPrice = (price: number, country: "VN" | "US") => {
+    let priceTransform = "";
+    const formattedNumber = price.toLocaleString("vi-VN");
+    if (country === "VN") {
+      priceTransform = formattedNumber + " VND";
+    } else {
+      priceTransform = "$" + formattedNumber;
+    }
+
+    return priceTransform;
+  };
+  return (
+    <>
+      <ProductCardBlock title="Giá sản phẩm">
         {initData.map((item) => (
           <div key={item.label} className="flex items-center gap-2 text-base">
             <h4 className="font-normal">{item.label}:</h4>
             {item?.value?.href ? (
-              <Link href={item.value.href} className="font-medium  underline">
-                {item.value.title}
+              <Link
+                href={item.value.href}
+                className="font-medium  text-blue-700 hover:underline"
+              >
+                {productPrice(item.value.title, item.value.country)}
               </Link>
             ) : (
-              <span className="font-medium">{item.value.title}</span>
+              <span className="font-medium">
+                {productPrice(item.value.title, item.value.country)}
+              </span>
             )}
           </div>
         ))}
-      </div>
-    </div>
+      </ProductCardBlock>
+    </>
   );
 };
 

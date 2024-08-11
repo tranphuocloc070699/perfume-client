@@ -1,6 +1,7 @@
 import React from "react";
 import { IProductDetailInfo } from "@/types/product/product.interface";
 import Link from "next/link";
+import ProductCardBlock from "@/components/common/ProductCardBlock";
 const ProductDetailInfo = () => {
   const initData: IProductDetailInfo[] = [
     {
@@ -34,12 +35,8 @@ const ProductDetailInfo = () => {
     },
   ];
   return (
-    <div className="rounded-md border border-slate-200 relative p-4">
-      <span className="border border-slate-200 bg-gray-50 px-2 py-1 font-medium text-lg rounded-xl absolute top-[-14%] left-4">
-        Thông tin
-      </span>
-
-      <div className="mt-4">
+    <>
+      <ProductCardBlock title="Thông tin">
         {initData.map((item) => (
           <div key={item.label} className="flex items-center gap-2 text-base">
             <h4 className="font-normal">{item.label}:</h4>
@@ -52,8 +49,8 @@ const ProductDetailInfo = () => {
             )}
           </div>
         ))}
-      </div>
-    </div>
+      </ProductCardBlock>
+    </>
   );
 };
 

@@ -3,6 +3,15 @@ export interface IProductDetailInfo {
   value: {
     title: string;
     href?: string;
+  };
+}
+
+export interface IProductDetailPrice {
+  label: string;
+  value: {
+    title: number;
+    href?: string;
     alt?: string;
+    country: "VN" | "US";
   };
 }
