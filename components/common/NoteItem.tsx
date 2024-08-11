@@ -10,7 +10,7 @@ const NoteItem = ({ data }: { data: INoteItemProps }) => {
           <h4 className="whitespace-nowrap text-sm font-medium">
             {data.title}
           </h4>
-          <Progress value={data.percent} />
+          <Progress className={"text-4xl"} value={data.percent} />
         </div>
       ) : (
         <div className="flex rounded-full py-0.5 px-3 items-center gap-2 border border-slate-200">
