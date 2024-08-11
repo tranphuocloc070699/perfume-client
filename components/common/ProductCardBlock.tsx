@@ -16,7 +16,7 @@ interface IProductCardBlockProps {
 const ProductCardBlock = ({ title, children }: IProductCardBlockProps) => {
   return (
     <>
-      <Card>
+      <Card className="relative">
         <CardHeader>
           <CardTitle>{title}</CardTitle>
         </CardHeader>

@@ -1,7 +1,11 @@
 import React from "react";
-import { IProductDetailInfo } from "@/types/product/product.interface";
+import {
+  IProductCardValue,
+  IProductDetailInfo,
+} from "@/types/product/product.interface";
 import Link from "next/link";
 import ProductCardBlock from "@/components/common/ProductCardBlock";
+import ProductCardLine from "@/components/common/ProductCardLine";
 const ProductDetailInfo = () => {
   const initData: IProductDetailInfo[] = [
     {
@@ -9,13 +13,15 @@ const ProductDetailInfo = () => {
       value: {
         title: "2017",
         href: "/nuoc-hoa/2017",
+        type: "info",
       },
     },
     {
-      label: "Người pha chế (Perfumer)",
+      label: "Người pha chế",
       value: {
         title: "Uzumaki Naruto",
         href: "/nuoc-hoa/tac-gia/uzimaki-naruto",
+        type: "info",
       },
     },
     {
@@ -23,6 +29,7 @@ const ProductDetailInfo = () => {
       value: {
         title: "Dior",
         href: "/nuoc-hoa/thuong-hieu/dior",
+        type: "info",
       },
     },
 
@@ -31,23 +38,29 @@ const ProductDetailInfo = () => {
       value: {
         title: "Italia",
         href: "/nuoc-hoa/quoc-gia/italia",
+        type: "info",
       },
     },
   ];
+
+  const valueTransformer = (value: IProductCardValue) => {
+    return {
+      title: value.title,
+      href: value.href,
+      alt: value.alt,
+      type: "info",
+    };
+  };
+
   return (
     <>
       <ProductCardBlock title="Thông tin">
         {initData.map((item) => (
-          <div key={item.label} className="flex items-center gap-2 text-base">
-            <h4 className="font-normal">{item.label}:</h4>
-            {item?.value?.href ? (
-              <Link href={item.value.href} className="font-medium  underline">
-                {item.value.title}
-              </Link>
-            ) : (
-              <span className="font-medium">{item.value.title}</span>
-            )}
-          </div>
+          <ProductCardLine
+            key={item.label}
+            label={item.label}
+            value={valueTransformer(item.value)}
+          />
         ))}
       </ProductCardBlock>
     </>

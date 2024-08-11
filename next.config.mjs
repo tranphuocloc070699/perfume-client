@@ -7,6 +7,7 @@ const nextConfig = {
       "bizweb.dktcdn.net",
       "unsplash.com",
       "images.unsplash.com",
+      "fimgs.net",
     ],
   },
 };
