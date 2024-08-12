@@ -21,7 +21,7 @@ const NoteItem = ({ data }: { data: INoteItemProps }) => {
             alt="Ảnh note"
             className="w-7 h-7 rounded-full object-cover"
           />
-          <span className="text-sm">{data.title}</span>
+          <span className="text-sm whitespace-nowrap">{data.title}</span>
         </div>
       )}
     </>

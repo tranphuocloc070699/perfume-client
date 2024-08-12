@@ -4,6 +4,7 @@ import ProductDetailGallery from "@/components/specific/Product/Detail/ProductDe
 import ProductDetailInfo from "@/components/specific/Product/Detail/ProductDetailInfo";
 import ProductDetailPrice from "@/components/specific/Product/Detail/ProductDetailPrice";
 import ProductDetailNotes from "@/components/specific/Product/Detail/ProductDetailNotes";
+import ProductDetailStory from "@/components/specific/Product/Detail/ProductDetailStory";
 const PerfumeDetail = () => {
   return (
     <div className="grid md:grid-cols-12">
@@ -14,16 +15,11 @@ const PerfumeDetail = () => {
         <h2 className="text-3xl text-slate-700 font-bold mt-6">
           {fakeProductData.title}
         </h2>
-        <div className="mt-6 grid md:gap-4 2xl:grid-cols-3 md:grid-cols-2 grid-cols-1">
-          <div className="col-span-1">
-            <ProductDetailInfo />
-          </div>
-          <div className="col-span-1">
-            <ProductDetailPrice />
-          </div>
-          <div className="col-span-1 md:col-span-3">
-            <ProductDetailNotes />
-          </div>
+        <div className="mt-6 gap-4 grid grid-cols-1 md:grid-cols-2 grid-flow-row">
+          <ProductDetailInfo />
+          <ProductDetailPrice />
+          <ProductDetailStory />
+          <ProductDetailNotes />
         </div>
       </section>
       <section className="md:col-span-3">Related product</section>
