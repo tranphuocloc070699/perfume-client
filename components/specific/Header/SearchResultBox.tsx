@@ -1,6 +1,5 @@
 import AppDataNotFound from "@/components/common/AppDataNotFound";
 import AppLoading from "@/components/common/AppLoading";
-import { useOutsideClick } from "@/hooks/useClickOutSide";
 import React, { useEffect } from "react";
 
 interface ISearchResultItem {

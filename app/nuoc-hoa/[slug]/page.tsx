@@ -4,6 +4,7 @@ import ProductDetailGallery from "@/components/specific/Product/Detail/ProductDe
 import ProductDetailInfo from "@/components/specific/Product/Detail/ProductDetailInfo";
 import ProductDetailPrice from "@/components/specific/Product/Detail/ProductDetailPrice";
 import ProductDetailNotes from "@/components/specific/Product/Detail/ProductDetailNotes";
+import ProductDetailComparison from "@/components/specific/Product/Detail/ProductDetailComparison";
 const PerfumeDetail = () => {
   return (
     <div className="grid md:grid-cols-12">
@@ -23,6 +24,9 @@ const PerfumeDetail = () => {
           </div>
           <div className="col-span-1 md:col-span-3">
             <ProductDetailNotes />
+          </div>
+          <div className="md:col-span-3">
+            <ProductDetailComparison />
           </div>
         </div>
       </section>
