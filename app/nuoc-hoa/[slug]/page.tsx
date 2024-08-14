@@ -4,6 +4,7 @@ import ProductDetailGallery from "@/components/specific/Product/Detail/ProductDe
 import ProductDetailInfo from "@/components/specific/Product/Detail/ProductDetailInfo";
 import ProductDetailPrice from "@/components/specific/Product/Detail/ProductDetailPrice";
 import ProductDetailNotes from "@/components/specific/Product/Detail/ProductDetailNotes";
+import ProductDetailComparison from "@/components/specific/Product/Detail/ProductDetailComparison";
 import ProductDetailStory from "@/components/specific/Product/Detail/ProductDetailStory";
 const PerfumeDetail = () => {
   return (
@@ -20,6 +21,9 @@ const PerfumeDetail = () => {
           <ProductDetailPrice />
           <ProductDetailStory />
           <ProductDetailNotes />
+          <div className="col-span-2">
+            <ProductDetailComparison />
+          </div>
         </div>
       </section>
       <section className="md:col-span-3">Related product</section>
