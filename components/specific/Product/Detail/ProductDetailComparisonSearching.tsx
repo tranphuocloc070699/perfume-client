@@ -15,7 +15,7 @@ const ProductDetailComparisonSearching = () => {
         value={searchValue}
         onChange={handleSearchValueChange}
         name="search-input"
-        placeholder="Nhập tên sản phẩm cần so sánh..."
+        placeholder="Tìm kiếm sản phẩm..."
       />
     </div>
   );

@@ -13,15 +13,17 @@ const NoteItem = ({ data }: { data: INoteItemProps }) => {
           <Progress className={"text-4xl"} value={data.percent} />
         </div>
       ) : (
-        <div className="flex rounded-full py-0.5 px-3 items-center gap-2 border border-slate-200">
+        <div className="flex  rounded-full py-0.5 px-3 items-center gap-2 border border-slate-200">
           <NextImg
             src={data.thumbnail}
             height={28}
             width={28}
             alt="Ảnh note"
-            className="w-7 h-7 rounded-full object-cover"
+            className="w-6 h-6 rounded-full object-cover"
           />
-          <span className="text-sm whitespace-nowrap">{data.title}</span>
+          <span className="text-sm font-light whitespace-nowrap">
+            {data.title}
+          </span>
         </div>
       )}
     </>

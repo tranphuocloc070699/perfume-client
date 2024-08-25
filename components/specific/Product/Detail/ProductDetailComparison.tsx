@@ -2,6 +2,7 @@ import ProductCardBlock from "@/components/common/ProductCardBlock";
 import React from "react";
 import ProductDetailComparisonSearching from "./ProductDetailComparisonSearching";
 import { Button } from "@/components/ui/button";
+import ProductDetailComparisonList from "./ProductDetailComparisonList";
 const ProductDetailComparison = () => {
   return (
     <>
@@ -10,6 +11,8 @@ const ProductDetailComparison = () => {
           <Button>Tạo so sánh mới</Button>
         </div>
         <ProductDetailComparisonSearching />
+        <span className="block text-lg font-medium mt-4 mb-2">So sánh với</span>
+        <ProductDetailComparisonList />
       </ProductCardBlock>
     </>
   );

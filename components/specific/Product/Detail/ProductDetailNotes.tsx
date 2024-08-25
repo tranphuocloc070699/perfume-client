@@ -73,14 +73,14 @@ const ProductDetailNotes = () => {
     <>
       <ProductCardBlock title="Nốt hương">
         <div className="flex items-center space-x-2 absolute top-0 right-0 space-y-1.5 p-6">
-          <Label htmlFor="percent-mode" className="p-0 m-0">
+          {/* <Label htmlFor="percent-mode" className="p-0 m-0">
             Chế độ phần trăm
-          </Label>
+          </Label> */}
           <Switch
             checked={isPercentMode}
             onCheckedChange={onPercentModeSwitchChange}
             id="percent-mode"
-            className="m-0"
+            className="p-0 m-0"
           />
         </div>
         <div>
@@ -97,7 +97,7 @@ const ProductDetailNotes = () => {
                   <h4 className="font-medium text-base mb-2">
                     {convertKeyToLabel(initDataKey)}
                   </h4>
-                  <div className="flex items-center gap-2 ">
+                  <div className="flex flex-wrap items-center gap-2">
                     {initData[initDataKey].map((item, index) => (
                       <NoteItem key={index} data={item} />
                     ))}
