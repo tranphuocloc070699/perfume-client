@@ -9,6 +9,8 @@ import {
   IProductDetailInfo,
 } from "@/types/product/product.interface";
 import CountingIcon from "@/components/common/CountingIcon";
+import { useModal } from "@/hooks/useModal";
+import ProductCompareModal from "@/components/common/modal/ProductCompareModal";
 
 const ProductDetailComparisonItem = ({ data }: { data: Product }) => {
   function onIconClick(id: number) {
@@ -30,6 +32,8 @@ const ProductDetailComparisonItem = ({ data }: { data: Product }) => {
       type: "info",
     };
   };
+
+  const { openModal, closeModal } = useModal(<ProductCompareModal />);
 
   return (
     <div className="bg-gray-100 rounded-xl p-4 flex flex-col gap-4 relative">

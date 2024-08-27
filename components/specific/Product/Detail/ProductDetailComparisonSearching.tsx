@@ -10,7 +10,7 @@ const ProductDetailComparisonSearching = () => {
     setSearchValue(evt.target.value);
   }
   return (
-    <div>
+    <div className="mb-8">
       <AppInput
         value={searchValue}
         onChange={handleSearchValueChange}

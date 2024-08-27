@@ -11,7 +11,6 @@ const ProductDetailComparison = () => {
           <Button>Tạo so sánh mới</Button>
         </div>
         <ProductDetailComparisonSearching />
-        <span className="block text-lg font-medium mt-4 mb-2">So sánh với</span>
         <ProductDetailComparisonList />
       </ProductCardBlock>
     </>

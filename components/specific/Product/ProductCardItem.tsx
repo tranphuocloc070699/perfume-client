@@ -19,12 +19,8 @@ const ProductCardItem = ({ data }: { data: Product }) => {
     console.log("on click trigger with id: " + id);
   }
   return (
-    <div className="w-full relative flex flex-col bg-gradient-to-b from-gray-200 to-gray-50 rounded-xl ">
-      <section className="flex items-start justify-between mb-4 px-4 py-4 rounded-2xl ">
-        <h4 className="text-base  leading-5  text-gray-700 font-semibold mr-2 hover:underline">
-          <Link href={`/nuoc-hoa/${data.id}`}>{data.title}</Link>
-        </h4>
-
+    <div className="w-full relative flex flex-col justify-between  bg-gradient-to-b from-gray-200 to-gray-50 rounded-xl ">
+      <section className="flex items-start justify-end  p-4 pb-0 rounded-2xl ">
         <div className="col-span-1 px-2 py-1 border border-gray-200 rounded-full flex items-center hover:shadow-md transition-all cursor-pointer bg-white">
           <CountingIcon
             data={{
@@ -41,9 +37,12 @@ const ProductCardItem = ({ data }: { data: Product }) => {
         quality={100}
         width={200}
         height={200}
-        className="h-28 w-28 self-center object-cover  mb-4 rounded-xl  cursor-pointer [&:hover+.detail]:h-full [&:hover+.detail]:opacity-100"
+        className="h-32 w-32 self-center object-cover  rounded-xl  cursor-pointer"
       />
-      <div className="detail bg-white rounded-xl p-4 absolute w-full bottom-0 border border-gray-200 transition-all duration-300  h-0 opacity-0 hover:h-full hover:opacity-100">
+      <h4 className="text-base text-center leading-5  text-gray-900 mb-4 font-semibold  hover:underline">
+        <Link href={`/nuoc-hoa/${data.id}`}>{data.title}</Link>
+      </h4>
+      {/* <div className="bg-white rounded-xl p-4 absolute w-full bottom-0 border border-gray-200 transition-all duration-300  h-0 opacity-0 hover:h-full hover:opacity-100">
         <div className="space-y-2 mb-6">
           <TextIcon
             data={{
@@ -82,7 +81,7 @@ const ProductCardItem = ({ data }: { data: Product }) => {
           Xem chi tiết
           <Icon icon="ei:arrow-right" className="ml-2 h-7 w-7 text-white" />
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };
