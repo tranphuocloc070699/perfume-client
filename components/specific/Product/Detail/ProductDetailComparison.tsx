@@ -1,3 +1,5 @@
+"use client";
+
 import ProductCardBlock from "@/components/common/ProductCardBlock";
 import React from "react";
 import ProductDetailComparisonSearching from "./ProductDetailComparisonSearching";

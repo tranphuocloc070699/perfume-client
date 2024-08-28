@@ -33,7 +33,9 @@ const ProductDetailComparisonItem = ({ data }: { data: Product }) => {
     };
   };
 
-  const { openModal, closeModal } = useModal(<ProductCompareModal />);
+  const { openModal, closeModal } = useModal(
+    <ProductCompareModal text={"hello hello"} />
+  );
 
   return (
     <div className="bg-gray-100 rounded-xl p-4 flex flex-col gap-4 relative">
@@ -45,7 +47,10 @@ const ProductDetailComparisonItem = ({ data }: { data: Product }) => {
         height={200}
         className="md:w-20 md:h-20 object-cover rounded-xl  cursor-pointer self-center"
       />
-      <h4 className="text-sm font-medium text-center cursor-pointer hover:underline">
+      <h4
+        className="text-sm font-medium text-center cursor-pointer hover:underline"
+        onClick={openModal}
+      >
         Versace Pour Homme
       </h4>
       <div className="absolute top-4 right-4">

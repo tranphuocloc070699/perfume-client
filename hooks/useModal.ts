@@ -1,11 +1,23 @@
-import React, { useState, useCallback, useEffect } from "react";
-import ReactDOM from "react-dom";
-
+import React, { useState, useCallback, useEffect, useRef } from "react";
+import ReactDOM from "react-dom/client";
+import ProductDetailComparison from "@/components/specific/Product/Detail/ProductDetailComparison";
+import { useModalStore } from "@/store/modal.store";
 export const useModal = (modalComponent: React.ReactElement) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { modal, setModal } = useModalStore();
 
+  const [isOpen, setIsOpen] = useState(false);
   const openModal = useCallback(() => {
-    setIsOpen(true);
+    // setIsOpen(true);
+    // const modalContainer = document.getElementById("modal-container");
+    // if (!modalContainer) return;
+    // const body = ReactDOM.createRoot(modalContainer);
+    // const component = React.cloneElement(modalComponent, {
+    //   open: isOpen,
+    //   onClose: closeModal,
+    // });
+
+    // body.render(component);
+    setIsOpen(false);
   }, []);
 
   const closeModal = useCallback(() => {
@@ -13,26 +25,17 @@ export const useModal = (modalComponent: React.ReactElement) => {
   }, []);
 
   useEffect(() => {
-    if (isOpen) {
-      // Render the modal component into a portal when isOpen is true
-      const modalRoot = document.getElementById("modal-root");
-      if (modalRoot) {
-        ReactDOM.render(
-          React.cloneElement(modalComponent, {
-            onClose: closeModal,
-            onOpen: openModal,
-          }),
-          modalRoot
-        );
-      }
-    } else {
-      // Clean up the modal from the portal when isOpen is false
-      const modalRoot = document.getElementById("modal-root");
-      if (modalRoot) {
-        ReactDOM.unmountComponentAtNode(modalRoot);
-      }
-    }
-  }, [isOpen, modalComponent, closeModal]);
+    const component = React.cloneElement(modalComponent, {
+      open: isOpen,
+      onClose: closeModal,
+    });
+
+    setModal(component);
+
+    return () => {
+      //  setModal(null);
+    };
+  }, []);
 
   return {
     openModal,

@@ -9,19 +9,30 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const ProductCompareModal = () => {
+interface IProductCompareModalProps {
+  text: string;
+  open?: boolean;
+  onClose?: () => void;
+}
+
+const ProductCompareModal = ({
+  text,
+  open,
+  onClose,
+}: IProductCompareModalProps) => {
   return (
-    <Dialog open={true}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+    <>
+      <Dialog open={open}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogDescription>
+              <p onClick={onClose}>{text}</p>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ import "../styles/global.css";
 import AppHeader from "@/components/common/AppHeader";
 import AppFooter from "@/components/common/AppFooter";
 import { useEffect } from "react";
+import { useModalStore } from "@/store/modal.store";
 
 const roboto = Roboto({
   weight: ["400", "500", "700"],
