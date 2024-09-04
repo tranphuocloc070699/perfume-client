@@ -15,25 +15,36 @@ interface IProductCompareModalProps {
   onClose?: () => void;
 }
 
-const ProductCompareModal = ({
-  text,
-  open,
-  onClose,
-}: IProductCompareModalProps) => {
-  return (
-    <>
-      <Dialog open={open}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
-            <DialogDescription>
-              <p onClick={onClose}>{text}</p>
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
-    </>
-  );
+const ProductCompareModal = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function onChange() {
+    console.log("trigger...");
+  }
+
+  return {
+    content: (
+      <>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Are you absolutely sure?</DialogTitle>
+              <DialogDescription>Description</DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+      </>
+    ),
+    close: closeModal,
+    open: openModal,
+  };
 };
 
 export default ProductCompareModal;
