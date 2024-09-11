@@ -19,7 +19,7 @@ interface ISidebarItem {
 }
 
 const Sidebar = () => {
-  const sidebarList: ISidebarList[] = [
+  const defaultList: ISidebarList[] = [
     {
       title: "Trang chủ",
       iconUrl: "iconamoon:home-thin",
@@ -28,27 +28,80 @@ const Sidebar = () => {
       children: [],
     },
     {
-      title: "Keycap",
-      iconUrl: "arcticons:snow-icon-pack",
+      title: "Nước hoa",
+      iconUrl: "game-icons:square-bottle",
       type: "icon",
-      link: "/key-cap",
+      link: "/nuoc-hoa",
       children: [],
     },
     {
-      title: "Switch",
-      iconUrl: "arcticons:snow-icon-pack",
+      title: "Nốt hương",
+      iconUrl: "mdi:smell",
       type: "icon",
-      link: "/switch",
+      link: "/not-huong",
       children: [],
     },
     {
-      title: "Kit bàn phím",
-      iconUrl: "arcticons:snow-icon-pack",
+      title: "Thương hiệu",
+      iconUrl: "ph:building",
       type: "icon",
-      link: "/kit",
+      link: "/thuong-hieu",
+      children: [],
+    },
+    {
+      title: "Tin tức",
+      iconUrl: "emojione-monotone:newspaper",
+      type: "icon",
+      link: "/tin-tuc",
       children: [],
     },
   ];
+
+  const adminList: ISidebarList[] = [
+    {
+      title: "Dashboard",
+      iconUrl: "iconamoon:home-thin",
+      type: "icon",
+      link: "/admin",
+      children: [],
+    },
+    {
+      title: "Quản lý nước hoa",
+      iconUrl: "game-icons:square-bottle",
+      type: "icon",
+      link: "/admin/nuoc-hoa",
+      children: [],
+    },
+    {
+      title: "Quản lý nốt hương",
+      iconUrl: "mdi:smell",
+      type: "icon",
+      link: "/admin/not-huong",
+      children: [],
+    },
+    {
+      title: "Quản lý thương hiệu",
+      iconUrl: "ph:building",
+      type: "icon",
+      link: "/admin/thuong-hieu",
+      children: [],
+    },
+    {
+      title: "Quản lý tin tức",
+      iconUrl: "emojione-monotone:newspaper",
+      type: "icon",
+      link: "/admin/tin-tuc",
+      children: [],
+    },
+    {
+      title: "Quản lý bình luận",
+      iconUrl: "ep:chat-dot-round",
+      type: "icon",
+      link: "/admin/binh-luan",
+      children: [],
+    },
+  ];
+
   const pathName = usePathname();
 
   const [isMenuOpened, setIsMenuOpened] = useState(false);
@@ -75,7 +128,33 @@ const Sidebar = () => {
           />
         </h4>
         <ul className="flex flex-col mt-2 border-b border-gray-100 pb-6">
-          {sidebarList.map((sidebarItem) => (
+          {defaultList.map((sidebarItem) => (
+            <li
+              key={sidebarItem.link}
+              className={`px-4 mx-4 my-1 py-2 font-light text-[15px] flex items-center gap-4 rounded-lg ${
+                pathName === sidebarItem.link ? "bg-slate-100 font-medium" : ""
+              }`}
+            >
+              {sidebarItem.type === "icon" ? (
+                <Icon icon={sidebarItem.iconUrl} className="text-xl" />
+              ) : (
+                <NextImg src={sidebarItem.iconUrl} alt="Sidebar Icon" />
+              )}
+              <Link href={sidebarItem.link} className="leading-3">
+                {sidebarItem.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <h4 className="flex items-center px-8 font-medium mt-6">
+          Admin
+          <Icon
+            icon={"material-symbols-light:keyboard-arrow-right"}
+            className="text-2xl text-black mt-[3px]"
+          />
+        </h4>
+        <ul className="flex flex-col mt-2 border-b border-gray-100 pb-6">
+          {adminList.map((sidebarItem) => (
             <li
               key={sidebarItem.link}
               className={`px-4 mx-4 my-1 py-2 font-light text-[15px] flex items-center gap-4 rounded-lg ${

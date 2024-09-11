@@ -19,11 +19,13 @@ interface IDetailCompareModalProps {
 }
 
 const ProductDetailComparisonItem = ({ data }: { data: Product }) => {
+  const modal = ProductCompareModal();
   function onIconClick(id: number) {
     console.log("on click trigger with id: " + id);
   }
-
-  const modal = ProductCompareModal();
+  function onClick() {
+    modal.open();
+  }
 
   return (
     <div className="bg-gray-100 rounded-xl p-4 flex flex-col gap-4 relative">
@@ -37,7 +39,7 @@ const ProductDetailComparisonItem = ({ data }: { data: Product }) => {
       />
       <h4
         className="text-sm font-medium text-center cursor-pointer hover:underline"
-        onClick={modal.open}
+        onClick={onClick}
       >
         Versace Pour Homme
       </h4>

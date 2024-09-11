@@ -8,6 +8,7 @@ const nextConfig = {
       "unsplash.com",
       "images.unsplash.com",
       "fimgs.net",
+      "upload.wikimedia.org",
     ],
   },
 };

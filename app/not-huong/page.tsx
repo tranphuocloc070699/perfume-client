@@ -1,18 +1,23 @@
 import AppTitle from "@/components/common/AppTitle";
-import ProductCardList from "@/components/specific/Product/ProductCardList";
-export default function Home() {
+import ProductNoteList from "@/components/specific/ProductNote/ProductNoteList";
+import React from "react";
+
+const NotePage = () => {
   return (
-    <main className={`md:px-0 px-4 w-full max-w-`}>
+    <div>
       <section className="mt-6">
         <AppTitle
           loading={false}
-          title="Mới ra mắt"
+          title="Thông dụng"
           icon="material-symbols-light:award-star-outline"
         >
-          <ProductCardList data={[]} />
+          <ProductNoteList data={[]} />
           <div></div>
         </AppTitle>
       </section>
-    </main>
+    </div>
   );
-}
+};
+
+export default NotePage;
+``;

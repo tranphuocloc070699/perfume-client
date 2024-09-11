@@ -14,22 +14,30 @@ import CountingIcon from "@/components/common/CountingIcon";
 import TextIcon from "@/components/common/TextIcon";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-const ProductCardItem = ({ data }: { data: Product }) => {
+
+interface IProps {
+  data: Product;
+  showIcon?: boolean;
+}
+
+const ProductCardItem = ({ data, showIcon }: IProps) => {
   function onIconClick(id: number) {
     console.log("on click trigger with id: " + id);
   }
   return (
     <div className="w-full relative flex flex-col justify-between  bg-gradient-to-b from-gray-200 to-gray-50 rounded-xl ">
       <section className="flex items-start justify-end  p-4 pb-0 rounded-2xl ">
-        <div className="col-span-1 px-2 py-1 border border-gray-200 rounded-full flex items-center hover:shadow-md transition-all cursor-pointer bg-white">
-          <CountingIcon
-            data={{
-              icon: "ph:heart-light",
-              counting: 1,
-              onClick: onIconClick,
-            }}
-          />
-        </div>
+        {showIcon && (
+          <div className="col-span-1 px-2 py-1 border border-gray-200 rounded-full flex items-center hover:shadow-md transition-all cursor-pointer bg-white">
+            <CountingIcon
+              data={{
+                icon: "ph:heart-light",
+                counting: 1,
+                onClick: onIconClick,
+              }}
+            />
+          </div>
+        )}
       </section>
       <NextImg
         src={data.thumnail}

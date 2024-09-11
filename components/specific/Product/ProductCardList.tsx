@@ -32,6 +32,7 @@ const ProductCardList = ({ data }: { data: Product[] }) => {
                 ...fakeProductData,
                 title: fakeProductData.title + " " + (index + 1),
               }}
+              showIcon
             />
           </CarouselItem>
         ))}

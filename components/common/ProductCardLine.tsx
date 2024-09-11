@@ -1,3 +1,4 @@
+import { convertNumToPrice } from "@/lib/utils";
 import Link from "next/link";
 import React, { useMemo } from "react";
 
@@ -14,24 +15,12 @@ interface IProductCardLineProps {
 }
 
 const ProductCardLine = ({ label, value }: IProductCardLineProps) => {
-  const productPrice = (price: number, country: string) => {
-    let priceTransform = "";
-    const formattedNumber = price.toLocaleString("vi-VN");
-    if (country === "VN") {
-      priceTransform = formattedNumber + " VND";
-    } else {
-      priceTransform = "$" + formattedNumber;
-    }
-
-    return priceTransform;
-  };
-
   const title = useMemo(() => {
     switch (value.type) {
       case "info":
         return value.title;
       case "price":
-        return productPrice(Number(value.title), value.country || "VN");
+        return convertNumToPrice(Number(value.title), value.country || "VN");
       default:
         break;
     }

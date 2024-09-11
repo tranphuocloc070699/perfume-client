@@ -6,10 +6,14 @@ import ProductDetailPrice from "@/components/specific/Product/Detail/ProductDeta
 import ProductDetailNotes from "@/components/specific/Product/Detail/ProductDetailNotes";
 import ProductDetailComparison from "@/components/specific/Product/Detail/ProductDetailComparison";
 import ProductDetailStory from "@/components/specific/Product/Detail/ProductDetailStory";
+import OutfitSuitable from "@/components/specific/Product/Detail/OutfitSuitable.product-detail";
+import WriteComment from "@/components/common/modal/WriteComment";
+import ProductDetailComment from "@/components/specific/Product/Detail/ProductDetailComment";
+import ProductRelated from "@/components/specific/Product/Detail/Related/ProductRelated";
 const PerfumeDetail = () => {
   return (
     <div className="grid md:grid-cols-12">
-      <section className="md:col-span-9 flex flex-col gap-4">
+      <section className="md:col-span-12 flex flex-col gap-4">
         <div className="mt-6">
           <ProductDetailGallery />
         </div>
@@ -22,11 +26,19 @@ const PerfumeDetail = () => {
           <ProductDetailStory />
           <ProductDetailNotes />
           <div className="col-span-2">
+            <OutfitSuitable />
+          </div>
+          <div className="col-span-2">
             <ProductDetailComparison />
+          </div>
+          <div className="col-span-2">
+            <ProductDetailComment />
           </div>
         </div>
       </section>
-      <section className="md:col-span-3">Related product</section>
+      {/* <section className="md:col-span-3">
+        <ProductRelated />
+      </section> */}
     </div>
   );
 };

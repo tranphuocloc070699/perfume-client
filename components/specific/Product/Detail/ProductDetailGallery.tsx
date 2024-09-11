@@ -41,7 +41,7 @@ const ProductDetailGallery = () => {
                     width={200}
                     height={200}
                     alt="Gallery image"
-                    className="w-full h-[240px] object-cover bg-slate-200"
+                    className="w-full h-[240px] object-cover bg-slate-200 border border-gray-200 rounded-md"
                   />
                 ))}
               </div>
