@@ -12,12 +12,6 @@ import CountingIcon from "@/components/common/CountingIcon";
 import ProductCompareModal from "@/components/common/modal/ProductCompareModal";
 import { useModalStore } from "@/store/modal.store";
 
-interface IDetailCompareModalProps {
-  isOpen: boolean;
-  originalProduct: Product;
-  compareProduct: Product;
-}
-
 const ProductDetailComparisonItem = ({ data }: { data: Product }) => {
   const modal = ProductCompareModal();
   function onIconClick(id: number) {

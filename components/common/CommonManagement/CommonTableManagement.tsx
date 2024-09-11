@@ -17,6 +17,7 @@ export interface ICommonTableManagementProps {
   desc: string;
   headers: ITableHeader[];
   data: Array<any>;
+  onBtnCreatedClick: () => void;
 }
 const CommonTableManagement = (props: ICommonTableManagementProps) => {
   const renderUiFromType = useCallback(
@@ -41,7 +42,10 @@ const CommonTableManagement = (props: ICommonTableManagementProps) => {
     <div className="border border-gray-300 rounded-lg p-4 shadow-md">
       <div className="flex items-center justify-between mb-6">
         <h4 className="text-2xl font-semibold">{props.title}</h4>
-        <Button className="flex items-center gap-2">
+        <Button
+          className="flex items-center gap-2"
+          onClick={props.onBtnCreatedClick}
+        >
           <Icon icon={"lucide:plus"} className="w-6 h-6" />
           Tạo sản phẩm
         </Button>

@@ -1,9 +1,15 @@
+"use client";
+
 import CommonTableManagement, {
   ICommonTableManagementProps,
 } from "@/components/common/CommonManagement/CommonTableManagement";
+import CreateProductModal from "@/components/specific/Admin/Product/CreateProductModal";
+
 import React from "react";
 
 const AdminDashboard = () => {
+  const createProductModal = CreateProductModal();
+
   const productTableData: ICommonTableManagementProps = {
     title: "Quản lý sản phẩm",
     desc: "Danh sách sản phẩm",
@@ -26,6 +32,9 @@ const AdminDashboard = () => {
         productName: "Versace Pour Homme 2",
       },
     ],
+    onBtnCreatedClick: () => {
+      createProductModal.open();
+    },
   };
 
   const notesTableData: ICommonTableManagementProps = {
@@ -50,10 +59,12 @@ const AdminDashboard = () => {
         productName: "Versace Pour Homme 2",
       },
     ],
+    onBtnCreatedClick: () => {},
   };
 
   return (
     <div>
+      {createProductModal.content}
       <CommonTableManagement {...productTableData} />
     </div>
   );
