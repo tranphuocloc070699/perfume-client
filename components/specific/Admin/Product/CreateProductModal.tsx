@@ -25,6 +25,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import CreateYearModal from "./CreateYearModal";
+import { Input } from "@/components/ui/input";
 const CreateProductModal = () => {
   const createYearModal = CreateYearModal();
 
@@ -49,11 +50,17 @@ const CreateProductModal = () => {
                 Tạo sản phẩm mới
               </DialogTitle>
               <form className="grid grid-cols-3 gap-8">
-                <div className="col-span-1">
-                  <CommonInput
-                    placeholder="Nhập tên sản phẩm"
-                    label="Tên sản phẩm"
-                  />
+                <div className="col-span-1 flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <Label>Tên sản phẩm</Label>
+                    <span className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer opacity-0">
+                      <Icon
+                        icon={"lucide:plus"}
+                        className=" text-white h-4 w-4"
+                      />
+                    </span>
+                  </div>
+                  <Input placeholder="Nhập tên sản phẩm..." />
                 </div>
                 <div className="col-span-1 flex flex-col gap-2">
                   <div className="flex items-center justify-between">
@@ -75,6 +82,37 @@ const CreateProductModal = () => {
                     <SelectContent>
                       <SelectGroup>
                         <SelectLabel>Năm sản xuất</SelectLabel>
+
+                        {validYears.map((year) => (
+                          <SelectItem value={String(year)} key={year}>
+                            {year}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="col-span-1 flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <Label>Tác giả</Label>
+                    <span
+                      className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer"
+                      onClick={openYearModal}
+                    >
+                      <Icon
+                        icon={"lucide:plus"}
+                        className=" text-white h-4 w-4"
+                      />
+                    </span>
+                  </div>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Chọn tác giả" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Tác giả</SelectLabel>
 
                         {validYears.map((year) => (
                           <SelectItem value={String(year)} key={year}>

@@ -12,7 +12,7 @@ const CommonInput = (props: ICommonInputProps) => {
   return (
     <span>
       {props.label ?? (
-        <Label htmlFor={props.name} className="font-medium">
+        <Label htmlFor={props.name} className="font-medium mb-6">
           {props.label}
         </Label>
       )}
