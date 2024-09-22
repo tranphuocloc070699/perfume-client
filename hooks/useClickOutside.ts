@@ -9,7 +9,6 @@ export const useClickOutSide = (callback: () => void) => {
         callback();
       }
     };
-
     document.addEventListener("mouseup", handleClickOutSide);
     document.addEventListener("touchend", handleClickOutSide);
 
