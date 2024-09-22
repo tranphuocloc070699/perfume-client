@@ -7,6 +7,7 @@ import AppFooter from "@/components/common/AppFooter";
 import { useEffect } from "react";
 import { useModalStore } from "@/store/modal.store";
 import { Toaster } from "@/components/ui/toaster";
+import LayoutProvider from "@/components/common/LayoutProvider";
 
 const roboto = Roboto({
   weight: ["400", "500", "700"],
@@ -31,10 +32,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${roboto.variable}`}>
       <body>
-        <AppHeader />
         <Toaster />
-        <section className="md:ml-80 mt-16 md:mr-8 ">{children}</section>
-        <AppFooter />
+        <LayoutProvider>{children}</LayoutProvider>
       </body>
     </html>
   );

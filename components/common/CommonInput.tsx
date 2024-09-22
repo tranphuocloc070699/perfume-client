@@ -6,13 +6,17 @@ interface ICommonInputProps {
   type?: string;
   name?: string;
   label?: string;
+  className?: string;
 }
 
 const CommonInput = (props: ICommonInputProps) => {
   return (
-    <span>
-      {props.label ?? (
-        <Label htmlFor={props.name} className="font-medium mb-6">
+    <div>
+      {props.label && (
+        <Label
+          htmlFor={props.name}
+          className="block text-sm font-semibold text-gray-700 mb-1"
+        >
           {props.label}
         </Label>
       )}
@@ -21,8 +25,9 @@ const CommonInput = (props: ICommonInputProps) => {
         id={props.name}
         placeholder={props.placeholder}
         type={props.type}
+        className={props.className}
       />
-    </span>
+    </div>
   );
 };
 
