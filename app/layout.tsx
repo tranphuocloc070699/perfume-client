@@ -33,7 +33,7 @@ export default function RootLayout({
       <body>
         <AppHeader />
         <Toaster />
-        <section className="md:ml-80 mt-16 md:mr-8 ">{children}</section>
+        <section className="md:ml-80 mt-16 md:mr-8">{children}</section>
         <AppFooter />
       </body>
     </html>
