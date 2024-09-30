@@ -7,6 +7,8 @@ interface ICommonInputProps {
   name?: string;
   label?: string;
   className?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const CommonInput = (props: ICommonInputProps) => {
@@ -26,6 +28,10 @@ const CommonInput = (props: ICommonInputProps) => {
         placeholder={props.placeholder}
         type={props.type}
         className={props.className}
+        value={props.value}
+        onChange={(e) => {
+          if (props.onChange) props.onChange(e);
+        }}
       />
     </div>
   );

@@ -18,7 +18,7 @@ const LayoutProvider = ({
     if (hidingLayoutRoutes.includes(pathName)) {
       setShowLayout(false);
     }
-  }, []);
+  }, [pathName]);
 
   return (
     <>

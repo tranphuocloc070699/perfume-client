@@ -1,7 +1,11 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { Input } from "../ui/input";
 import CommonInput from "./CommonInput";
 import Link from "next/link";
+import UserService from "@/services/modules/user.service";
+import { ISignUpLoginForm } from "@/types/user/user.interface";
 
 interface ICommonSignupLoginForm {
   type: "login" | "signup";
@@ -22,6 +26,26 @@ const CommonSignupLoginForm = ({ type }: ICommonSignupLoginForm) => {
       switchLink: "/dang-nhap",
     },
   };
+
+  const [requestData, setRequestData] = useState<ISignUpLoginForm>({
+    email: "",
+    name: "",
+    password: "",
+  });
+
+  function onInputChange(
+    objectKey: "email" | "name" | "password",
+    value: string
+  ) {
+    setRequestData({ ...requestData, [objectKey]: value });
+  }
+
+  function onSubmit() {
+    const userService = new UserService();
+    if (type === "signup") {
+      userService.signup(requestData);
+    }
+  }
 
   return (
     <div>
@@ -322,7 +346,7 @@ const CommonSignupLoginForm = ({ type }: ICommonSignupLoginForm) => {
             <div className="my-4 text-sm text-gray-600 text-center">
               <p>Hoặc</p>
             </div>
-            <form action="#" method="POST" className="space-y-4">
+            <div className="space-y-4">
               {type === "signup" && (
                 <CommonInput
                   type="text"
@@ -330,6 +354,8 @@ const CommonSignupLoginForm = ({ type }: ICommonSignupLoginForm) => {
                   placeholder=""
                   className="bg-white"
                   label="Tên người dùng"
+                  value={requestData.name}
+                  onChange={(e) => onInputChange("name", e.target.value)}
                 />
               )}
               <CommonInput
@@ -338,6 +364,8 @@ const CommonSignupLoginForm = ({ type }: ICommonSignupLoginForm) => {
                 placeholder=""
                 className="bg-white"
                 label="Email"
+                value={requestData.email}
+                onChange={(e) => onInputChange("email", e.target.value)}
               />
               <CommonInput
                 type="text"
@@ -345,16 +373,18 @@ const CommonSignupLoginForm = ({ type }: ICommonSignupLoginForm) => {
                 placeholder=""
                 className="bg-white"
                 label="Mật khẩu"
+                value={requestData.password}
+                onChange={(e) => onInputChange("password", e.target.value)}
               />
               <div>
                 <button
-                  type="submit"
+                  onClick={onSubmit}
                   className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300"
                 >
                   {data[type].title}
                 </button>
               </div>
-            </form>
+            </div>
             <div className="mt-4 text-sm text-gray-600 text-center">
               <p>
                 {data[type].switchTitle}{" "}

@@ -21,6 +21,7 @@ interface IProps {
 }
 
 const ProductCardItem = ({ data, showIcon }: IProps) => {
+  console.log({ data: data });
   function onIconClick(id: number) {
     console.log("on click trigger with id: " + id);
   }
@@ -40,15 +41,15 @@ const ProductCardItem = ({ data, showIcon }: IProps) => {
         )}
       </section>
       <NextImg
-        src={data.thumnail.path}
-        alt={data.title}
+        src={data.thumbnail.path}
+        alt={data.name}
         quality={100}
         width={200}
         height={200}
         className="h-32 w-32 self-center object-cover  rounded-xl  cursor-pointer"
       />
       <h4 className="text-base text-center leading-5  text-gray-900 mb-4 font-semibold  hover:underline">
-        <Link href={`/nuoc-hoa/${data.id}`}>{data.title}</Link>
+        <Link href={`/nuoc-hoa/${data.id}`}>{data.name}</Link>
       </h4>
       {/* <div className="bg-white rounded-xl p-4 absolute w-full bottom-0 border border-gray-200 transition-all duration-300  h-0 opacity-0 hover:h-full hover:opacity-100">
         <div className="space-y-2 mb-6">

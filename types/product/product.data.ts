@@ -2,7 +2,7 @@ import { Product } from "./product.model";
 
 export const fakeProductData: Product = {
   id: "1",
-  title: "Versace Pour Homme",
+  name: "Versace Pour Homme",
   exceprt:
     " Đến từ bàn tay của nhà điều hương được mệnh danh là “chuyên gia hương tươi” Alberto Morillas",
   description:
@@ -10,7 +10,7 @@ export const fakeProductData: Product = {
   dateReleased: "2008",
   createdAt: "",
   updatedAt: "",
-  thumnail: {
+  thumbnail: {
     id: 0,
     path: "",
     type: "",

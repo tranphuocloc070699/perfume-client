@@ -2,12 +2,12 @@ import { Media } from "../media/media.model";
 
 export type Product = {
   id: string;
-  title: string;
+  name: string;
   exceprt: string;
   description: string;
   createdAt: string;
   updatedAt: string;
-  thumnail: Media;
+  thumbnail: Media;
   stylesThumbnail: string[];
   gallery: string[];
   dateReleased: string;
