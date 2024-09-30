@@ -40,7 +40,7 @@ const ProductCardItem = ({ data, showIcon }: IProps) => {
         )}
       </section>
       <NextImg
-        src={data.thumnail}
+        src={data.thumnail.path}
         alt={data.title}
         quality={100}
         width={200}

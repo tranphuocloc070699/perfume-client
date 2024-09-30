@@ -11,7 +11,6 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { Product } from "@/types/product/product.model";
 import ProductCardItem from "./ProductCardItem";
-import { fakeProductData } from "@/types/product/product.data";
 
 const ProductCardList = ({ data }: { data: Product[] }) => {
   return (
@@ -22,18 +21,12 @@ const ProductCardList = ({ data }: { data: Product[] }) => {
       }}
     >
       <CarouselContent className="-ml-8">
-        {Array.from({ length: 20 }).map((_, index) => (
+        {data.map((item, index) => (
           <CarouselItem
             key={index}
             className="md:basis-1/2  xl:basis-1/4 2xl:basis-1/6 pl-8"
           >
-            <ProductCardItem
-              data={{
-                ...fakeProductData,
-                title: fakeProductData.title + " " + (index + 1),
-              }}
-              showIcon
-            />
+            <ProductCardItem data={item} showIcon />
           </CarouselItem>
         ))}
       </CarouselContent>
