@@ -6,7 +6,7 @@ import React from "react";
 const page = () => {
   return (
     <div>
-      <CommonSignupLoginForm type="signup" />
+      <CommonSignupLoginForm type="signup" /> asdasd
     </div>
   );
 };
