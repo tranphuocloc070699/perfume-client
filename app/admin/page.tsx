@@ -65,14 +65,14 @@ const AdminDashboard = () => {
   return (
     <div>
       {createProductModal.content}
-      <NextImg
+      {/* <NextImg
         src={
           "http://localhost:8080/upload/1/z5652332436502_fbe4030aff049ca9d403e2b1401e5ceb.jpg"
         }
         width={100}
         height={100}
         alt="Image test"
-      />
+      /> */}
       <CommonTableManagement {...productTableData} />
     </div>
   );

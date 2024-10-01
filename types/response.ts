@@ -1,6 +1,6 @@
 export type ResponseDto<T> = {
   status: number;
   data: T;
-  errors: string[];
+  errors: string;
   message: string;
 };

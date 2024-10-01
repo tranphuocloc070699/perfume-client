@@ -6,12 +6,20 @@ import CommonInput from "./CommonInput";
 import Link from "next/link";
 import UserService from "@/services/modules/user.service";
 import { ISignUpLoginForm } from "@/types/user/user.interface";
+import { useToast } from "@/hooks/use-toast";
+import { title } from "process";
+import { ResponseDto } from "@/types/response";
+import { User } from "@/types/user/user.model";
+import { useUserStore } from "@/store/user.store";
 
 interface ICommonSignupLoginForm {
   type: "login" | "signup";
 }
 
 const CommonSignupLoginForm = ({ type }: ICommonSignupLoginForm) => {
+  const toast = useToast();
+  const userStore = useUserStore();
+
   const data = {
     login: {
       title: "Đăng nhập",
@@ -40,10 +48,27 @@ const CommonSignupLoginForm = ({ type }: ICommonSignupLoginForm) => {
     setRequestData({ ...requestData, [objectKey]: value });
   }
 
-  function onSubmit() {
+  async function onSubmit() {
     const userService = new UserService();
+
+    let response;
     if (type === "signup") {
-      userService.signup(requestData);
+      response = await userService.signup(requestData);
+    }
+    if (type === "login") {
+      response = await userService.login(requestData);
+    }
+
+    if (response?.status === 200) {
+      toast.toast({
+        title: response?.message,
+      });
+      userStore.setAccessToken(response.data.accessToken);
+    } else {
+      toast.toast({
+        title: response?.errors,
+        variant: "destructive",
+      });
     }
   }
 

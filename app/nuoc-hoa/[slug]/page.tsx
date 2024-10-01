@@ -18,7 +18,7 @@ const PerfumeDetail = () => {
           <ProductDetailGallery />
         </div>
         <h2 className="text-3xl text-slate-700 font-bold mt-6">
-          {fakeProductData.title}
+          {fakeProductData.name}
         </h2>
         <div className="mt-6 gap-4 grid grid-cols-1 md:grid-cols-2 grid-flow-row">
           <ProductDetailInfo />
