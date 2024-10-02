@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   Card,
   CardContent,
@@ -21,7 +21,6 @@ interface IProps {
 }
 
 const ProductCardItem = ({ data, showIcon }: IProps) => {
-  console.log({ data: data });
   function onIconClick(id: number) {
     console.log("on click trigger with id: " + id);
   }
@@ -95,4 +94,4 @@ const ProductCardItem = ({ data, showIcon }: IProps) => {
   );
 };
 
-export default ProductCardItem;
+export default memo(ProductCardItem);

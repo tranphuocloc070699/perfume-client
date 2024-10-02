@@ -4,7 +4,6 @@ import { Roboto } from "next/font/google";
 import "../styles/global.css";
 import { Toaster } from "@/components/ui/toaster";
 import LayoutProvider from "@/components/common/LayoutProvider";
-
 const roboto = Roboto({
   weight: ["400", "500", "700"],
   style: ["normal", "italic"],

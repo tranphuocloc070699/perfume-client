@@ -21,6 +21,18 @@ class UserService extends HttpFactory {
       body: requestData,
     });
   }
+  async authenticate() {
+    return this.call<ResponseDto<ISignUpLoginResponse>>({
+      method: "GET",
+      url: `/api/user`,
+    });
+  }
+  async logout() {
+    return this.call<ResponseDto<ISignUpLoginResponse>>({
+      method: "PUT",
+      url: `/api/user/log-out`,
+    });
+  }
 }
 
 export default UserService;

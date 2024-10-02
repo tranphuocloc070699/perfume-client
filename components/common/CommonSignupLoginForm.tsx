@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import CommonInput from "./CommonInput";
 import Link from "next/link";
@@ -11,7 +11,7 @@ import { title } from "process";
 import { ResponseDto } from "@/types/response";
 import { User } from "@/types/user/user.model";
 import { useUserStore } from "@/store/user.store";
-
+import { useRouter } from "next/navigation";
 interface ICommonSignupLoginForm {
   type: "login" | "signup";
 }
@@ -19,7 +19,7 @@ interface ICommonSignupLoginForm {
 const CommonSignupLoginForm = ({ type }: ICommonSignupLoginForm) => {
   const toast = useToast();
   const userStore = useUserStore();
-
+  const router = useRouter();
   const data = {
     login: {
       title: "Đăng nhập",
@@ -60,10 +60,9 @@ const CommonSignupLoginForm = ({ type }: ICommonSignupLoginForm) => {
     }
 
     if (response?.status === 200) {
-      toast.toast({
-        title: response?.message,
-      });
       userStore.setAccessToken(response.data.accessToken);
+      userStore.setUser(response.data.data);
+      window.location.href = "/";
     } else {
       toast.toast({
         title: response?.errors,

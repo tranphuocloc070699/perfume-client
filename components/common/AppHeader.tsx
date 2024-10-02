@@ -1,7 +1,9 @@
+import { useUserStore } from "@/store/user.store";
 import Logo from "../specific/Header/Logo";
 import SearchBox from "../specific/Header/SearchBox";
 import Sidebar from "../specific/Header/Sidebar";
 import UserControl from "../specific/Header/UserControl";
+import { useMemo } from "react";
 
 const AppHeader = () => {
   return (
