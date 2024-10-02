@@ -20,10 +20,6 @@ const LayoutProvider = ({
     }
   }, [pathName]);
 
-  useEffect(() => {
-    console.log({ refreshToken });
-  }, [refreshToken]);
-
   return (
     <>
       {showLayout && (

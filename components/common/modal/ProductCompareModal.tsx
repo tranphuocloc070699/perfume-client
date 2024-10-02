@@ -1,22 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { fakeProductData } from "@/types/product/product.data";
-import NextImg from "next/image";
-import CompareVote from "./CompareVote";
 import { convertNumToPrice } from "@/lib/utils";
-import CompareTitle from "./CompareTitle";
-import { Button } from "@/components/ui/button";
+import { fakeProductData } from "@/types/product/product.data";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import CompareList from "./CompareCommentList";
+import NextImg from "next/image";
+import { useState } from "react";
 import CompareCommentList from "./CompareCommentList";
+import CompareTitle from "./CompareTitle";
+import CompareVote from "./CompareVote";
 import WriteComment from "./WriteComment";
 interface IProductCompareModalProps {
   text: string;

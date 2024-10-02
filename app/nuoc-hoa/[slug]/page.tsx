@@ -10,7 +10,18 @@ import OutfitSuitable from "@/components/specific/Product/Detail/OutfitSuitable.
 import WriteComment from "@/components/common/modal/WriteComment";
 import ProductDetailComment from "@/components/specific/Product/Detail/ProductDetailComment";
 import ProductRelated from "@/components/specific/Product/Detail/Related/ProductRelated";
-const PerfumeDetail = () => {
+import ProductService from "@/services/modules/product.service";
+export const dynamicParams = true;
+const productService = new ProductService();
+export async function generateStaticParams() {
+  const { data } = await productService.getAllProductId();
+
+  return data;
+}
+
+const PerfumeDetail = async ({ id }: { id: any }) => {
+  console.log({ id });
+
   return (
     <div className="grid md:grid-cols-12">
       <section className="md:col-span-12 flex flex-col gap-4">
@@ -44,3 +55,22 @@ const PerfumeDetail = () => {
 };
 
 export default PerfumeDetail;
+
+// export async function getStaticPaths() {
+//   const productService = new ProductService();
+//   const { data } = await productService.getAllProductId();
+//   const paths = data.map((id) => ({
+//     params: { id },
+//   }));
+//   return { paths, fallback: false };
+// }
+
+// export async function getStaticProps({ params }: { params: any }) {
+//   console.log({ params });
+//   const productService = new ProductService();
+//   const { data } = await productService.getProductById(params?.id);
+//   console.log({ data });
+
+//   // Pass post data to the page via props
+//   return { props: { data } };
+// }

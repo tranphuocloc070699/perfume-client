@@ -16,3 +16,12 @@ export function convertNumToPrice(price: number, country: string) {
 
   return priceTransform;
 }
+
+export function extractIdFromUrl(url: string) {
+  const partList = url.match(/-(\d+)$/);
+  if (partList && partList.length >= 1) {
+    return partList[1];
+  } else {
+    return -1;
+  }
+}
