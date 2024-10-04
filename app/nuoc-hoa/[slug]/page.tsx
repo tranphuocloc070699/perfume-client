@@ -11,16 +11,17 @@ import WriteComment from "@/components/common/modal/WriteComment";
 import ProductDetailComment from "@/components/specific/Product/Detail/ProductDetailComment";
 import ProductRelated from "@/components/specific/Product/Detail/Related/ProductRelated";
 import ProductService from "@/services/modules/product.service";
+import { extractIdFromUrl } from "@/lib/utils";
 export const dynamicParams = true;
 const productService = new ProductService();
 export async function generateStaticParams() {
   const { data } = await productService.getAllProductId();
-
   return data;
 }
 
-const PerfumeDetail = async ({ id }: { id: any }) => {
-  console.log({ id });
+const PerfumeDetail = async (params: any) => {
+  const id = extractIdFromUrl(params?.params?.slug);
+  const response = await productService.getProductById(Number(id));
 
   return (
     <div className="grid md:grid-cols-12">

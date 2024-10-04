@@ -25,3 +25,15 @@ export function extractIdFromUrl(url: string) {
     return -1;
   }
 }
+
+export function checkIsOnServer() {
+  return typeof window === "undefined";
+}
+
+export function getClientOrServerUrl() {
+  if (checkIsOnServer()) {
+    return process.env.BACKEND_DOMAIN;
+  } else {
+    return "/api";
+  }
+}
