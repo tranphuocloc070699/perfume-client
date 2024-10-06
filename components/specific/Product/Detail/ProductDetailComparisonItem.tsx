@@ -24,8 +24,8 @@ const ProductDetailComparisonItem = ({ data }: { data: Product }) => {
   return (
     <div className="bg-gray-100 rounded-xl p-4 flex flex-col gap-4 relative">
       <NextImg
-        src={data.thumnail}
-        alt={data.title}
+        src={data.thumbnail.path}
+        alt={data.name}
         quality={100}
         width={200}
         height={200}
