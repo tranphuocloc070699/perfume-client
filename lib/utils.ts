@@ -5,10 +5,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function convertNumToPrice(price: number, country: string) {
+export function convertNumToPrice(price: number, country: "VND" | "USD") {
   let priceTransform = "";
   const formattedNumber = price.toLocaleString("vi-VN");
-  if (country === "VN") {
+  if (country === "VND") {
     priceTransform = formattedNumber + " VND";
   } else {
     priceTransform = "$" + formattedNumber;

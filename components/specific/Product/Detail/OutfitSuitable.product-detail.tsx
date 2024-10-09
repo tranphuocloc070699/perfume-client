@@ -9,7 +9,12 @@ import {
 import { fakeProductData } from "@/types/product/product.data";
 import NextImg from "next/image";
 import ProductCardBlock from "@/components/common/ProductCardBlock";
-const OutfitSuitable = () => {
+
+interface OutfitSuitableProps {
+  outfits: string[];
+}
+
+const OutfitSuitable = (props: OutfitSuitableProps) => {
   return (
     <ProductCardBlock title="Trang phục phù hợp">
       <Carousel
@@ -18,7 +23,7 @@ const OutfitSuitable = () => {
         }}
       >
         <CarouselContent className="-ml-8">
-          {fakeProductData.stylesThumbnail.map((source, index) => (
+          {props.outfits.map((source, index) => (
             <CarouselItem
               key={index}
               className="md:basis-1/2  xl:basis-1/4 2xl:basis-1/6 pl-8"

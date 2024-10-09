@@ -1,4 +1,4 @@
-import { User } from "./user.model";
+import { UserDto } from "./user.model";
 
 export interface ISignUpLoginForm {
   name?: string;
@@ -8,7 +8,7 @@ export interface ISignUpLoginForm {
 
 export interface ISignUpLoginResponse {
   accessToken: string;
-  data: User;
+  data: UserDto;
 }
 
 export interface ISidebarGroup {

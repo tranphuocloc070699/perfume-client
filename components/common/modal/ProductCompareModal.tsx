@@ -53,7 +53,7 @@ const ProductCompareModal = () => {
                     </div>
                     <div className="col-span-1 flex flex-col items-center justify-center border-r border-gray-200">
                       <NextImg
-                        src={fakeProductData.thumnail}
+                        src={fakeProductData.thumbnail}
                         alt="Product Thumbnail"
                         width={100}
                         height={100}
@@ -68,7 +68,7 @@ const ProductCompareModal = () => {
                     </div>
                     <div className="col-span-1 flex flex-col items-center justify-center text-center">
                       <NextImg
-                        src={fakeProductData.thumnail}
+                        src={fakeProductData.thumbnail}
                         alt="Product Thumbnail"
                         width={100}
                         height={100}
@@ -95,10 +95,10 @@ const ProductCompareModal = () => {
                       <CompareTitle title="Giá hãng" />
                     </div>
                     <h5 className="col-span-1 border-r border-gray-300 text-center p-4">
-                      {convertNumToPrice(10000, "")}
+                      {convertNumToPrice(10000, "VND")}
                     </h5>
                     <h5 className="col-span-1 text-center p-4">
-                      {convertNumToPrice(30000, "")}
+                      {convertNumToPrice(30000, "VND")}
                     </h5>
                   </div>
 
@@ -107,10 +107,10 @@ const ProductCompareModal = () => {
                       <CompareTitle title="Giá thị trường" />
                     </div>
                     <h5 className="col-span-1 border-r border-gray-300 text-center p-4">
-                      {convertNumToPrice(10000, "VN")}
+                      {convertNumToPrice(10000, "VND")}
                     </h5>
                     <h5 className="col-span-1 text-center p-4">
-                      {convertNumToPrice(30000, "VN")}
+                      {convertNumToPrice(30000, "VND")}
                     </h5>
                   </div>
                 </div>
@@ -121,7 +121,7 @@ const ProductCompareModal = () => {
                 <DialogTitle className="mt-4 mb-2 font-bold text-base">
                   Bình luận
                 </DialogTitle>
-                <CompareCommentList />
+                <CompareCommentList comments={[]} />
               </div>
             </DialogHeader>
           </DialogContent>

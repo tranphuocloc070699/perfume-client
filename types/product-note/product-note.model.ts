@@ -1,17 +1,16 @@
-export type ProductNoteCategory = {
-  id: string;
-  title: string;
-  excerpt: string;
-  createdAt: string;
-  updatedAt: string;
-};
+// export type ProductNoteCategoryDto = {
+//   id: string;
+//   title: string;
+//   excerpt: string;
+//   createdAt: string;
+//   updatedAt: string;
+// };
 
-export type ProductNote = {
+export type ProductNoteDto = {
   id: string;
-  title: string;
-
+  name: string;
+  enName: string;
   thumbnail: string;
   createdAt: string;
   updatedAt: string;
-  category: ProductNoteCategory;
 };

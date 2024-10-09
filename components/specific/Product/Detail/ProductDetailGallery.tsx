@@ -6,23 +6,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { fakeProductData } from "@/types/product/product.data";
 import NextImg from "next/image";
-const ProductDetailGallery = () => {
-  const galleryNested = useMemo(() => {
-    const result: string[][] = [];
-    for (let i = 0; i < fakeProductData.gallery.length; i += 4) {
-      result.push([
-        fakeProductData.gallery[i],
-        fakeProductData.gallery[i + 1],
-        fakeProductData.gallery[i + 2],
-        fakeProductData.gallery[i + 3],
-      ]); //Adds i and i+1 as a new array to the result array
-    }
 
-    return result;
-  }, [fakeProductData.gallery]);
-
+interface ProductDetailGalleryProps {
+  galleries: string[];
+}
+const ProductDetailGallery = (props: ProductDetailGalleryProps) => {
   return (
     <div>
       <Carousel
@@ -31,20 +20,19 @@ const ProductDetailGallery = () => {
         }}
       >
         <CarouselContent className="-ml-8">
-          {galleryNested.map((galleryItem, index) => (
-            <CarouselItem key={index}>
-              <div className="grid md:grid-cols-2 md:gap-4">
-                {galleryItem.map((imageSrc) => (
-                  <NextImg
-                    key={imageSrc}
-                    src={imageSrc}
-                    width={200}
-                    height={200}
-                    alt="Gallery image"
-                    className="w-full h-[240px] object-cover bg-slate-200 border border-gray-200 rounded-md"
-                  />
-                ))}
-              </div>
+          {props.galleries.map((source, index) => (
+            <CarouselItem
+              key={index}
+              className="md:basis-1/2  xl:basis-1/4 2xl:basis-1/6 pl-8"
+            >
+              <NextImg
+                key={index}
+                src={source}
+                width={200}
+                height={200}
+                alt="Gallery image"
+                className="w-full h-[240px] object-cover bg-slate-200 border border-gray-200 rounded-md"
+              />
             </CarouselItem>
           ))}
         </CarouselContent>

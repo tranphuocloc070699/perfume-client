@@ -1,11 +1,15 @@
 import React from "react";
 import CompareComment from "./CompareComment";
+import { CommentDto } from "@/types/comment/comment.model";
 
-const CompareCommentList = () => {
+interface CompareCommentList {
+  comments: CommentDto[];
+}
+const CompareCommentList = (props: CompareCommentList) => {
   return (
     <div className="flex flex-col gap-4  overflow-y-auto">
-      {[...Array(10)].map((_, index) => (
-        <CompareComment key={index} />
+      {props.comments.map((comment, index) => (
+        <CompareComment key={index} data={comment} />
       ))}
     </div>
   );

@@ -1,26 +1,62 @@
-import { Product } from "./product.model";
+import { ProductDto } from "./product.model";
 
-export const fakeProductData: Product = {
+export const fakeProductData: ProductDto = {
   id: "1",
   name: "Versace Pour Homme",
   slug: "",
-  exceprt:
-    " Đến từ bàn tay của nhà điều hương được mệnh danh là “chuyên gia hương tươi” Alberto Morillas",
+  comments: [],
+  prices: [],
+  votes: [],
+  topNotes: [],
+  middleNotes: [],
+  baseNotes: [],
+  productCompares: [],
+  country: {
+    id: -1,
+    name: "",
+    code: "",
+    thumbnail: "",
+    products: [],
+    brands: [],
+    createdAt: "",
+    updatedAt: "",
+  },
+  brand: {
+    id: "",
+    name: "",
+    description: "",
+    homepageLink: "",
+    thumbnail: "",
+
+    country: {
+      id: -1,
+      name: "",
+      code: "",
+      thumbnail: "",
+      products: [],
+      brands: [],
+      createdAt: "",
+      updatedAt: "",
+    },
+    products: [],
+    createdAt: "",
+    updatedAt: "",
+  },
   description:
     " Đến từ bàn tay của nhà điều hương được mệnh danh là “chuyên gia hương tươi” Alberto Morillas",
-  dateReleased: "2008",
+  dateReleased: {
+    id: 0,
+    value: 2008,
+    products: [],
+  },
   createdAt: "",
   updatedAt: "",
-  thumbnail: {
-    id: 0,
-    path: "",
-    type: "",
-  },
-  stylesThumbnail: [
+  thumbnail: "",
+  galleries: [
     "https://images.unsplash.com/photo-1559718062-361155fad299?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Z2VudGxlbWFufGVufDB8fDB8fHww",
     "https://images.unsplash.com/photo-1547992087-e67e3944257e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Z2VudGxlbWFufGVufDB8fDB8fHww",
   ],
-  gallery: [
+  outfits: [
     "https://bizweb.dktcdn.net/thumb/medium/100/358/756/products/i-034627-musc-ravageur-100ml-hol18-1-940.jpg?v=1583232690580",
     "https://bizweb.dktcdn.net/thumb/medium/100/358/756/products/1er-mai-perfume-gun-1.jpg?v=1660277213817",
     "https://bizweb.dktcdn.net/thumb/medium/100/358/756/products/fm-sku-h57101-630x615-0.jpg?v=1667887251963",

@@ -9,10 +9,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { Product } from "@/types/product/product.model";
+import { ProductDto } from "@/types/product/product.model";
 import ProductCardItem from "./ProductCardItem";
 
-const ProductCardList = ({ data }: { data: Product[] }) => {
+const ProductCardList = ({ data }: { data: ProductDto[] }) => {
   return (
     <Carousel
       opts={{

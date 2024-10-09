@@ -1,14 +1,13 @@
-import { CountryDto } from "../country/country.model";
+import { BrandDto } from "../brand/brand.model";
 import { ProductDto } from "../product/product.model";
 
-export type BrandDto = {
-  id: string;
+export type CountryDto = {
+  id: number;
   name: string;
-  description: string;
-  homepageLink: string;
+  code: string;
   thumbnail: string;
-  country: CountryDto;
   products: ProductDto[];
+  brands: BrandDto[];
   createdAt: string;
   updatedAt: string;
 };

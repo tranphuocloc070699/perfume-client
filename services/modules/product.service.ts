@@ -2,7 +2,10 @@ import "../../envConfig";
 
 import type { ResponseDto } from "@/types/response";
 import HttpFactory from "../factory";
-import { GetAllProductResponse, Product } from "@/types/product/product.model";
+import {
+  GetAllProductResponse,
+  ProductDto,
+} from "@/types/product/product.model";
 
 import { getClientOrServerUrl } from "@/lib/utils";
 class ProductService extends HttpFactory {
@@ -21,7 +24,7 @@ class ProductService extends HttpFactory {
   }
 
   async getProductById(id: number) {
-    return this.call<ResponseDto<Product>>({
+    return this.call<ResponseDto<ProductDto>>({
       method: "GET",
       url: `${getClientOrServerUrl()}/product/${id}`,
     });

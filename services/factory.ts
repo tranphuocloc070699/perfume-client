@@ -38,10 +38,10 @@ class HttpFactory {
           Authorization: `Bearer ${this.accessToken}`,
         }),
       },
+      cache: "no-store",
       body: body ? JSON.stringify(body) : undefined,
       ...fetchOptions,
     };
-
     try {
       const response = await fetch(url, options);
 

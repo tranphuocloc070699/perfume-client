@@ -1,12 +1,12 @@
 import { initUserData } from "@/types/user/user.data";
-import { User } from "@/types/user/user.model";
+import { UserDto } from "@/types/user/user.model";
 import { create } from "zustand";
 
 interface IUserProps {
   accessToken: string;
-  user: User;
+  user: UserDto;
   setAccessToken: (accessToken: string) => void;
-  setUser: (user: User) => void;
+  setUser: (user: UserDto) => void;
   isAuthenticated: boolean;
 }
 export const useUserStore = create<IUserProps>((set) => ({

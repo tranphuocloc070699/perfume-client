@@ -1,12 +1,13 @@
 import ProductCardBlock from "@/components/common/ProductCardBlock";
 import React from "react";
 
-const ProductDetailStory = () => {
+interface ProductDetailStoryProps {
+  content: string;
+}
+const ProductDetailStory = (props: ProductDetailStoryProps) => {
   return (
     <>
-      <ProductCardBlock title="Câu chuyện">
-        Đây là câu chuyện về Versace Pour homme
-      </ProductCardBlock>
+      <ProductCardBlock title="Câu chuyện">{props.content}</ProductCardBlock>
     </>
   );
 };

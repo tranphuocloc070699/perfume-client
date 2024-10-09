@@ -1,6 +1,5 @@
 "use client";
 
-import { Product } from "@/types/product/product.model";
 import React from "react";
 import NextImg from "next/image";
 import ProductCardLine from "@/components/common/ProductCardLine";
@@ -11,8 +10,9 @@ import {
 import CountingIcon from "@/components/common/CountingIcon";
 import ProductCompareModal from "@/components/common/modal/ProductCompareModal";
 import { useModalStore } from "@/store/modal.store";
+import { ProductCompareDto } from "@/types/product-compare/product-compare.model";
 
-const ProductDetailComparisonItem = ({ data }: { data: Product }) => {
+const ProductDetailComparisonItem = ({ data }: { data: ProductCompareDto }) => {
   const modal = ProductCompareModal();
   function onIconClick(id: number) {
     console.log("on click trigger with id: " + id);
@@ -24,8 +24,8 @@ const ProductDetailComparisonItem = ({ data }: { data: Product }) => {
   return (
     <div className="bg-gray-100 rounded-xl p-4 flex flex-col gap-4 relative">
       <NextImg
-        src={data.thumnail}
-        alt={data.title}
+        src={data.product.thumbnail}
+        alt={data.product.name}
         quality={100}
         width={200}
         height={200}
@@ -35,7 +35,7 @@ const ProductDetailComparisonItem = ({ data }: { data: Product }) => {
         className="text-sm font-medium text-center cursor-pointer hover:underline"
         onClick={onClick}
       >
-        Versace Pour Homme
+        {data.product.name}
       </h4>
       <div className="absolute top-4 right-4">
         <CountingIcon

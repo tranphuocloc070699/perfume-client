@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { fakeProductData } from "@/types/product/product.data";
 import ProductDetailGallery from "@/components/specific/Product/Detail/ProductDetailGallery";
 import ProductDetailInfo from "@/components/specific/Product/Detail/ProductDetailInfo";
@@ -12,6 +12,7 @@ import ProductDetailComment from "@/components/specific/Product/Detail/ProductDe
 import ProductRelated from "@/components/specific/Product/Detail/Related/ProductRelated";
 import ProductService from "@/services/modules/product.service";
 import { extractIdFromUrl } from "@/lib/utils";
+import { IProductCardLineProps } from "@/components/common/ProductCardLine";
 export const dynamicParams = true;
 const productService = new ProductService();
 export async function generateStaticParams() {
@@ -21,30 +22,54 @@ export async function generateStaticParams() {
 
 const PerfumeDetail = async (params: any) => {
   const id = extractIdFromUrl(params?.params?.slug);
-  const response = await productService.getProductById(Number(id));
+  const { data, errors } = await productService.getProductById(Number(id));
+
+  const productDetailInfoData = () => {
+    const detailInfoList: IProductCardLineProps[] = [];
+
+    detailInfoList.push({
+      label: "Năm sản xuất",
+      value: data.dateReleased.value,
+      link: `/nuoc-hoa/nam/${data.dateReleased.value}`,
+    });
+    detailInfoList.push({
+      label: "Thương hiệu",
+      value: data.brand.name,
+      link: `/thuong-hieu/${data.brand.id}`,
+    });
+    detailInfoList.push({
+      label: "Quốc gia",
+      value: data.country.name,
+      link: `/thuong-hieu/${data.brand.id}`,
+    });
+
+    return detailInfoList;
+  };
 
   return (
     <div className="grid md:grid-cols-12">
       <section className="md:col-span-12 flex flex-col gap-4">
         <div className="mt-6">
-          <ProductDetailGallery />
+          <ProductDetailGallery galleries={data.galleries} />
         </div>
-        <h2 className="text-3xl text-slate-700 font-bold mt-6">
-          {fakeProductData.name}
-        </h2>
+        <h2 className="text-3xl text-slate-700 font-bold mt-6">{data.name}</h2>
         <div className="mt-6 gap-4 grid grid-cols-1 md:grid-cols-2 grid-flow-row">
-          <ProductDetailInfo />
-          <ProductDetailPrice />
-          <ProductDetailStory />
-          <ProductDetailNotes />
+          <ProductDetailInfo data={productDetailInfoData()} />
+          <ProductDetailPrice prices={data.prices} />
+          <ProductDetailStory content={data.description} />
+          <ProductDetailNotes
+            topNotes={data.topNotes}
+            middleNotes={data.middleNotes}
+            baseNotes={data.baseNotes}
+          />
           <div className="col-span-2">
-            <OutfitSuitable />
+            <OutfitSuitable outfits={data.outfits} />
           </div>
           <div className="col-span-2">
-            <ProductDetailComparison />
+            <ProductDetailComparison productCompares={data.productCompares} />
           </div>
           <div className="col-span-2">
-            <ProductDetailComment />
+            <ProductDetailComment comments={data.comments} />
           </div>
         </div>
       </section>
@@ -56,22 +81,3 @@ const PerfumeDetail = async (params: any) => {
 };
 
 export default PerfumeDetail;
-
-// export async function getStaticPaths() {
-//   const productService = new ProductService();
-//   const { data } = await productService.getAllProductId();
-//   const paths = data.map((id) => ({
-//     params: { id },
-//   }));
-//   return { paths, fallback: false };
-// }
-
-// export async function getStaticProps({ params }: { params: any }) {
-//   console.log({ params });
-//   const productService = new ProductService();
-//   const { data } = await productService.getProductById(params?.id);
-//   console.log({ data });
-
-//   // Pass post data to the page via props
-//   return { props: { data } };
-// }

@@ -1,15 +1,10 @@
-import { Media } from "../media/media.model";
 import { ISidebarGroup } from "./user.interface";
-import { User } from "./user.model";
+import { UserDto } from "./user.model";
 
-export const initUserData: User = {
+export const initUserData: UserDto = {
   id: 0,
   name: "",
-  avatar: {
-    id: 0,
-    path: "",
-    type: "",
-  },
+  avatar: "",
   role: "USER",
 };
 

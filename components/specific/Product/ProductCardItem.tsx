@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import NextImg from "next/image";
-import { Product } from "@/types/product/product.model";
+import { ProductDto } from "@/types/product/product.model";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import CountingIcon from "@/components/common/CountingIcon";
 import TextIcon from "@/components/common/TextIcon";
@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 interface IProps {
-  data: Product;
+  data: ProductDto;
   showIcon?: boolean;
 }
 
@@ -39,8 +39,9 @@ const ProductCardItem = ({ data, showIcon }: IProps) => {
           </div>
         )}
       </section>
+
       <NextImg
-        src={data.thumbnail.path}
+        src={data.thumbnail || ""}
         alt={data.name}
         quality={100}
         width={200}

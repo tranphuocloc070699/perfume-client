@@ -1,8 +1,6 @@
-import { Media } from "../media/media.model";
-
-export type User = {
+export type UserDto = {
   id: number;
   name: string;
-  avatar: Media;
+  avatar: string;
   role: "USER" | "ADMIN";
 };

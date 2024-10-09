@@ -6,8 +6,15 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { INoteItemProps } from "@/types/product/product.interface";
 import NoteItem from "@/components/common/NoteItem";
+import { ProductNoteDto } from "@/types/product-note/product-note.model";
 
-const ProductDetailNotes = () => {
+interface ProductDetailNotesProps {
+  topNotes: ProductNoteDto[];
+  middleNotes: ProductNoteDto[];
+  baseNotes: ProductNoteDto[];
+}
+
+const ProductDetailNotes = (data: ProductDetailNotesProps) => {
   const [isPercentMode, setIsPercentMode] = useState(false);
 
   const onPercentModeSwitchChange = () => {
@@ -20,45 +27,6 @@ const ProductDetailNotes = () => {
     return Object.values(data).flat();
   };
 
-  const initData: { [key: string]: INoteItemProps[] } = {
-    topNotes: [
-      {
-        showPercentMode: isPercentMode,
-        title: "Hoa hồng",
-        thumbnail: "https://fimgs.net/mdimg/sastojci/t.105.jpg",
-        percent: 50,
-      },
-      {
-        showPercentMode: isPercentMode,
-        title: "Hoa hồng",
-        thumbnail: "https://fimgs.net/mdimg/sastojci/t.105.jpg",
-        percent: 50,
-      },
-      {
-        showPercentMode: isPercentMode,
-        title: "Hoa hồng",
-        thumbnail: "https://fimgs.net/mdimg/sastojci/t.105.jpg",
-        percent: 50,
-      },
-    ],
-    middleNotes: [
-      {
-        showPercentMode: isPercentMode,
-        title: "Hoa hồng",
-        thumbnail: "https://fimgs.net/mdimg/sastojci/t.105.jpg",
-        percent: 50,
-      },
-    ],
-    baseNotes: [
-      {
-        showPercentMode: isPercentMode,
-        title: "Hoa hồng",
-        thumbnail: "https://fimgs.net/mdimg/sastojci/t.105.jpg",
-        percent: 50,
-      },
-    ],
-  };
-
   const convertKeyToLabel = (key: string) => {
     const object: { [key: string]: string } = {
       topNotes: "Hương đầu",
@@ -69,6 +37,12 @@ const ProductDetailNotes = () => {
     return object[key];
   };
 
+  const noteKeys: Array<keyof ProductDetailNotesProps> = [
+    "topNotes",
+    "middleNotes",
+    "baseNotes",
+  ];
+
   return (
     <>
       <ProductCardBlock title="Nốt hương">
@@ -76,15 +50,27 @@ const ProductDetailNotes = () => {
           {/* <Label htmlFor="percent-mode" className="p-0 m-0">
             Chế độ phần trăm
           </Label> */}
-          <Switch
+          {/* <Switch
             checked={isPercentMode}
             onCheckedChange={onPercentModeSwitchChange}
             id="percent-mode"
             className="p-0 m-0"
-          />
+          /> */}
         </div>
         <div>
-          {isPercentMode ? (
+          {noteKeys.map((key) => (
+            <section key={key} className="mb-6">
+              <h4 className="font-medium text-base mb-2">
+                {convertKeyToLabel(key)}
+              </h4>
+              <div className="flex flex-wrap items-center gap-2">
+                {data[key].map((item, index) => (
+                  <NoteItem key={index} data={item} />
+                ))}
+              </div>
+            </section>
+          ))}
+          {/* {isPercentMode ? (
             <>
               {getAllNotes(initData).map((item, index) => (
                 <NoteItem key={index} data={item} />
@@ -92,20 +78,9 @@ const ProductDetailNotes = () => {
             </>
           ) : (
             <>
-              {Object.keys(initData).map((initDataKey) => (
-                <section key={initDataKey} className="mb-6">
-                  <h4 className="font-medium text-base mb-2">
-                    {convertKeyToLabel(initDataKey)}
-                  </h4>
-                  <div className="flex flex-wrap items-center gap-2">
-                    {initData[initDataKey].map((item, index) => (
-                      <NoteItem key={index} data={item} />
-                    ))}
-                  </div>
-                </section>
-              ))}
+              
             </>
-          )}
+          )} */}
         </div>
       </ProductCardBlock>
     </>

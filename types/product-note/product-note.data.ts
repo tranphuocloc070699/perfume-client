@@ -1,16 +1,10 @@
-import { ProductNote } from "./product-note.model";
+import { ProductNoteDto } from "./product-note.model";
 
-export const dummyProductNote: ProductNote = {
+export const dummyProductNote: ProductNoteDto = {
   id: "1",
   thumbnail: "https://fimgs.net/mdimg/sastojci/m.75.jpg?1650660089",
-  title: "Bergamot (Cam Bergamot)",
+  name: "Bergamot (Cam Bergamot)",
+  enName: "",
   createdAt: "",
   updatedAt: "",
-  category: {
-    id: "1",
-    title: "Cam chanh",
-    excerpt: "",
-    createdAt: "",
-    updatedAt: "",
-  },
 };

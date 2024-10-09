@@ -1,7 +1,7 @@
 import AppTitle from "@/components/common/AppTitle";
 import ProductCardList from "@/components/specific/Product/ProductCardList";
 import ProductService from "@/services/modules/product.service";
-import { Product } from "@/types/product/product.model";
+import { ProductDto } from "@/types/product/product.model";
 
 export default async function Home() {
   // const [productList, setProductList] = useState<Product[]>([]);
