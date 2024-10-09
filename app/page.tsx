@@ -4,20 +4,6 @@ import ProductService from "@/services/modules/product.service";
 import { ProductDto } from "@/types/product/product.model";
 
 export default async function Home() {
-  // const [productList, setProductList] = useState<Product[]>([]);
-
-  // const fetchData = async () => {
-  //   const productService = new ProductService();
-
-  //   const response = await productService.getAllProduct();
-
-  //   if (response.data.content.length > 0) {
-  //     setProductList(response.data.content);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
   const productService = new ProductService();
   const { data } = await productService.getAllProduct();
 

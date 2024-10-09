@@ -24,8 +24,8 @@ const ProductDetailComparisonItem = ({ data }: { data: ProductCompareDto }) => {
   return (
     <div className="bg-gray-100 rounded-xl p-4 flex flex-col gap-4 relative">
       <NextImg
-        src={data.product.thumbnail}
-        alt={data.product.name}
+        src={data?.product?.thumbnail}
+        alt={data?.product?.name}
         quality={100}
         width={200}
         height={200}
@@ -35,7 +35,7 @@ const ProductDetailComparisonItem = ({ data }: { data: ProductCompareDto }) => {
         className="text-sm font-medium text-center cursor-pointer hover:underline"
         onClick={onClick}
       >
-        {data.product.name}
+        {data?.product?.name}
       </h4>
       <div className="absolute top-4 right-4">
         <CountingIcon
