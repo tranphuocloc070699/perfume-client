@@ -1,6 +1,5 @@
 import React from "react";
 import ProductDetailComparisonItem from "./ProductDetailComparisonItem";
-import { fakeProductData } from "@/types/product/product.data";
 import { useModalStore } from "@/store/modal.store";
 import { ProductCompareDto } from "@/types/product-compare/product-compare.model";
 

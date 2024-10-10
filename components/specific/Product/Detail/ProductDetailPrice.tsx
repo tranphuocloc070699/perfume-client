@@ -14,7 +14,6 @@ interface ProductDetailPriceProps {
   prices: ProductPriceDto[];
 }
 const ProductDetailPrice = (props: ProductDetailPriceProps) => {
-  console.log({ props });
   const labelMapper = (price: ProductPriceDto) => {
     const labelDefining = {
       LISTED: "Giá hãng",

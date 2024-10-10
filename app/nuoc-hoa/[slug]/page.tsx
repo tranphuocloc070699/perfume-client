@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { fakeProductData } from "@/types/product/product.data";
+
 import ProductDetailGallery from "@/components/specific/Product/Detail/ProductDetailGallery";
 import ProductDetailInfo from "@/components/specific/Product/Detail/ProductDetailInfo";
 import ProductDetailPrice from "@/components/specific/Product/Detail/ProductDetailPrice";

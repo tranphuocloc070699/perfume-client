@@ -8,7 +8,7 @@ import { UserDto } from "../user/user.model";
 import { YearDto } from "../year/year.model";
 
 export type ProductDto = {
-  id: string;
+  id: number;
   name: string;
   slug: string;
   description: string;

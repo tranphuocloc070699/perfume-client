@@ -11,13 +11,15 @@ import CountingIcon from "@/components/common/CountingIcon";
 import ProductCompareModal from "@/components/common/modal/ProductCompareModal";
 import { useModalStore } from "@/store/modal.store";
 import { ProductCompareDto } from "@/types/product-compare/product-compare.model";
+import ProductCompareService from "@/services/modules/product-compare.service";
 
 const ProductDetailComparisonItem = ({ data }: { data: ProductCompareDto }) => {
   const modal = ProductCompareModal();
-  function onIconClick(id: number) {
-    console.log("on click trigger with id: " + id);
-  }
-  function onClick() {
+  async function onIconClick(id: number) {}
+  async function onClick() {
+    const productCompareService = new ProductCompareService();
+    const response = await productCompareService.getProductCompareById(data.id);
+    console.log({ response: response.data });
     modal.open();
   }
 
