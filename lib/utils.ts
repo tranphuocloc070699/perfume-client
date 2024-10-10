@@ -6,6 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function convertNumToPrice(price: number, country: "VND" | "USD") {
+  if (!price) return 0;
   let priceTransform = "";
   const formattedNumber = price.toLocaleString("vi-VN");
   if (country === "VND") {

@@ -6,6 +6,7 @@ export type ProductCompareDto = {
   createdAt: string;
   updatedAt: string;
   product: ProductDto;
+  totalVotes: number;
 };
 
 export type ProductCompareDetailDto = {

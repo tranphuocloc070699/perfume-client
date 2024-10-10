@@ -14,13 +14,14 @@ import { ProductCompareDto } from "@/types/product-compare/product-compare.model
 import ProductCompareService from "@/services/modules/product-compare.service";
 
 const ProductDetailComparisonItem = ({ data }: { data: ProductCompareDto }) => {
+  console.log({ data });
   const modal = ProductCompareModal();
   async function onIconClick(id: number) {}
   async function onClick() {
     const productCompareService = new ProductCompareService();
     const response = await productCompareService.getProductCompareById(data.id);
     console.log({ response: response.data });
-    modal.open();
+    modal.open(response.data);
   }
 
   return (
@@ -43,7 +44,7 @@ const ProductDetailComparisonItem = ({ data }: { data: ProductCompareDto }) => {
         <CountingIcon
           data={{
             icon: "material-symbols-light:how-to-vote-outline",
-            counting: 10,
+            counting: data?.totalVotes,
             onClick: onIconClick,
           }}
         />

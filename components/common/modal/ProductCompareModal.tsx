@@ -14,10 +14,7 @@ import CompareCommentList from "./CompareCommentList";
 import CompareTitle from "./CompareTitle";
 import CompareVote from "./CompareVote";
 import WriteComment from "./WriteComment";
-import {
-  ProductCompareDetailDto,
-  ProductCompareDto,
-} from "@/types/product-compare/product-compare.model";
+import { ProductCompareDetailDto } from "@/types/product-compare/product-compare.model";
 import { initDataProductCompareDetail } from "@/types/product-compare/product-compare.data";
 import { ProductPriceDto } from "@/types/product-price/product-price.model";
 
@@ -37,7 +34,8 @@ const ProductCompareModal = () => {
   }
 
   function getPriceByType(prices: ProductPriceDto[], type: "VND" | "USD") {
-    return prices[prices.findIndex((price) => price.priceType === type)];
+    if (!prices || prices.length == 0) return { value: 0 };
+    return prices[prices?.findIndex((price) => price.priceType === type)];
   }
 
   function onChange() {
@@ -62,8 +60,8 @@ const ProductCompareModal = () => {
                     </div>
                     <div className="col-span-1 flex flex-col items-center justify-center border-r border-gray-200">
                       <NextImg
-                        src={data.productOriginal.thumbnail}
-                        alt={data.productOriginal.name}
+                        src={data?.productOriginal?.thumbnail}
+                        alt={data?.productOriginal?.name}
                         width={100}
                         height={100}
                       />
@@ -77,8 +75,8 @@ const ProductCompareModal = () => {
                     </div>
                     <div className="col-span-1 flex flex-col items-center justify-center text-center">
                       <NextImg
-                        src={data.productCompare.thumbnail}
-                        alt={data.productCompare.name}
+                        src={data?.productCompare?.thumbnail}
+                        alt={data?.productCompare?.name}
                         width={100}
                         height={100}
                       />
@@ -94,11 +92,11 @@ const ProductCompareModal = () => {
                   {/* Product name */}
                   <div className="grid grid-cols-2 border-t border-gray-300  font-medium">
                     <h4 className="col-span-1 border-r border-gray-300 text-center p-4">
-                      {data.productOriginal.name}
+                      {data?.productOriginal?.name}
                     </h4>
                     <h4 className="col-span-1 text-center p-4">
                       {" "}
-                      {data.productCompare.name}
+                      {data?.productCompare?.name}
                     </h4>
                   </div>
                   {/* Product Price */}
@@ -108,14 +106,14 @@ const ProductCompareModal = () => {
                     </div>
                     <h5 className="col-span-1 border-r border-gray-300 text-center p-4">
                       {convertNumToPrice(
-                        getPriceByType(data.productOriginal.prices, "USD")
+                        getPriceByType(data?.productOriginal?.prices, "USD")
                           ?.value,
                         "USD"
                       )}
                     </h5>
                     <h5 className="col-span-1 text-center p-4">
                       {convertNumToPrice(
-                        getPriceByType(data.productCompare.prices, "USD")
+                        getPriceByType(data?.productCompare?.prices, "USD")
                           ?.value,
                         "USD"
                       )}
@@ -128,14 +126,14 @@ const ProductCompareModal = () => {
                     </div>
                     <h5 className="col-span-1 border-r border-gray-300 text-center p-4">
                       {convertNumToPrice(
-                        getPriceByType(data.productOriginal.prices, "VND")
+                        getPriceByType(data?.productOriginal?.prices, "VND")
                           ?.value,
                         "VND"
                       )}
                     </h5>
                     <h5 className="col-span-1 text-center p-4">
                       {convertNumToPrice(
-                        getPriceByType(data.productCompare.prices, "VND")
+                        getPriceByType(data?.productCompare?.prices, "VND")
                           ?.value,
                         "VND"
                       )}
@@ -149,7 +147,7 @@ const ProductCompareModal = () => {
                 <DialogTitle className="mt-4 mb-2 font-bold text-base">
                   Bình luận
                 </DialogTitle>
-                <CompareCommentList comments={data.comments} />
+                <CompareCommentList comments={data?.comments} />
               </div>
             </DialogHeader>
           </DialogContent>
