@@ -60,24 +60,3 @@ const ProductDetailComparisonItem = ({ data }: { data: ProductCompareDto }) => {
 };
 
 export default ProductDetailComparisonItem;
-
-/* 
-
-const productDetailInfo: IProductDetailInfo = {
-    label: "Quốc gia",
-    value: {
-      title: "Italia",
-      href: "/nuoc-hoa/2017",
-      type: "info",
-    },
-  };
-  const valueTransformer = (value: IProductCardValue) => {
-    return {
-      title: value.title,
-      href: value.href,
-      alt: value.alt,
-      type: "info",
-    };
-  };
-
-*/

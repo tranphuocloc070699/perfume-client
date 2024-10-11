@@ -56,7 +56,10 @@ const ProductCompareModal = () => {
                   {/* Thumbnail */}
                   <div className=" relative grid grid-cols-2">
                     <div className="absolute top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%]">
-                      <CompareVote />
+                      <CompareVote
+                        originalVotes={data?.originalVotes}
+                        compareVotes={data?.compareVotes}
+                      />
                     </div>
                     <div className="col-span-1 flex flex-col items-center justify-center border-r border-gray-200">
                       <NextImg

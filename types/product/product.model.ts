@@ -34,6 +34,15 @@ export type ProductDto = {
 export type GetAllProductResponse = {
   content: ProductDto[];
   size: number;
+  last: boolean;
   totalElements: number;
   totalPages: number;
+};
+
+export type GetAllProductRequest = {
+  page?: number;
+  productName?: string;
+  brandId?: number;
+  countryId?: number;
+  notesIds?: number[];
 };

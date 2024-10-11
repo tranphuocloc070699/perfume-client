@@ -29,18 +29,18 @@ const PerfumeDetail = async (params: any) => {
 
     detailInfoList.push({
       label: "Năm sản xuất",
-      value: data.dateReleased.value,
-      link: `/nuoc-hoa/nam/${data.dateReleased.value}`,
+      value: data?.dateReleased?.value,
+      link: `/nuoc-hoa/nam/${data?.dateReleased?.value}`,
     });
     detailInfoList.push({
       label: "Thương hiệu",
-      value: data.brand.name,
-      link: `/thuong-hieu/${data.brand.id}`,
+      value: data?.brand?.name,
+      link: `/thuong-hieu/${data?.brand?.id}`,
     });
     detailInfoList.push({
       label: "Quốc gia",
-      value: data.country.name,
-      link: `/thuong-hieu/${data.brand.id}`,
+      value: data?.country?.name,
+      link: `/thuong-hieu/${data?.brand?.id}`,
     });
 
     return detailInfoList;
@@ -50,26 +50,26 @@ const PerfumeDetail = async (params: any) => {
     <div className="grid md:grid-cols-12">
       <section className="md:col-span-12 flex flex-col gap-4">
         <div className="mt-6">
-          <ProductDetailGallery galleries={data.galleries} />
+          <ProductDetailGallery galleries={data?.galleries} />
         </div>
-        <h2 className="text-3xl text-slate-700 font-bold mt-6">{data.name}</h2>
+        <h2 className="text-3xl text-slate-700 font-bold mt-6">{data?.name}</h2>
         <div className="mt-6 gap-4 grid grid-cols-1 md:grid-cols-2 grid-flow-row">
           <ProductDetailInfo data={productDetailInfoData()} />
-          <ProductDetailPrice prices={data.prices} />
-          <ProductDetailStory content={data.description} />
+          <ProductDetailPrice prices={data?.prices} />
+          <ProductDetailStory content={data?.description} />
           <ProductDetailNotes
-            topNotes={data.topNotes}
-            middleNotes={data.middleNotes}
-            baseNotes={data.baseNotes}
+            topNotes={data?.topNotes}
+            middleNotes={data?.middleNotes}
+            baseNotes={data?.baseNotes}
           />
           <div className="col-span-2">
-            <OutfitSuitable outfits={data.outfits} />
+            <OutfitSuitable outfits={data?.outfits} />
           </div>
           <div className="col-span-2">
-            <ProductDetailComparison productCompares={data.productCompares} />
+            <ProductDetailComparison productCompares={data?.productCompares} />
           </div>
           <div className="col-span-2">
-            <ProductDetailComment comments={data.comments} />
+            <ProductDetailComment comments={data?.comments} />
           </div>
         </div>
       </section>

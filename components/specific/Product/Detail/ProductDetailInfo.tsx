@@ -14,34 +14,6 @@ interface ProductDetailInfoProps {
 }
 
 const ProductDetailInfo = ({ data }: ProductDetailInfoProps) => {
-  const initData: IProductDetailInfo[] = [
-    {
-      label: "Năm sản xuất",
-      value: {
-        title: "2017",
-        href: "/nuoc-hoa/2017",
-        type: "info",
-      },
-    },
-    {
-      label: "Thương hiệu",
-      value: {
-        title: "Dior",
-        href: "/nuoc-hoa/thuong-hieu/dior",
-        type: "info",
-      },
-    },
-
-    {
-      label: "Quốc gia",
-      value: {
-        title: "Italia",
-        href: "/nuoc-hoa/quoc-gia/italia",
-        type: "info",
-      },
-    },
-  ];
-
   return (
     <>
       <ProductCardBlock title="Thông tin">

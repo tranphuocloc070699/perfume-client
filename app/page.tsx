@@ -5,7 +5,9 @@ import { ProductDto } from "@/types/product/product.model";
 
 export default async function Home() {
   const productService = new ProductService();
-  const { data } = await productService.getAllProduct();
+  const { data } = await productService.getAllProduct({
+    page: 0,
+  });
 
   return (
     <main className={`md:px-0 px-4 w-full max-w-`}>

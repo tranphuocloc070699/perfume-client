@@ -21,6 +21,7 @@ interface IHttpFactory {
   url: string;
   fetchOptions?: RequestInit;
   body?: object;
+  params?: any;
 }
 
 class HttpFactory {
@@ -29,7 +30,13 @@ class HttpFactory {
     if (accessToken) this.accessToken = accessToken;
   }
 
-  async call<T>({ method, url, fetchOptions, body }: IHttpFactory): Promise<T> {
+  async call<T>({
+    method,
+    url,
+    fetchOptions,
+    body,
+    params,
+  }: IHttpFactory): Promise<T> {
     const options: RequestInit = {
       method,
       headers: {
@@ -40,10 +47,17 @@ class HttpFactory {
       },
       cache: "no-store",
       body: body ? JSON.stringify(body) : undefined,
+
       ...fetchOptions,
     };
     try {
-      const response = await fetch(url, options);
+      let newUrl = url;
+
+      if (params) {
+        newUrl = `${url}?${new URLSearchParams(params)}`;
+      }
+
+      const response = await fetch(newUrl, options);
 
       return await response.json();
     } catch (error) {

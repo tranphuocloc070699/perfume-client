@@ -2,7 +2,7 @@ import { dummyCountryDto } from "../country/country.data";
 import { BrandDto } from "./brand.model";
 
 export const dummyBrandDto: BrandDto = {
-  id: "",
+  id: 0,
   name: "",
   description: "",
   homepageLink: "",
