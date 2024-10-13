@@ -21,7 +21,6 @@ const CommonPagination = ({
 }: CommonPaginationProps) => {
   return (
     <div component-name="CommonPagination">
-      current page: {currentPage}
       <Pagination>
         <PaginationContent>
           <PaginationItem>

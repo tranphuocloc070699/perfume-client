@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -10,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getParams } from "@/lib/url";
 import BrandService from "@/services/modules/brand.service";
 import CountryService from "@/services/modules/country.service";
 import YearService from "@/services/modules/year.service";
@@ -17,6 +19,7 @@ import { BrandDto } from "@/types/brand/brand.model";
 import { CountryDto } from "@/types/country/country.model";
 import { GetAllProductRequest } from "@/types/product/product.model";
 import { YearDto } from "@/types/year/year.model";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { KeyboardEvent, memo, useEffect, useState } from "react";
 
 interface ProductPageSearchingProps {
@@ -29,6 +32,8 @@ interface ProductPageSearchingInnerProps {
 }
 
 const ProductPageSearching = (props: ProductPageSearchingProps) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [request, setRequest] = useState<GetAllProductRequest>({
     productName: "",
     brandId: undefined,
@@ -57,9 +62,18 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
     });
   };
 
+  const getDataFromUrl = () => {
+    const params = getParams(searchParams);
+    setRequest(params);
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    getDataFromUrl();
+  }, [searchParams]);
 
   useEffect(() => {
     props.onSearch(request);
@@ -73,6 +87,11 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
       ...request,
       [key]: value,
     });
+  };
+
+  const handleResetSearchParams = () => {
+    router.push("/nuoc-hoa");
+    router.refresh();
   };
 
   const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -91,7 +110,10 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
         onChange={(e) => updateValue("productName", e.target.value)}
       />
 
-      <Select onValueChange={(value) => updateValue("brandId", Number(value))}>
+      <Select
+        value={request?.brandId ? `${request.brandId}` : ""}
+        onValueChange={(value) => updateValue("brandId", Number(value))}
+      >
         <SelectTrigger className="md:w-[15%] w-full">
           <SelectValue placeholder="Thương hiệu" />
         </SelectTrigger>
@@ -108,6 +130,7 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
       </Select>
 
       <Select
+        value={request?.countryId ? `${request.countryId}` : ""}
         onValueChange={(value) => updateValue("countryId", Number(value))}
       >
         <SelectTrigger className="md:w-[15%] w-full">
@@ -156,6 +179,8 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
           </SelectGroup>
         </SelectContent>
       </Select>
+
+      <Button onClick={handleResetSearchParams}>Xóa toàn bộ</Button>
     </div>
   );
 };

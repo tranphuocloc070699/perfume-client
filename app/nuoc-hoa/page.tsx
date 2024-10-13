@@ -12,6 +12,7 @@ import {
 } from "@/types/product/product.model";
 import { dummyGetAllProductResponse } from "@/types/product/product.data";
 import { useRouter } from "next/navigation";
+import { getParams } from "@/lib/url";
 
 const page = () => {
   const [data, setData] = useState<GetAllProductResponse>(
@@ -20,46 +21,19 @@ const page = () => {
   const searchParams = useSearchParams();
   const pathName = usePathname();
   const router = useRouter();
-
   useEffect(() => {
+    // console.log({ searchParams });
     fetchData();
   }, [searchParams]);
 
   const fetchData = async () => {
-    const params = getParams();
-
-    const paramsModify = {
-      ...params,
-      page: params.page && params.page > 0 ? params.page - 1 : params.page,
-    };
-
+    const params = getParams(searchParams);
+    console.log("fetch data trigger...", params);
     const productService = new ProductService();
-    const response = await productService.getAllProduct(paramsModify);
+    const response = await productService.getAllProduct(params);
     if (response?.data) {
       setData(response.data);
     }
-  };
-
-  const getParams = () => {
-    let params: GetAllProductRequest = {
-      page: 1,
-    };
-
-    const currentPage = searchParams.get("page")
-      ? Number(searchParams.get("page"))
-      : 1;
-    const brandId = searchParams.get("brand")
-      ? Number(searchParams.get("brand"))
-      : null;
-    const countryId = searchParams.get("country")
-      ? Number(searchParams.get("country"))
-      : null;
-
-    if (currentPage > 0) params.page = currentPage - 1;
-    if (brandId) params.brandId = brandId;
-    if (countryId) params.countryId = countryId;
-
-    return params;
   };
 
   const currentPage = useMemo(() => {
@@ -71,29 +45,23 @@ const page = () => {
   }, [searchParams]);
 
   const updateQueryParams = (newParams: any) => {
-    const params = getParams();
-
-    // Filter out empty or falsy values from newParams
+    const params = getParams(searchParams);
     let paramsModify: Record<string, any> = {};
     Object.keys(newParams).forEach((key) => {
       if (newParams[key] && newParams[key] != 0) {
-        // Check if the value is truthy
         paramsModify[key] = newParams[key];
       }
     });
-
-    // If there are no valid params to update, return early
     if (Object.keys(paramsModify).length === 0) {
-      return; // No need to update the router if newParams is empty or invalid
+      return;
     }
-
-    // Merge existing params with the valid newParams
-    console.log({ params });
-    console.log({ paramsModify });
     let paramsUpdated: any = {
       ...params,
-      ...paramsModify, // Use only the filtered params
+      ...paramsModify,
     };
+
+    const path = `${pathName}?${new URLSearchParams(paramsUpdated)}`;
+    console.log({ path });
 
     // Update the router only when valid params are present
     router.push(`${pathName}?${new URLSearchParams(paramsUpdated)}`);
