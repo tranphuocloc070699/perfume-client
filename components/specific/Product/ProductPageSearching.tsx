@@ -16,13 +16,13 @@ import { useParamsUtil } from "@/hooks/use-params";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { KeyboardEvent, memo, useMemo } from "react";
 
-const sortByList = [
+export const sortByList = [
   {
     label: "Giá cao đến thấp",
     value: 1,
     query: {
       sortBy: "price",
-      sortDir: "DESC",
+      sortDir: "desc",
     },
   },
   {
@@ -30,7 +30,7 @@ const sortByList = [
     value: 2,
     query: {
       sortBy: "price",
-      sortDir: "ASC",
+      sortDir: "asc",
     },
   },
   {
@@ -38,7 +38,7 @@ const sortByList = [
     value: 3,
     query: {
       sortBy: "dateReleased",
-      sortDir: "DESC",
+      sortDir: "desc",
     },
   },
   {
@@ -46,7 +46,7 @@ const sortByList = [
     value: 4,
     query: {
       sortBy: "dateReleased",
-      sortDir: "ASC",
+      sortDir: "asc",
     },
   },
 ];

@@ -44,6 +44,8 @@ export const useParamsUtil = ({
     }
     if (props.resetPage) {
       delete params?.page;
+      delete params?.sortBy;
+      delete params?.sortDir;
     }
     const path = `${pathname}?${new URLSearchParams(params)}`;
     router.push(path);

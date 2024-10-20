@@ -1,3 +1,4 @@
+import { sortByList } from "@/components/specific/Product/ProductPageSearching";
 import { IUseParams, useParamsUtil } from "@/hooks/use-params";
 
 import ProductService from "@/services/modules/product.service";
@@ -13,7 +14,17 @@ export const usePerfumePageData = (props: IUseParams) => {
   const fetchData = async () => {
     const { getParams } = useParamsUtil(props);
 
-    const params = getParams(props.searchParams);
+    let params = getParams(props.searchParams);
+    if (params?.sortByType) {
+      const index = sortByList.findIndex(
+        (item) => item.value.toString() == params.sortByType
+      );
+      if (index >= 0) {
+        const sortByItem = sortByList[index].query;
+        params = { ...params, ...sortByItem };
+        delete params?.sortByType;
+      }
+    }
     const productService = new ProductService();
     const response = await productService.getAllProduct(params);
     if (response?.data) {
