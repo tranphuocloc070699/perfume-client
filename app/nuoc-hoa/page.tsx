@@ -59,12 +59,11 @@ const page = () => {
       ...params,
       ...paramsModify,
     };
+    console.log({ paramsUpdated });
 
     const path = `${pathName}?${new URLSearchParams(paramsUpdated)}`;
-    console.log({ path });
-
     // Update the router only when valid params are present
-    router.push(`${pathName}?${new URLSearchParams(paramsUpdated)}`);
+    router.push(path);
   };
 
   const onPageChange = (page: number) => {
@@ -72,7 +71,8 @@ const page = () => {
   };
 
   const onSearch = (request: GetAllProductRequest) => {
-    updateQueryParams(request);
+    console.log({ request });
+    updateQueryParams({ ...request });
   };
   return (
     <div className="p-4">

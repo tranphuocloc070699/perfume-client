@@ -21,7 +21,8 @@ const CommonPagination = ({
 }: CommonPaginationProps) => {
   return (
     <div component-name="CommonPagination">
-      <Pagination>
+      {
+        totalPages>0 ? <Pagination>
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious onClick={() => onPageChange(currentPage - 1)} />
@@ -62,7 +63,8 @@ const CommonPagination = ({
             <PaginationNext onClick={() => onPageChange(currentPage + 1)} />
           </PaginationItem>
         </PaginationContent>
-      </Pagination>
+      </Pagination> : <></>
+      }
     </div>
   );
 };

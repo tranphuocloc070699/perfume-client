@@ -45,4 +45,5 @@ export type GetAllProductRequest = {
   brandId?: number;
   countryId?: number;
   notesIds?: number[];
+  sortBy?: number;
 };

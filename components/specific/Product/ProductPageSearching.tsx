@@ -31,6 +31,41 @@ interface ProductPageSearchingInnerProps {
   year: YearDto[];
 }
 
+const sortByList = [
+  {
+    label: "Giá thấp đến cao",
+    value: 1,
+    query: {
+      sortBy: "price",
+      sortDir: "ASC",
+    },
+  },
+  {
+    label: "Giá cao đến thấp",
+    value: 2,
+    query: {
+      sortBy: "price",
+      sortDir: "DESC",
+    },
+  },
+  {
+    label: "Mới ra mắt",
+    value: 3,
+    query: {
+      sortBy: "dateReleased",
+      sortDir: "DESC",
+    },
+  },
+  {
+    label: "Lâu đời",
+    value: 4,
+    query: {
+      sortBy: "dateReleased",
+      sortDir: "ASC",
+    },
+  },
+];
+
 const ProductPageSearching = (props: ProductPageSearchingProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -39,7 +74,9 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
     brandId: undefined,
     countryId: undefined,
     notesIds: [],
+    sortBy: 3,
   });
+
   const [options, setOptions] = useState<ProductPageSearchingInnerProps>({
     country: [],
     brand: [],
@@ -77,7 +114,7 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
 
   useEffect(() => {
     props.onSearch(request);
-  }, [request.brandId, request.countryId, request.notesIds]);
+  }, [request.brandId, request.countryId, request.notesIds, request.sortBy]);
 
   const updateValue = (
     key: keyof GetAllProductRequest,
@@ -96,7 +133,7 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
 
   const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      props.onSearch(request);
+      props.onSearch({ ...request, page: 1 });
     }
   };
 
@@ -112,7 +149,9 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
 
       <Select
         value={request?.brandId ? `${request.brandId}` : ""}
-        onValueChange={(value) => updateValue("brandId", Number(value))}
+        onValueChange={(value) =>
+          setRequest({ ...request, brandId: Number(value), page: 1 })
+        }
       >
         <SelectTrigger className="md:w-[15%] w-full">
           <SelectValue placeholder="Thương hiệu" />
@@ -131,7 +170,9 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
 
       <Select
         value={request?.countryId ? `${request.countryId}` : ""}
-        onValueChange={(value) => updateValue("countryId", Number(value))}
+        onValueChange={(value) =>
+          setRequest({ ...request, countryId: Number(value), page: 1 })
+        }
       >
         <SelectTrigger className="md:w-[15%] w-full">
           <SelectValue placeholder="Quốc gia" />
@@ -171,11 +212,14 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Sắp xếp theo</SelectLabel>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-            <SelectItem value="blueberry">Blueberry</SelectItem>
-            <SelectItem value="grapes">Grapes</SelectItem>
-            <SelectItem value="pineapple">Pineapple</SelectItem>
+            {sortByList.map((item) => (
+              <SelectItem
+                key={item.value.toString()}
+                value={item.value.toString()}
+              >
+                {item.label}
+              </SelectItem>
+            ))}
           </SelectGroup>
         </SelectContent>
       </Select>
