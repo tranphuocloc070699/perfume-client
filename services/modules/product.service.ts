@@ -11,10 +11,11 @@ import {
 import { getClientOrServerUrl } from "@/lib/utils";
 class ProductService extends HttpFactory {
   async getAllProduct(params: GetAllProductRequest) {
+    console.log({ params });
     return this.call<ResponseDto<GetAllProductResponse>>({
       method: "GET",
       url: `${getClientOrServerUrl()}/product`,
-      params,
+      params: Object.keys(params).length > 0 ? params : null,
     });
   }
 

@@ -18,24 +18,40 @@ import { KeyboardEvent, memo, useMemo } from "react";
 
 export const sortByList = [
   {
-    label: "Giá cao đến thấp",
+    label: "Giá VN: cao đến thấp",
     value: 1,
     query: {
-      sortBy: "price",
+      sortBy: "price_VIETNAM_MARKET",
       sortDir: "desc",
     },
   },
   {
-    label: "Giá thấp đến cao",
+    label: "Giá VN: thấp đến cao",
     value: 2,
     query: {
-      sortBy: "price",
+      sortBy: "price_VIETNAM_MARKET",
+      sortDir: "asc",
+    },
+  },
+  {
+    label: "Giá hãng: cao đến thấp",
+    value: 3,
+    query: {
+      sortBy: "price_LISTED",
+      sortDir: "desc",
+    },
+  },
+  {
+    label: "Giá hãng: thấp đến cao",
+    value: 4,
+    query: {
+      sortBy: "price_LISTED",
       sortDir: "asc",
     },
   },
   {
     label: "Mới ra mắt",
-    value: 3,
+    value: 5,
     query: {
       sortBy: "dateReleased",
       sortDir: "desc",
@@ -43,7 +59,7 @@ export const sortByList = [
   },
   {
     label: "Ra mắt lâu đời",
-    value: 4,
+    value: 6,
     query: {
       sortBy: "dateReleased",
       sortDir: "asc",

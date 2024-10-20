@@ -25,6 +25,7 @@ export const usePerfumePageData = (props: IUseParams) => {
         delete params?.sortByType;
       }
     }
+    console.log({ params });
     const productService = new ProductService();
     const response = await productService.getAllProduct(params);
     if (response?.data) {
@@ -33,6 +34,7 @@ export const usePerfumePageData = (props: IUseParams) => {
   };
 
   useEffect(() => {
+    console.log("fetch data trigger...");
     fetchData();
   }, [props.searchParams]);
 
