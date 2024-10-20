@@ -21,7 +21,8 @@ const CommonPagination = ({
 }: CommonPaginationProps) => {
   return (
     <div component-name="CommonPagination">
-      <Pagination>
+      {
+        totalPages>0 ? <Pagination>
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
@@ -82,7 +83,8 @@ const CommonPagination = ({
             />
           </PaginationItem>
         </PaginationContent>
-      </Pagination>
+      </Pagination> : <></>
+      }
     </div>
   );
 };
