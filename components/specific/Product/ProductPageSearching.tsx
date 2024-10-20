@@ -5,89 +5,70 @@ import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
-  SelectLabel,
   SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { getParams } from "@/lib/url";
-import BrandService from "@/services/modules/brand.service";
-import CountryService from "@/services/modules/country.service";
-import YearService from "@/services/modules/year.service";
-import { BrandDto } from "@/types/brand/brand.model";
-import { CountryDto } from "@/types/country/country.model";
-import { GetAllProductRequest } from "@/types/product/product.model";
-import { YearDto } from "@/types/year/year.model";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { KeyboardEvent, memo, useEffect, useState } from "react";
+import { useProductPageSearchingData } from "@/hooks/fetch-data/nuoc-hoa-page/useProductPageSearchingData";
+import { useParamsUtil } from "@/hooks/use-params";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { KeyboardEvent, memo, useMemo } from "react";
 
-interface ProductPageSearchingProps {
-  onSearch: (request: GetAllProductRequest) => void;
-}
-interface ProductPageSearchingInnerProps {
-  country: CountryDto[];
-  brand: BrandDto[];
-  year: YearDto[];
-}
+const sortByList = [
+  {
+    label: "Giá cao đến thấp",
+    value: 1,
+    query: {
+      sortBy: "price",
+      sortDir: "DESC",
+    },
+  },
+  {
+    label: "Giá thấp đến cao",
+    value: 2,
+    query: {
+      sortBy: "price",
+      sortDir: "ASC",
+    },
+  },
+  {
+    label: "Mới ra mắt",
+    value: 3,
+    query: {
+      sortBy: "dateReleased",
+      sortDir: "DESC",
+    },
+  },
+  {
+    label: "Ra mắt lâu đời",
+    value: 4,
+    query: {
+      sortBy: "dateReleased",
+      sortDir: "ASC",
+    },
+  },
+];
 
-const ProductPageSearching = (props: ProductPageSearchingProps) => {
+const ProductPageSearching = () => {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const router = useRouter();
-  const [request, setRequest] = useState<GetAllProductRequest>({
-    productName: "",
-    brandId: undefined,
-    countryId: undefined,
-    notesIds: [],
-  });
-  const [options, setOptions] = useState<ProductPageSearchingInnerProps>({
-    country: [],
-    brand: [],
-    year: [],
+
+  const { getParams, updateParams } = useParamsUtil({
+    searchParams,
+    pathname,
+    router,
   });
 
-  const fetchData = async () => {
-    const countryService = new CountryService();
-    const brandService = new BrandService();
-    const yearService = new YearService();
+  /* Fetching select data */
+  const { options } = useProductPageSearchingData();
 
-    const countryResponse = await countryService.getAllCountry();
-    const brandResponse = await brandService.getAllBrand();
-    const yearResponse = await yearService.getAllYear();
-
-    setOptions({
-      country: countryResponse.data,
-      brand: brandResponse.data,
-      year: yearResponse.data,
-    });
-  };
-
-  const getDataFromUrl = () => {
-    const params = getParams(searchParams);
-    setRequest(params);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    getDataFromUrl();
-  }, [searchParams]);
-
-  useEffect(() => {
-    props.onSearch(request);
-  }, [request.brandId, request.countryId, request.notesIds]);
-
-  const updateValue = (
-    key: keyof GetAllProductRequest,
-    value: string | number
-  ) => {
-    setRequest({
-      ...request,
-      [key]: value,
-    });
-  };
+  /* Assign input,select value based on params */
+  const defaultValue = useMemo(() => {
+    return getParams(searchParams);
+  }, [searchParams, pathname]);
 
   const handleResetSearchParams = () => {
     router.push("/nuoc-hoa");
@@ -95,8 +76,12 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
   };
 
   const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      props.onSearch(request);
+    if (event.key === "Enter" && event.target instanceof HTMLInputElement) {
+      updateParams({
+        key: "productName",
+        value: event.target.value,
+        resetPage: true,
+      });
     }
   };
 
@@ -106,13 +91,14 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
         onKeyDown={handleInputKeyDown}
         placeholder="Tên sản phẩm"
         className="md:w-[33%] w-full"
-        value={request.productName}
-        onChange={(e) => updateValue("productName", e.target.value)}
+        defaultValue={defaultValue?.productName}
       />
 
       <Select
-        value={request?.brandId ? `${request.brandId}` : ""}
-        onValueChange={(value) => updateValue("brandId", Number(value))}
+        value={defaultValue?.brandId ? `${defaultValue.brandId}` : ""}
+        onValueChange={(value) => {
+          updateParams({ key: "brandId", value, resetPage: true });
+        }}
       >
         <SelectTrigger className="md:w-[15%] w-full">
           <SelectValue placeholder="Thương hiệu" />
@@ -130,8 +116,10 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
       </Select>
 
       <Select
-        value={request?.countryId ? `${request.countryId}` : ""}
-        onValueChange={(value) => updateValue("countryId", Number(value))}
+        value={defaultValue?.countryId ? `${defaultValue.countryId}` : ""}
+        onValueChange={(value) =>
+          updateParams({ key: "countryId", value, resetPage: true })
+        }
       >
         <SelectTrigger className="md:w-[15%] w-full">
           <SelectValue placeholder="Quốc gia" />
@@ -164,18 +152,23 @@ const ProductPageSearching = (props: ProductPageSearchingProps) => {
         </SelectContent>
       </Select> */}
 
-      <Select>
+      <Select
+        value={defaultValue?.sortByType ? `${defaultValue.sortByType}` : ""}
+        onValueChange={(value) =>
+          updateParams({ key: "sortByType", value, resetPage: true })
+        }
+      >
         <SelectTrigger className="md:w-[15%] w-full">
           <SelectValue placeholder="Sắp xếp" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Sắp xếp theo</SelectLabel>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-            <SelectItem value="blueberry">Blueberry</SelectItem>
-            <SelectItem value="grapes">Grapes</SelectItem>
-            <SelectItem value="pineapple">Pineapple</SelectItem>
+            {sortByList.map((item) => (
+              <SelectItem key={item.value} value={item.value.toString()}>
+                {item.label}
+              </SelectItem>
+            ))}
           </SelectGroup>
         </SelectContent>
       </Select>

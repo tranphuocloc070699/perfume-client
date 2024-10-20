@@ -41,7 +41,10 @@ const ProductCardItem = ({ data, showIcon }: IProps) => {
       </section>
 
       <NextImg
-        src={data.thumbnail || ""}
+        src={
+          data.thumbnail ||
+          "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
+        }
         alt={data.name}
         quality={100}
         width={200}

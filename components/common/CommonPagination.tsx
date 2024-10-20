@@ -24,7 +24,16 @@ const CommonPagination = ({
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious onClick={() => onPageChange(currentPage - 1)} />
+            <PaginationPrevious
+              aria-disabled={currentPage <= 1}
+              tabIndex={currentPage <= 1 ? -1 : undefined}
+              className={
+                currentPage <= 1
+                  ? "pointer-events-none opacity-50 cursor-not-allowed"
+                  : "cursor-pointer"
+              }
+              onClick={() => onPageChange(currentPage - 1)}
+            />
           </PaginationItem>
           {Array.from({ length: totalPages }).map((page, index) => {
             // Second last element
@@ -33,6 +42,7 @@ const CommonPagination = ({
                 <>
                   <PaginationItem key={index}>
                     <PaginationLink
+                      className="cursor-pointer"
                       isActive={currentPage == index + 1}
                       onClick={() => onPageChange(index + 1)}
                     >
@@ -51,6 +61,7 @@ const CommonPagination = ({
                 <PaginationLink
                   isActive={currentPage == index + 1}
                   onClick={() => onPageChange(index + 1)}
+                  className="cursor-pointer"
                 >
                   {index + 1}
                 </PaginationLink>
@@ -59,7 +70,16 @@ const CommonPagination = ({
           })}
 
           <PaginationItem>
-            <PaginationNext onClick={() => onPageChange(currentPage + 1)} />
+            <PaginationNext
+              aria-disabled={currentPage === totalPages}
+              tabIndex={currentPage === totalPages ? -1 : undefined}
+              className={
+                currentPage === totalPages
+                  ? "pointer-events-none opacity-50 cursor-not-allowed"
+                  : "cursor-pointer"
+              }
+              onClick={() => onPageChange(currentPage + 1)}
+            />
           </PaginationItem>
         </PaginationContent>
       </Pagination>

@@ -3,38 +3,20 @@
 import CommonPagination from "@/components/common/CommonPagination";
 import ProductPageList from "@/components/specific/Product/ProductPageList";
 import ProductPageSearching from "@/components/specific/Product/ProductPageSearching";
-import ProductService from "@/services/modules/product.service";
-import React, { useEffect, useMemo, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
-import {
-  GetAllProductRequest,
-  GetAllProductResponse,
-} from "@/types/product/product.model";
-import { dummyGetAllProductResponse } from "@/types/product/product.data";
-import { useRouter } from "next/navigation";
-import { getParams } from "@/lib/url";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useMemo } from "react";
+
+import { usePerfumePageData } from "@/hooks/fetch-data/nuoc-hoa-page/usePerfumePageData";
+import { useParamsUtil } from "@/hooks/use-params";
+import CommonEmpty from "@/components/common/CommonEmpty";
 
 const page = () => {
-  const [data, setData] = useState<GetAllProductResponse>(
-    dummyGetAllProductResponse
-  );
   const searchParams = useSearchParams();
-  const pathName = usePathname();
+  const pathname = usePathname();
   const router = useRouter();
-  useEffect(() => {
-    // console.log({ searchParams });
-    fetchData();
-  }, [searchParams]);
 
-  const fetchData = async () => {
-    const params = getParams(searchParams);
-    console.log("fetch data trigger...", params);
-    const productService = new ProductService();
-    const response = await productService.getAllProduct(params);
-    if (response?.data) {
-      setData(response.data);
-    }
-  };
+  const { data } = usePerfumePageData({ searchParams, pathname, router });
+  const { updateParams } = useParamsUtil({ searchParams, pathname, router });
 
   const currentPage = useMemo(() => {
     const currentPage = searchParams.get("page")
@@ -44,51 +26,30 @@ const page = () => {
     return currentPage;
   }, [searchParams]);
 
-  const updateQueryParams = (newParams: any) => {
-    const params = getParams(searchParams);
-    let paramsModify: Record<string, any> = {};
-    Object.keys(newParams).forEach((key) => {
-      if (newParams[key] && newParams[key] != 0) {
-        paramsModify[key] = newParams[key];
-      }
-    });
-    if (Object.keys(paramsModify).length === 0) {
-      return;
-    }
-    let paramsUpdated: any = {
-      ...params,
-      ...paramsModify,
-    };
-
-    const path = `${pathName}?${new URLSearchParams(paramsUpdated)}`;
-    console.log({ path });
-
-    // Update the router only when valid params are present
-    router.push(`${pathName}?${new URLSearchParams(paramsUpdated)}`);
-  };
-
   const onPageChange = (page: number) => {
-    updateQueryParams({ page });
-  };
-
-  const onSearch = (request: GetAllProductRequest) => {
-    updateQueryParams(request);
+    updateParams({ key: "page", value: `${page}` });
   };
   return (
     <div className="p-4">
       <h2 className="font-medium text-xl">Tìm kiếm toàn bộ nước hoa</h2>
       <div className="mt-2">
-        <ProductPageSearching onSearch={onSearch} />
+        <ProductPageSearching />
       </div>
       <div className="mt-10">
-        <ProductPageList data={data.content} />
+        {data.content.length > 0 ? (
+          <ProductPageList data={data.content} />
+        ) : (
+          <CommonEmpty text="Không có sản phẩm" />
+        )}
       </div>
       <div className="mt-10">
-        <CommonPagination
-          totalPages={data.totalPages}
-          currentPage={currentPage}
-          onPageChange={onPageChange}
-        />
+        {data.content.length > 0 && (
+          <CommonPagination
+            totalPages={data.totalPages}
+            currentPage={currentPage}
+            onPageChange={onPageChange}
+          />
+        )}
       </div>
     </div>
   );
