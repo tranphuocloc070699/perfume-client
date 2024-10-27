@@ -33,6 +33,23 @@ class UserService extends HttpFactory {
       url: `/api/user/log-out`,
     });
   }
+
+  async uploadImage(file: File, id: string) {
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("id", id);
+
+    return this.call<ResponseDto<{ path: string }>>({
+      method: "POST",
+      url: `/upload`,
+      fetchOptions: {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
+      body: formData,
+    });
+  }
 }
 
 export default UserService;

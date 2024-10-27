@@ -1,38 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
+import { useState } from "react";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import CommonInput from "@/components/common/CommonInput";
-import { validYears } from "@/types/admin/admin.data";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-const CreateYearModal = () => {
+import { validYears } from "@/types/admin/admin.data";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import YearService from "@/services/modules/year.service";
+import { useUserStore } from "@/store/user.store";
+import { YearDto } from "@/types/year/year.model";
+
+interface ICreateYearModalProps {
+  onSubmit: (year: YearDto) => void;
+}
+
+const CreateYearModal = ({ onSubmit }: ICreateYearModalProps) => {
   const { toast } = useToast();
+  const { accessToken } = useUserStore();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [pendingValue, setPendingValue] = useState("");
-  const [yearsData, setYearsData] = useState<Array<number>>([]);
+  const [value, setValue] = useState<number>();
+  const [loading, setLoading] = useState(false);
   function openModal() {
     setIsOpen(true);
   }
@@ -40,23 +36,22 @@ const CreateYearModal = () => {
     setIsOpen(false);
   }
 
-  function addValue() {
-    if (!pendingValue) {
+  async function addValue() {
+    if (!value) {
+      toast({ variant: "destructive", title: "Value is required" });
+      return;
     }
 
-    const yearToAdd = Number(pendingValue);
-    /* Validate */
-    if (!validYears.includes(yearToAdd)) {
+    setLoading(true);
+    const yearService = new YearService(accessToken);
+    const response = await yearService.createYear({ value });
+
+    if (response.status == 200) {
+      toast({ description: response.message });
+      onSubmit(response.data);
+      closeModal();
     }
-    if (yearsData.includes(yearToAdd)) return;
-
-    setYearsData([...yearsData, yearToAdd]);
-    /* Reset pending value */
-    setPendingValue("");
-  }
-
-  function removeValue(year: number) {
-    setYearsData(yearsData.filter((item) => item !== year));
+    setLoading(false);
   }
 
   return {
@@ -71,10 +66,10 @@ const CreateYearModal = () => {
               <div className="flex items-center gap-4 mb-6">
                 <Input
                   id="pending-value"
-                  value={pendingValue}
+                  value={value}
                   type="number"
                   placeholder="Nhập năm sản xuất"
-                  onChange={(e) => setPendingValue(e.target.value)}
+                  onChange={(e) => setValue(Number(e.target.value))}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
@@ -82,11 +77,17 @@ const CreateYearModal = () => {
                     }
                   }}
                 />
-                <Button type="button" variant="secondary" onClick={addValue}>
-                  Thêm
+                <Button
+                  disabled={loading}
+                  className="disabled:opacity-50"
+                  type="button"
+                  variant="secondary"
+                  onClick={addValue}
+                >
+                  Tạo
                 </Button>
               </div>
-              <h4 className="mt-10">Danh sách hiện tại</h4>
+              {/* <h4 className="mt-10">Danh sách hiện tại</h4>
               <div className="border rounded-md min-h-[2.5rem] overflow-y-auto p-2 flex gap-2 flex-wrap items-center">
                 {yearsData.map((item, idx) => (
                   <Badge key={idx} variant="secondary">
@@ -103,7 +104,7 @@ const CreateYearModal = () => {
                     </button>
                   </Badge>
                 ))}
-              </div>
+              </div> */}
             </DialogHeader>
           </DialogContent>
         </Dialog>

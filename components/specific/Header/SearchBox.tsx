@@ -5,28 +5,18 @@ import { Icon } from "@iconify/react";
 import SearchResultBox, { ISearchResultList } from "./SearchResultBox";
 
 import _debounce from "lodash/debounce";
-import { useClickOutSide } from "@/hooks/useClickOutSide";
-
-const searchResultList: ISearchResultList[] = [
-  {
-    title: "Collections 1",
-    children: [],
-  },
-  {
-    title: "Collections 2",
-    children: [],
-  },
-  {
-    title: "Collections 3",
-    children: [],
-  },
-];
-
+import { useClickOutSide } from "@/hooks/useClickOutside";
+import { useSearchBoxData } from "@/hooks/fetch-data/header/useSearchBox";
+import { useSearchParams, usePathname } from "next/navigation";
 const SearchBox = () => {
+  const { data, loading, execute } = useSearchBoxData();
+
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
   const [value, setValue] = useState("");
   const [isOpenSearchBox, setIsOpenSearchBox] = useState(false);
-  const [searchLoading, setSearchLoading] = useState(false);
-  const [searchResult, setSearchResult] = useState<ISearchResultList[]>([]);
+
   const [isShowSearchResultBox, setIsShowSearchResultBox] = useState(false);
 
   const searchResultRef = useClickOutSide(() => {
@@ -34,14 +24,13 @@ const SearchBox = () => {
   });
 
   function handleDebounceFn(inputValue: string) {
-    setSearchResult(searchResultList);
-    setSearchLoading(false);
+    if (!inputValue || inputValue.trim().length === 0) return;
+    execute({ searchInput: inputValue });
   }
 
   const debounceFn = useCallback(_debounce(handleDebounceFn, 1000), []);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    if (!searchLoading) setSearchLoading(true);
     if (!isShowSearchResultBox) openSearchResultBox();
     setValue(event.target.value);
     debounceFn(event.target.value);
@@ -62,6 +51,12 @@ const SearchBox = () => {
   function closeSearchResultBox() {
     setIsShowSearchResultBox(false);
   }
+
+  useEffect(() => {
+    if (isOpenSearchBox) closeSearchBox();
+    if (isShowSearchResultBox) closeSearchResultBox();
+    if (value.trim().length > 0) setValue("");
+  }, [pathname, searchParams]);
 
   return (
     <section>
@@ -102,7 +97,7 @@ const SearchBox = () => {
                 : "hidden"
             }`}
           >
-            <SearchResultBox loading={searchLoading} data={searchResult} />
+            <SearchResultBox loading={loading} data={data} />
           </div>
         </div>
       </div>

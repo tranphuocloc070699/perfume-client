@@ -7,7 +7,7 @@ interface ProductPageListProps {
 }
 const ProductPageList = (props: ProductPageListProps) => {
   return (
-    <div className="grid lg:grid-cols-6 md:grid-cols-4 gap-6 grid-col-2 ">
+    <div className="grid 2xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 gap-6 grid-col-2 ">
       {props.data.map((item) => (
         <ProductCardItem key={item.id} data={item} />
       ))}

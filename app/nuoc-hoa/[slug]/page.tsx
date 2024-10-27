@@ -52,23 +52,35 @@ const PerfumeDetail = async (params: any) => {
         <div className="mt-6">
           <ProductDetailGallery galleries={data?.galleries} />
         </div>
-        <h2 className="text-3xl text-slate-700 font-bold mt-6">{data?.name}</h2>
-        <div className="mt-6 gap-4 grid grid-cols-1 md:grid-cols-2 grid-flow-row">
-          <ProductDetailInfo data={productDetailInfoData()} />
-          <ProductDetailPrice prices={data?.prices} />
-          <ProductDetailStory content={data?.description} />
-          <ProductDetailNotes
-            topNotes={data?.topNotes}
-            middleNotes={data?.middleNotes}
-            baseNotes={data?.baseNotes}
-          />
-          <div className="col-span-2">
+        <h2 className="text-3xl text-slate-700 font-bold mt-6 px-4 md:px-0">
+          {data?.name}
+        </h2>
+        <div className="mt-6 gap-4 grid grid-cols-12 grid-flow-row">
+          <div className="2xl:col-span-4 md:col-span-6 col-span-12">
+            <ProductDetailInfo data={productDetailInfoData()} />
+          </div>
+          <div className="2xl:col-span-4 md:col-span-6 col-span-12">
+            <ProductDetailPrice prices={data?.prices} />
+          </div>
+
+          <div className="2xl:col-span-4 md:col-span-6 col-span-12">
+            <ProductDetailNotes
+              topNotes={data?.topNotes}
+              middleNotes={data?.middleNotes}
+              baseNotes={data?.baseNotes}
+            />
+          </div>
+
+          <div className="2xl:col-span-12 md:col-span-6 col-span-12">
+            <ProductDetailStory content={data?.description} />
+          </div>
+          <div className="col-span-12">
             <OutfitSuitable outfits={data?.outfits} />
           </div>
-          <div className="col-span-2">
+          <div className="col-span-12">
             <ProductDetailComparison productCompares={data?.productCompares} />
           </div>
-          <div className="col-span-2">
+          <div className="col-span-12">
             <ProductDetailComment comments={data?.comments} />
           </div>
         </div>

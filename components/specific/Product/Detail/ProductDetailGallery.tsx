@@ -19,11 +19,11 @@ const ProductDetailGallery = (props: ProductDetailGalleryProps) => {
           align: "start",
         }}
       >
-        <CarouselContent className="-ml-8">
+        <CarouselContent className=" md:-ml-8">
           {props.galleries.map((source, index) => (
             <CarouselItem
               key={index}
-              className="md:basis-1/2  xl:basis-1/4 2xl:basis-1/6 pl-8"
+              className="md:basis-1/2  xl:basis-1/4 2xl:basis-1/6 md:pl-8"
             >
               <NextImg
                 key={index}
@@ -36,8 +36,8 @@ const ProductDetailGallery = (props: ProductDetailGalleryProps) => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="rounded-sm -left-4 bg-white" />
-        <CarouselNext className="rounded-sm -right-4 bg-white" />
+        <CarouselPrevious className="rounded-sm md:-left-4 left-8 bg-white" />
+        <CarouselNext className="rounded-sm md:-right-4 right-8  bg-white" />
       </Carousel>
     </div>
   );

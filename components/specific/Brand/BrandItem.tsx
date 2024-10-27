@@ -1,15 +1,18 @@
-import { ProductNote } from "@/types/product-note/product-note.model";
+import { ProductNoteDto } from "@/types/product-note/product-note.model";
 import React from "react";
 import NextImg from "next/image";
-import { Brand } from "@/types/brand/brand.model";
-
+import { BrandDto } from "@/types/brand/brand.model";
+import Link from "next/link";
 interface IProps {
-  data: Brand;
+  data: BrandDto;
 }
 
 const BrandItem = ({ data }: IProps) => {
   return (
-    <div className="flex flex-col items-center">
+    <Link
+      href={`/nuoc-hoa?brandId=${data.id}`}
+      className="flex flex-col items-center"
+    >
       <NextImg
         src={data.thumbnail}
         width={100}
@@ -19,9 +22,9 @@ const BrandItem = ({ data }: IProps) => {
       />
 
       <h4 className="font-medium hover:underline cursor-pointer text-sm">
-        {data.title}
+        {data.name}
       </h4>
-    </div>
+    </Link>
   );
 };
 

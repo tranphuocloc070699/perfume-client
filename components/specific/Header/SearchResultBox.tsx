@@ -1,6 +1,7 @@
 import AppDataNotFound from "@/components/common/AppDataNotFound";
 import AppLoading from "@/components/common/AppLoading";
-import React, { useEffect } from "react";
+import Link from "next/link";
+import React from "react";
 
 interface ISearchResultItem {
   title: string;
@@ -12,11 +13,14 @@ export interface ISearchResultList {
   children: ISearchResultItem[];
 }
 
-const SearchResultItem = ({ title }: ISearchResultItem) => {
+const SearchResultItem = ({ title, link }: ISearchResultItem) => {
   return (
-    <span className="rounded-full py-1 px-3 font-normal border border-gray-200  whitespace-nowrap text-sm hover:bg-gray-100 cursor-pointer transition-colors">
+    <Link
+      href={link}
+      className="rounded-full py-1 px-3 font-normal border border-gray-200  whitespace-nowrap text-sm hover:bg-gray-100 cursor-pointer transition-colors"
+    >
       {title}
-    </span>
+    </Link>
   );
 };
 
@@ -29,9 +33,9 @@ const SearchResultList = ({
     <>
       <span className="text-base font-medium">{searchResultList.title}</span>
       <ul className="flex items-center gap-3 flex-wrap mt-2">
-        {[...Array(30)].map((item, index) => (
+        {searchResultList.children.map((item, index) => (
           <li key={index}>
-            <SearchResultItem title={`Item ${index + 1}`} link="" />
+            <SearchResultItem title={item.title} link={item.link} />
           </li>
         ))}
       </ul>

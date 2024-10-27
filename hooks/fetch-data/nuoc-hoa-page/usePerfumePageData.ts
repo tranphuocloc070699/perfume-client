@@ -11,7 +11,10 @@ export const usePerfumePageData = (props: IUseParams) => {
   const [data, setData] = useState<GetAllProductResponse>(
     dummyGetAllProductResponse
   );
+  const [loading, setLoading] = useState(true);
   const fetchData = async () => {
+    setData(dummyGetAllProductResponse);
+    setLoading(true);
     const { getParams } = useParamsUtil(props);
 
     let params = getParams(props.searchParams);
@@ -25,12 +28,13 @@ export const usePerfumePageData = (props: IUseParams) => {
         delete params?.sortByType;
       }
     }
-    console.log({ params });
     const productService = new ProductService();
     const response = await productService.getAllProduct(params);
     if (response?.data) {
       setData(response.data);
     }
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -38,5 +42,5 @@ export const usePerfumePageData = (props: IUseParams) => {
     fetchData();
   }, [props.searchParams]);
 
-  return { data };
+  return { data, loading };
 };
