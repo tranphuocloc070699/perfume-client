@@ -4,7 +4,7 @@ import { ProductDto } from "../product/product.model";
 export type BrandDto = {
   id: number;
   name: string;
-  description: string;
+  description?: string;
   homepageLink: string;
   thumbnail: string;
   country: CountryDto;

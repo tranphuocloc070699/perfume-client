@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  DialogTrigger
+} from '@/components/ui/dialog';
 
 import {
   Select,
@@ -17,22 +17,23 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import CommonInput from "@/components/common/CommonInput";
-import { dummyUpsaveProductDto, validYears } from "@/types/admin/admin.data";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import CreateYearModal from "./CreateYearModal";
-import { Input } from "@/components/ui/input";
-import YearService from "@/services/modules/year.service";
-import { useToast } from "@/hooks/use-toast";
-import { useAdminDashboardPageData } from "@/hooks/fetch-data/admin-dashboard-page";
-import { UpsaveProductDto } from "@/types/admin/admin.interface";
-import { YearDto } from "@/types/year/year.model";
-import CreateBrandModal from "./CreateBrandModal";
-import { BrandDto } from "@/types/brand/brand.model";
+  SelectValue
+} from '@/components/ui/select';
+import CommonInput from '@/components/common/CommonInput';
+import { dummyUpsaveProductDto, validYears } from '@/types/admin/admin.data';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Icon } from '@iconify/react/dist/iconify.js';
+import CreateYearModal from './CreateYearModal';
+import { Input } from '@/components/ui/input';
+import YearService from '@/services/modules/year.service';
+import { useToast } from '@/hooks/use-toast';
+import { useAdminDashboardPageData } from '@/hooks/fetch-data/admin-dashboard-page';
+import { UpsaveProductDto } from '@/types/admin/admin.interface';
+import { YearDto } from '@/types/year/year.model';
+import CreateBrandModal from './CreateBrandModal';
+import { BrandDto } from '@/types/brand/brand.model';
+
 const CreateProductModal = () => {
   const [upsaveProduct, setUpsaveProduct] = useState<UpsaveProductDto>(
     dummyUpsaveProductDto
@@ -46,11 +47,12 @@ const CreateProductModal = () => {
     setUpsaveProduct({ ...upsaveProduct, dateReleased: year });
     addYear(year);
   };
-  const handleBrandModalSubmit = (brand: BrandDto) => {};
+  const handleBrandModalSubmit = (brand: BrandDto) => {
+  };
 
   const createYearModal = CreateYearModal({ onSubmit: handleYearModalSubmit });
   const createBrandModal = CreateBrandModal({
-    onSubmit: handleBrandModalSubmit,
+    onSubmit: handleBrandModalSubmit
   });
 
   function updateUpsaveProductValue(key: keyof UpsaveProductDto, value: any) {
@@ -62,18 +64,19 @@ const CreateProductModal = () => {
     if (index === -1) {
       return;
     }
-    updateUpsaveProductValue("dateReleased", years[index]);
+    updateUpsaveProductValue('dateReleased', years[index]);
   }
+
   function onBrandChange(id: string) {
     const index = brands.findIndex((brand) => brand.id === Number(id));
     if (index === -1) {
       return;
     }
-    updateUpsaveProductValue("brand", brands[index]);
+    updateUpsaveProductValue('brand', brands[index]);
   }
 
   function openModal() {
-    console.log("open modal trigger...");
+    console.log('open modal trigger...');
     setIsOpen(true);
   }
 
@@ -102,9 +105,10 @@ const CreateProductModal = () => {
                 <div className="col-span-1 flex flex-col gap-2">
                   <div className="flex items-center justify-between">
                     <Label>Tên sản phẩm</Label>
-                    <span className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer opacity-0">
+                    <span
+                      className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer opacity-0">
                       <Icon
-                        icon={"lucide:plus"}
+                        icon={'lucide:plus'}
                         className=" text-white h-4 w-4"
                       />
                     </span>
@@ -119,7 +123,7 @@ const CreateProductModal = () => {
                       onClick={openYearModal}
                     >
                       <Icon
-                        icon={"lucide:plus"}
+                        icon={'lucide:plus'}
                         className=" text-white h-4 w-4"
                       />
                     </span>
@@ -153,7 +157,7 @@ const CreateProductModal = () => {
                       onClick={openBrandModal}
                     >
                       <Icon
-                        icon={"lucide:plus"}
+                        icon={'lucide:plus'}
                         className=" text-white h-4 w-4"
                       />
                     </span>
@@ -187,7 +191,7 @@ const CreateProductModal = () => {
       </>
     ),
     close: closeModal,
-    open: openModal,
+    open: openModal
   };
 };
 

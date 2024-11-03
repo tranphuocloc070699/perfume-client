@@ -12,15 +12,18 @@ import NextImg from "next/image";
 import { dummyBrandDto } from "@/types/brand/brand.data";
 import UserService from "@/services/modules/user.service";
 import BrandService from "@/services/modules/brand.service";
+import { CountryDto } from "@/types/country/country.model";
+import CountryService from "@/services/modules/country.service";
+import { dummyCountryDto } from "@/types/country/country.data";
 
-interface ICreateBrandModalProps {
-  onSubmit: (brand: BrandDto) => void;
+interface ICreateCountryModalProps {
+  onSubmit: (dto: CountryDto) => void;
 }
 
-const CreateBrandModal = ({ onSubmit }: ICreateBrandModalProps) => {
+const CreateCountryModal = ({ onSubmit }: ICreateCountryModalProps) => {
   const { toast } = useToast();
   const { accessToken } = useUserStore();
-  const [dto, setDto] = useState<BrandDto>(dummyBrandDto);
+  const [dto, setDto] = useState<CountryDto>(dummyCountryDto);
   const [imageUploader, setImageUploader] = useState<File | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -29,8 +32,8 @@ const CreateBrandModal = ({ onSubmit }: ICreateBrandModalProps) => {
     return new UserService(accessToken);
   }, [accessToken]);
 
-  const brandService = useMemo(() => {
-    return new BrandService(accessToken);
+  const countryService = useMemo(() => {
+    return new CountryService(accessToken);
   }, [accessToken]);
 
   const imageProcessor = useMemo(() => {
@@ -40,7 +43,7 @@ const CreateBrandModal = ({ onSubmit }: ICreateBrandModalProps) => {
     return "/assets/images/default-image.png";
   }, [imageUploader]);
 
-  function openModal(newData?: BrandDto) {
+  function openModal(newData?: CountryDto) {
     setIsOpen(true);
     if (newData && newData?.id > 0) {
       setDto(newData);
@@ -65,10 +68,10 @@ const CreateBrandModal = ({ onSubmit }: ICreateBrandModalProps) => {
     }
   }
 
-  async function createBrand() {
+  async function createCountry() {
     try {
       if (imageUploader) await uploadImage();
-      const response = await brandService.createBrand(dto);
+      const response = await countryService.createCountry(dto);
       console.log({ response });
 
     } catch (error) {
@@ -84,33 +87,33 @@ const CreateBrandModal = ({ onSubmit }: ICreateBrandModalProps) => {
           <DialogContent className="min-w-[50%] h-[90%]">
             <DialogHeader>
               <DialogTitle className="mb-4 font-bold text-base">
-                Tạo thương hiệu mới
+                Thêm quốc gia
               </DialogTitle>
               <div className="grid grid-cols-12 gap-8 ">
                 <span className="col-span-4">
-                  <Label>Tên thương hiệu</Label>
+                  <Label>Tên quốc gia</Label>
                   <Input
                     value={dto.name}
                     name={"name"}
                     onChange={e => {
                       setDto({ ...dto, [e.target.name]: e.target.value });
                     }}
-                    placeholder="Nhập tên thương hiệu"
+                    placeholder="Nhập tên quốc gia"
                   />
                 </span>
                 <span className="col-span-4">
-                  <Label>Link trang chủ</Label>
+                  <Label>Mã quốc gia</Label>
                   <Input
-                    value={dto.homepageLink}
-                    name={"homepageLink"}
+                    value={dto.code}
+                    name={"code"}
                     onChange={e => {
                       setDto({ ...dto, [e.target.name]: e.target.value });
                     }}
-                    placeholder="Link trang chủ"
+                    placeholder="Nhập mã quốc gia"
                   />
                 </span>
                 <span className="col-span-4">
-                  <Label>Ảnh thương hiệu</Label>
+                  <Label>Ảnh quốc gia</Label>
                   <span className="flex items-start justify-between">
                     <NextImg
                       src={imageProcessor}
@@ -127,16 +130,9 @@ const CreateBrandModal = ({ onSubmit }: ICreateBrandModalProps) => {
                     </Button>
                   </span>
                 </span>
-                <span className="col-span-12">
-                  <Label>Mô tả</Label>
-                  <Input
-
-                    placeholder="Nhập mô tả"
-                  />
-                </span>
                 <div className={"col-span-12 mt-4 flex justify-end gap-4"}>
                   <Button className={"text-grap-900 bg-gray-100"}>Trở về</Button>
-                  <Button onClick={createBrand}>Tạo thương hiệu</Button>
+                  <Button onClick={createCountry}>Tạo quốc gia</Button>
                 </div>
               </div>
             </DialogHeader>
@@ -149,4 +145,4 @@ const CreateBrandModal = ({ onSubmit }: ICreateBrandModalProps) => {
   };
 };
 
-export default CreateBrandModal;
+export default CreateCountryModal;

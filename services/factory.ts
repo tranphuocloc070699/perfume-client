@@ -26,37 +26,34 @@ interface IHttpFactory {
 
 class HttpFactory {
   accessToken: string = "";
+
   constructor(accessToken?: string) {
     if (accessToken) this.accessToken = accessToken;
   }
 
   async call<T>({
-    method,
-    url,
-    fetchOptions,
-    body,
-    params,
-  }: IHttpFactory): Promise<T> {
+                  method,
+                  url,
+                  fetchOptions,
+                  body,
+                  params
+                }: IHttpFactory): Promise<T> {
     const options: RequestInit = {
       method,
       headers: {
-        "Content-Type": "application/json",
         ...(this.accessToken && {
-          Authorization: `Bearer ${this.accessToken}`,
-        }),
+          Authorization: `Bearer ${this.accessToken}`
+        })
       },
       cache: "no-store",
-      body: body ? JSON.stringify(body) : undefined,
-
-      ...fetchOptions,
+      ...fetchOptions
     };
+    if (body) options.body = body as BodyInit;
     try {
       let newUrl = url;
-
       if (params) {
         newUrl = `${url}?${new URLSearchParams(params)}`;
       }
-
       const response = await fetch(newUrl, options);
 
       return await response.json();
