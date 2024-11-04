@@ -20,7 +20,7 @@ interface ICreateCountryModalProps {
   onSubmit: (dto: CountryDto) => void;
 }
 
-const CreateCountryModal = ({ onSubmit }: ICreateCountryModalProps) => {
+const CreateCountryModal = () => {
   const { toast } = useToast();
   const { accessToken } = useUserStore();
   const [dto, setDto] = useState<CountryDto>(dummyCountryDto);
