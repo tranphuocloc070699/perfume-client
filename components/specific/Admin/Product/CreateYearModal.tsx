@@ -19,21 +19,21 @@ import { useUserStore } from "@/store/user.store";
 import { YearDto } from "@/types/year/year.model";
 import { ResponseDto } from "@/types/response";
 
-interface ICreateYearModalProps {
-  onSubmit: (year: YearDto) => void;
+function dummyResolvePromise(dto: YearDto) {
+
 }
 
-const CreateYearModal = ({ onSubmit }: ICreateYearModalProps) => {
+const CreateYearModal = () => {
   const { toast } = useToast();
   const { accessToken } = useUserStore();
-  const [resolvePromise, setResolvePromise] = useState<(value: YearDto) => void>();
+  const [resolvePromise, setResolvePromise] = useState<((value: YearDto) => void)>(dummyResolvePromise);
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState<number>();
   const [loading, setLoading] = useState(false);
 
   function openModal() {
     setIsOpen(true);
-    return new Promise((resolve) => {
+    return new Promise<YearDto>((resolve) => {
       setResolvePromise(() => resolve);
     });
   }
@@ -54,8 +54,7 @@ const CreateYearModal = ({ onSubmit }: ICreateYearModalProps) => {
 
     if (response.status == 200) {
       toast({ description: response.message });
-      onSubmit(response.data);
-      if (resolvePromise) resolvePromise(response.data);
+      resolvePromise(response.data);
       closeModal();
     }
     setLoading(false);
@@ -84,6 +83,7 @@ const CreateYearModal = ({ onSubmit }: ICreateYearModalProps) => {
                     }
                   }}
                 />
+
                 <Button
                   disabled={loading}
                   className="disabled:opacity-50"
