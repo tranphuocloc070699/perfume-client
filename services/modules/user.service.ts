@@ -2,7 +2,7 @@ import type { ResponseDto } from "@/types/response";
 import HttpFactory from "../factory";
 import {
   ISignUpLoginForm,
-  ISignUpLoginResponse,
+  ISignUpLoginResponse
 } from "@/types/user/user.interface";
 
 class UserService extends HttpFactory {
@@ -10,7 +10,7 @@ class UserService extends HttpFactory {
     return this.call<ResponseDto<ISignUpLoginResponse>>({
       method: "POST",
       url: `/api/user/signup`,
-      body: requestData,
+      body: requestData
     });
   }
 
@@ -18,36 +18,32 @@ class UserService extends HttpFactory {
     return this.call<ResponseDto<ISignUpLoginResponse>>({
       method: "POST",
       url: `/api/user/login`,
-      body: requestData,
+      body: requestData
     });
   }
+
   async authenticate() {
     return this.call<ResponseDto<ISignUpLoginResponse>>({
       method: "GET",
-      url: `/api/user`,
+      url: `/api/user`
     });
   }
+
   async logout() {
     return this.call<ResponseDto<ISignUpLoginResponse>>({
       method: "PUT",
-      url: `/api/user/log-out`,
+      url: `/api/user/log-out`
     });
   }
 
-  async uploadImage(file: File, id: string) {
+  async uploadImage(file: File) {
     const formData = new FormData();
     formData.append("image", file);
-    formData.append("id", id);
 
-    return this.call<ResponseDto<{ path: string }>>({
+    return this.call<ResponseDto<string>>({
       method: "POST",
-      url: `/upload`,
-      fetchOptions: {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      },
-      body: formData,
+      url: `/api/user/upload`,
+      body: formData
     });
   }
 }
