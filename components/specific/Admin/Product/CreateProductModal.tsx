@@ -33,6 +33,8 @@ import { UpsaveProductDto } from "@/types/admin/admin.interface";
 import { YearDto } from "@/types/year/year.model";
 import CreateBrandModal from "./CreateBrandModal";
 import { BrandDto } from "@/types/brand/brand.model";
+import CreateCountryModal from "@/components/specific/Admin/Product/CreateCountryModal";
+import { CountryDto } from "@/types/country/country.model";
 
 const CreateProductModal = () => {
   const [upsaveProduct, setUpsaveProduct] = useState<UpsaveProductDto>(
@@ -48,10 +50,18 @@ const CreateProductModal = () => {
     addYear(year);
   };
   const handleBrandModalSubmit = (brand: BrandDto) => {
+    setUpsaveProduct({ ...upsaveProduct, brand });
+    addBrand(brand);
   };
+
+  function handleCountryModalSubmit(country: CountryDto) {
+    setUpsaveProduct({ ...upsaveProduct, country });
+    addCountry(country);
+  }
 
   const createYearModal = CreateYearModal();
   const createBrandModal = CreateBrandModal();
+  const createCountryModal = CreateCountryModal();
 
   function updateUpsaveProductValue(key: keyof UpsaveProductDto, value: any) {
     setUpsaveProduct({ ...upsaveProduct, [key]: value });
@@ -99,6 +109,13 @@ const CreateProductModal = () => {
   function openBrandModal() {
     createBrandModal.open().then(data => {
       handleBrandModalSubmit(data);
+    });
+  }
+
+
+  function openCountryModal() {
+    createCountryModal.open().then(data => {
+      handleCountryModalSubmit(data);
     });
   }
 
@@ -192,12 +209,47 @@ const CreateProductModal = () => {
                     </SelectContent>
                   </Select>
                 </div>
+
+                <div className="col-span-1 flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <Label>Quốc gia</Label>
+                    <span
+                      className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer"
+                      onClick={openCountryModal}
+                    >
+                      <Icon
+                        icon={"lucide:plus"}
+                        className=" text-white h-4 w-4"
+                      />
+                    </span>
+                  </div>
+                  <Select
+                    value={upsaveProduct.country.id.toString()}
+                    onValueChange={(id) => onCountryChange(id)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Chọn quốc gia" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Quốc gia</SelectLabel>
+
+                        {countries.map((country) => (
+                          <SelectItem value={String(country.id)} key={country.id}>
+                            {country.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
               </form>
             </DialogHeader>
           </DialogContent>
         </Dialog>
         {createYearModal.content}
         {createBrandModal.content}
+        {createCountryModal.content}
       </>
     ),
     close: closeModal,

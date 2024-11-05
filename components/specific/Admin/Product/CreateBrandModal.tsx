@@ -86,30 +86,17 @@ const CreateBrandModal = () => {
     }
   }
 
-  function handleCreateCountryModalSubmit(countryDto: CountryDto) {
-
-  }
-
-  function openCountryModal() {
-    createCountryModal.open().then(data => {
-      handleCreateCountryModalSubmit(data);
-    });
-  }
-
-  const createCountryModal = CreateCountryModal();
-
 
   return {
     content: (
-      <>
-        {createCountryModal.content}
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogContent className="min-w-[50%] h-[90%]">
-            <DialogHeader>
-              <DialogTitle className="mb-4 font-bold text-base">
-                Tạo thương hiệu mới
-              </DialogTitle>
-              <div className="grid grid-cols-12 gap-8 ">
+
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="min-w-[50%] h-[90%]">
+          <DialogHeader>
+            <DialogTitle className="mb-4 font-bold text-base">
+              Tạo thương hiệu mới
+            </DialogTitle>
+            <div className="grid grid-cols-12 gap-8 ">
                 <span className="col-span-4">
                   <Label>Tên thương hiệu</Label>
                   <Input
@@ -121,7 +108,7 @@ const CreateBrandModal = () => {
                     placeholder="Nhập tên thương hiệu"
                   />
                 </span>
-                <span className="col-span-4">
+              <span className="col-span-4">
                   <Label>Link trang chủ</Label>
                   <Input
                     value={dto.homepageLink}
@@ -132,7 +119,7 @@ const CreateBrandModal = () => {
                     placeholder="Link trang chủ"
                   />
                 </span>
-                <span className="col-span-4">
+              <span className="col-span-4">
                   <Label>Ảnh thương hiệu</Label>
                   <span className="flex items-start justify-between">
                     <NextImg
@@ -150,22 +137,22 @@ const CreateBrandModal = () => {
                     </Button>
                   </span>
                 </span>
-                <span className="col-span-12">
+              <span className="col-span-12">
                   <Label>Mô tả</Label>
                   <Input
 
                     placeholder="Nhập mô tả"
                   />
                 </span>
-                <div className={"col-span-12 mt-4 flex justify-end gap-4"}>
-                  <Button className={"text-grap-900 bg-gray-100"}>Trở về</Button>
-                  <Button onClick={createBrand}>Tạo thương hiệu</Button>
-                </div>
+              <div className={"col-span-12 mt-4 flex justify-end gap-4"}>
+                <Button className={"text-grap-900 bg-gray-100"}>Trở về</Button>
+                <Button onClick={createBrand}>Tạo thương hiệu</Button>
               </div>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
-      </>
+            </div>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+
     ),
     close: closeModal,
     open: openModal

@@ -27,9 +27,22 @@ export const useAdminDashboardPageData = () => {
     setBrands([brand, ...brands]);
   };
 
+  const addCountry = (country: CountryDto) => {
+    setCountries([country, ...countries]);
+  };
+
   const fetchCountries = () => {
     const countryService = new CountryService();
-    countryService.getAllCountry();
+    countryService.getAllCountry().then((response) => {
+      if (response.data.length > 0) {
+        setCountries(response.data);
+      }
+    }).catch((err) => {
+      console.error("fetch year error", err);
+      toast({
+        content: "Fetch year data error"
+      });
+    });
   };
 
 
@@ -67,5 +80,5 @@ export const useAdminDashboardPageData = () => {
       });
   };
 
-  return { years, addYear, brands, addBrand };
+  return { years, addYear, brands, addBrand, countries, addCountry };
 };
