@@ -18,7 +18,8 @@ class BrandService extends HttpFactory {
   async createBrand(dto: BrandDto) {
     return this.call<ResponseDto<BrandDto>>({
       method: "POST",
-      url: `${getClientOrServerUrl()}/brand`
+      url: `${getClientOrServerUrl()}/brand`,
+      body: dto
     });
   }
 }

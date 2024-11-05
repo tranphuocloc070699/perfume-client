@@ -15,6 +15,7 @@ import BrandService from "@/services/modules/brand.service";
 import { CountryDto } from "@/types/country/country.model";
 import CountryService from "@/services/modules/country.service";
 import { dummyCountryDto } from "@/types/country/country.data";
+import MediaService from "@/services/modules/media.service";
 
 function dummyResolvePromise(dto: CountryDto) {
 
@@ -29,8 +30,8 @@ const CreateCountryModal = () => {
   const [loading, setLoading] = useState(false);
   const [resolvePromise, setResolvePromise] = useState<(dto: CountryDto) => void>(dummyResolvePromise);
 
-  const userService = useMemo(() => {
-    return new UserService(accessToken);
+  const mediaService = useMemo(() => {
+    return new MediaService(accessToken);
   }, [accessToken]);
 
   const countryService = useMemo(() => {
@@ -46,7 +47,7 @@ const CreateCountryModal = () => {
 
   function openModal(newData?: CountryDto) {
     setIsOpen(true);
-    if (newData && newData?.id > 0) {
+    if (newData && newData.id && newData.id > 0) {
       setDto(newData);
     }
 
@@ -67,7 +68,7 @@ const CreateCountryModal = () => {
 
   async function uploadImage() {
     if (!imageUploader) return;
-    const response = await userService.uploadImage(imageUploader);
+    const response = await mediaService.uploadImage(imageUploader);
     if (response.status == 200 && response.data) {
       setDto({ ...dto, thumbnail: response.data });
     }
@@ -78,7 +79,9 @@ const CreateCountryModal = () => {
       if (imageUploader) await uploadImage();
       const response = await countryService.createCountry(dto);
       if (response.status == 200 && response.data) {
+        toast({ description: response.message });
         resolvePromise(response.data);
+        closeModal();
       }
     } catch (error) {
       console.error(error);

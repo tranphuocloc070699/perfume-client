@@ -84,11 +84,11 @@ const CreateProductModal = () => {
   }
 
   function onCountryChange(id: string) {
-    const index = brands.findIndex((brand) => brand.id === Number(id));
+    const index = countries.findIndex((country) => country.id === Number(id));
     if (index === -1) {
       return;
     }
-    updateUpsaveProductValue("brand", brands[index]);
+    updateUpsaveProductValue("country", countries[index]);
   }
 
   function openModal() {
@@ -103,12 +103,14 @@ const CreateProductModal = () => {
   function openYearModal() {
     createYearModal.open().then((data) => {
       handleYearModalSubmit(data);
+
     });
   }
 
   function openBrandModal() {
-    createBrandModal.open().then(data => {
+    createBrandModal.open(undefined, countries).then(data => {
       handleBrandModalSubmit(data);
+
     });
   }
 
@@ -144,6 +146,19 @@ const CreateProductModal = () => {
                 </div>
                 <div className="col-span-1 flex flex-col gap-2">
                   <div className="flex items-center justify-between">
+                    <Label>Slug</Label>
+                    <span
+                      className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer opacity-0">
+                      <Icon
+                        icon={"lucide:plus"}
+                        className=" text-white h-4 w-4"
+                      />
+                    </span>
+                  </div>
+                  <Input placeholder="Bỏ trống để tự generate slug..." />
+                </div>
+                <div className="col-span-1 flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
                     <Label>Năm sản xuất</Label>
                     <span
                       className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer"
@@ -156,7 +171,7 @@ const CreateProductModal = () => {
                     </span>
                   </div>
                   <Select
-                    value={upsaveProduct.dateReleased.id.toString()}
+                    value={upsaveProduct.dateReleased.id ? `${upsaveProduct.dateReleased.id}` : ""}
                     onValueChange={(value) => onDateReleasedChange(value)}
                   >
                     <SelectTrigger>
@@ -190,7 +205,7 @@ const CreateProductModal = () => {
                     </span>
                   </div>
                   <Select
-                    value={upsaveProduct.brand.id.toString()}
+                    value={upsaveProduct.brand.id ? `${upsaveProduct.brand.id}` : ""}
                     onValueChange={(id) => onBrandChange(id)}
                   >
                     <SelectTrigger>
@@ -224,7 +239,7 @@ const CreateProductModal = () => {
                     </span>
                   </div>
                   <Select
-                    value={upsaveProduct.country.id.toString()}
+                    value={upsaveProduct.country.id ? `${upsaveProduct.country.id}` : ""}
                     onValueChange={(id) => onCountryChange(id)}
                   >
                     <SelectTrigger>

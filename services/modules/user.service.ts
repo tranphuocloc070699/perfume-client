@@ -36,16 +36,7 @@ class UserService extends HttpFactory {
     });
   }
 
-  async uploadImage(file: File) {
-    const formData = new FormData();
-    formData.append("image", file);
 
-    return this.call<ResponseDto<string>>({
-      method: "POST",
-      url: `/api/user/upload`,
-      body: formData
-    });
-  }
 }
 
 export default UserService;

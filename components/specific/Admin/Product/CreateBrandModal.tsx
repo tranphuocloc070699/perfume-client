@@ -1,7 +1,7 @@
 "use client";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -14,6 +14,17 @@ import UserService from "@/services/modules/user.service";
 import BrandService from "@/services/modules/brand.service";
 import CreateCountryModal from "@/components/specific/Admin/Product/CreateCountryModal";
 import { CountryDto } from "@/types/country/country.model";
+import MediaService from "@/services/modules/media.service";
+import { Icon } from "@iconify/react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
 
 
 function dummyResolvePromise(dto: BrandDto) {
@@ -26,11 +37,12 @@ const CreateBrandModal = () => {
   const [dto, setDto] = useState<BrandDto>(dummyBrandDto);
   const [imageUploader, setImageUploader] = useState<File | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [countries, setCountries] = useState<CountryDto[]>([]);
   const [loading, setLoading] = useState(false);
   const [resolvePromise, setResolvePromise] = useState<(dto: BrandDto) => void>(dummyResolvePromise);
 
-  const userService = useMemo(() => {
-    return new UserService(accessToken);
+  const mediaService = useMemo(() => {
+    return new MediaService(accessToken);
   }, [accessToken]);
 
   const brandService = useMemo(() => {
@@ -44,10 +56,13 @@ const CreateBrandModal = () => {
     return "/assets/images/default-image.png";
   }, [imageUploader]);
 
-  function openModal(newData?: BrandDto) {
+  function openModal(newData?: BrandDto, newCountries?: CountryDto[]) {
     setIsOpen(true);
-    if (newData && newData?.id > 0) {
+    if (newData && newData.id && newData.id > 0) {
       setDto(newData);
+    }
+    if (newCountries) {
+      setCountries(newCountries);
     }
 
     return new Promise<BrandDto>((resolve) => {
@@ -67,9 +82,10 @@ const CreateBrandModal = () => {
 
   async function uploadImage() {
     if (!imageUploader) return;
-    const response = await userService.uploadImage(imageUploader);
+    const response = await mediaService.uploadImage(imageUploader);
     if (response.status == 200 && response.data) {
       setDto({ ...dto, thumbnail: response.data });
+      toast({ description: response.message });
     }
   }
 
@@ -77,15 +93,24 @@ const CreateBrandModal = () => {
     try {
       if (imageUploader) await uploadImage();
       const response = await brandService.createBrand(dto);
-      console.log({ response });
       if (response.status == 200 && response.data) {
+        toast({ description: response.message });
         resolvePromise(response.data);
+        closeModal();
       }
     } catch (error) {
       console.error(error);
     }
   }
 
+
+  function onCountryChange(id: string) {
+    const index = countries.findIndex((country) => country.id === Number(id));
+    if (index === -1) {
+      return;
+    }
+    setDto({ ...dto, country: countries[index] });
+  }
 
   return {
     content: (
@@ -137,6 +162,31 @@ const CreateBrandModal = () => {
                     </Button>
                   </span>
                 </span>
+              <div className="col-span-4 flex flex-col gap-2">
+                <div className="flex items-center justify-between">
+                  <Label>Quốc gia</Label>
+
+                </div>
+                <Select
+                  value={dto.country.id ? `${dto.country.id}` : ""}
+                  onValueChange={(id) => onCountryChange(id)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Chọn quốc gia" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Quốc gia</SelectLabel>
+
+                      {countries.map((country) => (
+                        <SelectItem value={String(country.id)} key={country.id}>
+                          {country.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
               <span className="col-span-12">
                   <Label>Mô tả</Label>
                   <Input

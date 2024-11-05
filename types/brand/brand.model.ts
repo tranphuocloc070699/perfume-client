@@ -2,7 +2,7 @@ import { CountryDto } from "../country/country.model";
 import { ProductDto } from "../product/product.model";
 
 export type BrandDto = {
-  id: number;
+  id?: number;
   name: string;
   description?: string;
   homepageLink: string;

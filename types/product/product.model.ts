@@ -27,7 +27,6 @@ export type ProductDto = {
   middleNotes: ProductNoteDto[];
   baseNotes: ProductNoteDto[];
   productCompares: ProductCompareDto[];
-
   dateReleased: YearDto;
 };
 

@@ -18,7 +18,8 @@ class CountryService extends HttpFactory {
   async createCountry(dto: CountryDto) {
     return this.call<ResponseDto<CountryDto>>({
       method: "POST",
-      url: `${getClientOrServerUrl()}/country`
+      url: `${getClientOrServerUrl()}/country`,
+      body: dto
     });
   }
 

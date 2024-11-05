@@ -38,17 +38,28 @@ class HttpFactory {
                   body,
                   params
                 }: IHttpFactory): Promise<T> {
+
+    const headers = new Headers({
+      ...(this.accessToken && {
+        Authorization: `Bearer ${this.accessToken}`
+      })
+    });
+
     const options: RequestInit = {
       method,
-      headers: {
-        ...(this.accessToken && {
-          Authorization: `Bearer ${this.accessToken}`
-        })
-      },
+      headers,
       cache: "no-store",
       ...fetchOptions
     };
-    if (body) options.body = body as BodyInit;
+    if (body) {
+      if (body instanceof FormData) options.body = body as BodyInit;
+      else {
+        options.body = JSON.stringify(body);
+
+        headers.set("Content-Type", "application/json");
+        options.headers = headers;
+      }
+    }
     try {
       let newUrl = url;
       if (params) {

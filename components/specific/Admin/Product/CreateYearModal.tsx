@@ -47,11 +47,9 @@ const CreateYearModal = () => {
       toast({ variant: "destructive", title: "Value is required" });
       return;
     }
-
     setLoading(true);
     const yearService = new YearService(accessToken);
     const response = await yearService.createYear({ value });
-
     if (response.status == 200) {
       toast({ description: response.message });
       resolvePromise(response.data);
