@@ -4,7 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
+  DialogTitle
 } from "@/components/ui/dialog";
 import { useState } from "react";
 
@@ -17,21 +17,27 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import YearService from "@/services/modules/year.service";
 import { useUserStore } from "@/store/user.store";
 import { YearDto } from "@/types/year/year.model";
+import { ResponseDto } from "@/types/response";
 
-interface ICreateYearModalProps {
-  onSubmit: (year: YearDto) => void;
+function dummyResolvePromise(dto: YearDto) {
+
 }
 
-const CreateYearModal = ({ onSubmit }: ICreateYearModalProps) => {
+const CreateYearModal = () => {
   const { toast } = useToast();
   const { accessToken } = useUserStore();
-
+  const [resolvePromise, setResolvePromise] = useState<((value: YearDto) => void)>(dummyResolvePromise);
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState<number>();
   const [loading, setLoading] = useState(false);
+
   function openModal() {
     setIsOpen(true);
+    return new Promise<YearDto>((resolve) => {
+      setResolvePromise(() => resolve);
+    });
   }
+
   function closeModal() {
     setIsOpen(false);
   }
@@ -48,7 +54,7 @@ const CreateYearModal = ({ onSubmit }: ICreateYearModalProps) => {
 
     if (response.status == 200) {
       toast({ description: response.message });
-      onSubmit(response.data);
+      resolvePromise(response.data);
       closeModal();
     }
     setLoading(false);
@@ -77,6 +83,7 @@ const CreateYearModal = ({ onSubmit }: ICreateYearModalProps) => {
                     }
                   }}
                 />
+
                 <Button
                   disabled={loading}
                   className="disabled:opacity-50"
@@ -111,7 +118,7 @@ const CreateYearModal = ({ onSubmit }: ICreateYearModalProps) => {
       </>
     ),
     close: closeModal,
-    open: openModal,
+    open: openModal
   };
 };
 

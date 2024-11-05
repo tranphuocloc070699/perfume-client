@@ -12,18 +12,22 @@ import NextImg from "next/image";
 import { dummyBrandDto } from "@/types/brand/brand.data";
 import UserService from "@/services/modules/user.service";
 import BrandService from "@/services/modules/brand.service";
+import CreateCountryModal from "@/components/specific/Admin/Product/CreateCountryModal";
+import { CountryDto } from "@/types/country/country.model";
 
-interface ICreateBrandModalProps {
-  onSubmit: (brand: BrandDto) => void;
+
+function dummyResolvePromise(dto: BrandDto) {
+
 }
 
-const CreateBrandModal = ({ onSubmit }: ICreateBrandModalProps) => {
+const CreateBrandModal = () => {
   const { toast } = useToast();
   const { accessToken } = useUserStore();
   const [dto, setDto] = useState<BrandDto>(dummyBrandDto);
   const [imageUploader, setImageUploader] = useState<File | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [resolvePromise, setResolvePromise] = useState<(dto: BrandDto) => void>(dummyResolvePromise);
 
   const userService = useMemo(() => {
     return new UserService(accessToken);
@@ -45,6 +49,10 @@ const CreateBrandModal = ({ onSubmit }: ICreateBrandModalProps) => {
     if (newData && newData?.id > 0) {
       setDto(newData);
     }
+
+    return new Promise<BrandDto>((resolve) => {
+      setResolvePromise(() => resolve);
+    });
   }
 
   function closeModal() {
@@ -70,16 +78,31 @@ const CreateBrandModal = ({ onSubmit }: ICreateBrandModalProps) => {
       if (imageUploader) await uploadImage();
       const response = await brandService.createBrand(dto);
       console.log({ response });
-
+      if (response.status == 200 && response.data) {
+        resolvePromise(response.data);
+      }
     } catch (error) {
       console.error(error);
     }
   }
 
+  function handleCreateCountryModalSubmit(countryDto: CountryDto) {
+
+  }
+
+  function openCountryModal() {
+    createCountryModal.open().then(data => {
+      handleCreateCountryModalSubmit(data);
+    });
+  }
+
+  const createCountryModal = CreateCountryModal();
+
 
   return {
     content: (
       <>
+        {createCountryModal.content}
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogContent className="min-w-[50%] h-[90%]">
             <DialogHeader>

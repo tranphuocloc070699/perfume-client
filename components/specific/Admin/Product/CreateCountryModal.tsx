@@ -16,17 +16,18 @@ import { CountryDto } from "@/types/country/country.model";
 import CountryService from "@/services/modules/country.service";
 import { dummyCountryDto } from "@/types/country/country.data";
 
-interface ICreateCountryModalProps {
-  onSubmit: (dto: CountryDto) => void;
+function dummyResolvePromise(dto: CountryDto) {
+
 }
 
-const CreateCountryModal = ({ onSubmit }: ICreateCountryModalProps) => {
+const CreateCountryModal = () => {
   const { toast } = useToast();
   const { accessToken } = useUserStore();
   const [dto, setDto] = useState<CountryDto>(dummyCountryDto);
   const [imageUploader, setImageUploader] = useState<File | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [resolvePromise, setResolvePromise] = useState<(dto: CountryDto) => void>(dummyResolvePromise);
 
   const userService = useMemo(() => {
     return new UserService(accessToken);
@@ -48,6 +49,10 @@ const CreateCountryModal = ({ onSubmit }: ICreateCountryModalProps) => {
     if (newData && newData?.id > 0) {
       setDto(newData);
     }
+
+    return new Promise<CountryDto>((resolve) => {
+      setResolvePromise(() => resolve);
+    });
   }
 
   function closeModal() {
@@ -72,8 +77,9 @@ const CreateCountryModal = ({ onSubmit }: ICreateCountryModalProps) => {
     try {
       if (imageUploader) await uploadImage();
       const response = await countryService.createCountry(dto);
-      console.log({ response });
-
+      if (response.status == 200 && response.data) {
+        resolvePromise(response.data);
+      }
     } catch (error) {
       console.error(error);
     }

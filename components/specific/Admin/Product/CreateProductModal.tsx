@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 
 import {
   Select,
@@ -18,21 +18,21 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue
-} from '@/components/ui/select';
-import CommonInput from '@/components/common/CommonInput';
-import { dummyUpsaveProductDto, validYears } from '@/types/admin/admin.data';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { Icon } from '@iconify/react/dist/iconify.js';
-import CreateYearModal from './CreateYearModal';
-import { Input } from '@/components/ui/input';
-import YearService from '@/services/modules/year.service';
-import { useToast } from '@/hooks/use-toast';
-import { useAdminDashboardPageData } from '@/hooks/fetch-data/admin-dashboard-page';
-import { UpsaveProductDto } from '@/types/admin/admin.interface';
-import { YearDto } from '@/types/year/year.model';
-import CreateBrandModal from './CreateBrandModal';
-import { BrandDto } from '@/types/brand/brand.model';
+} from "@/components/ui/select";
+import CommonInput from "@/components/common/CommonInput";
+import { dummyUpsaveProductDto, validYears } from "@/types/admin/admin.data";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import CreateYearModal from "./CreateYearModal";
+import { Input } from "@/components/ui/input";
+import YearService from "@/services/modules/year.service";
+import { useToast } from "@/hooks/use-toast";
+import { useAdminDashboardPageData } from "@/hooks/fetch-data/admin-dashboard-page";
+import { UpsaveProductDto } from "@/types/admin/admin.interface";
+import { YearDto } from "@/types/year/year.model";
+import CreateBrandModal from "./CreateBrandModal";
+import { BrandDto } from "@/types/brand/brand.model";
 
 const CreateProductModal = () => {
   const [upsaveProduct, setUpsaveProduct] = useState<UpsaveProductDto>(
@@ -40,7 +40,7 @@ const CreateProductModal = () => {
   );
 
   const { toast } = useToast();
-  const { years, addYear, brands, addBrand } = useAdminDashboardPageData();
+  const { years, addYear, brands, addBrand, countries, addCountry } = useAdminDashboardPageData();
 
   const [isOpen, setIsOpen] = useState(false);
   const handleYearModalSubmit = (year: YearDto) => {
@@ -50,10 +50,8 @@ const CreateProductModal = () => {
   const handleBrandModalSubmit = (brand: BrandDto) => {
   };
 
-  const createYearModal = CreateYearModal({ onSubmit: handleYearModalSubmit });
-  const createBrandModal = CreateBrandModal({
-    onSubmit: handleBrandModalSubmit
-  });
+  const createYearModal = CreateYearModal();
+  const createBrandModal = CreateBrandModal();
 
   function updateUpsaveProductValue(key: keyof UpsaveProductDto, value: any) {
     setUpsaveProduct({ ...upsaveProduct, [key]: value });
@@ -64,7 +62,7 @@ const CreateProductModal = () => {
     if (index === -1) {
       return;
     }
-    updateUpsaveProductValue('dateReleased', years[index]);
+    updateUpsaveProductValue("dateReleased", years[index]);
   }
 
   function onBrandChange(id: string) {
@@ -72,11 +70,19 @@ const CreateProductModal = () => {
     if (index === -1) {
       return;
     }
-    updateUpsaveProductValue('brand', brands[index]);
+    updateUpsaveProductValue("brand", brands[index]);
+  }
+
+  function onCountryChange(id: string) {
+    const index = brands.findIndex((brand) => brand.id === Number(id));
+    if (index === -1) {
+      return;
+    }
+    updateUpsaveProductValue("brand", brands[index]);
   }
 
   function openModal() {
-    console.log('open modal trigger...');
+    console.log("open modal trigger...");
     setIsOpen(true);
   }
 
@@ -85,11 +91,15 @@ const CreateProductModal = () => {
   }
 
   function openYearModal() {
-    createYearModal.open();
+    createYearModal.open().then((data) => {
+      handleYearModalSubmit(data);
+    });
   }
 
   function openBrandModal() {
-    createBrandModal.open();
+    createBrandModal.open().then(data => {
+      handleBrandModalSubmit(data);
+    });
   }
 
   return {
@@ -108,7 +118,7 @@ const CreateProductModal = () => {
                     <span
                       className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer opacity-0">
                       <Icon
-                        icon={'lucide:plus'}
+                        icon={"lucide:plus"}
                         className=" text-white h-4 w-4"
                       />
                     </span>
@@ -123,7 +133,7 @@ const CreateProductModal = () => {
                       onClick={openYearModal}
                     >
                       <Icon
-                        icon={'lucide:plus'}
+                        icon={"lucide:plus"}
                         className=" text-white h-4 w-4"
                       />
                     </span>
@@ -157,7 +167,7 @@ const CreateProductModal = () => {
                       onClick={openBrandModal}
                     >
                       <Icon
-                        icon={'lucide:plus'}
+                        icon={"lucide:plus"}
                         className=" text-white h-4 w-4"
                       />
                     </span>
