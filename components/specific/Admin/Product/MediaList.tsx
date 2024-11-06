@@ -1,23 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
-import { Icon } from "@iconify/react";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import MediaUploaderModal from "@/components/specific/Admin/Product/MediaUploaderModal";
+import CommonPopConfirm from "@/components/common/CommonPopConfirm";
+import { UpsaveProductDto } from "@/types/admin/admin.interface";
+import upsaveInput from "@/components/specific/Admin/Product/UpsaveInput";
+import { ProductDto } from "@/types/product/product.model";
 
 interface IMediaListProps {
-  data: string[];
+  className?: string,
+  data?: string[],
+  updateUpsaveProductValue: (key: keyof UpsaveProductDto, value: any) => void,
+  id: keyof UpsaveProductDto,
+  label: string
 }
 
-const MediaList = ({ data }: IMediaListProps) => {
+
+const MediaList = ({ data, className, updateUpsaveProductValue, id, label }: IMediaListProps) => {
 
   function openMediaUploaderModal() {
-    mediaUploaderModal.openModal();
+    mediaUploaderModal.openModal().then(data => {
+      if (data.length === 0) return;
+
+      updateUpsaveProductValue(id, data);
+      mediaUploaderModal.closeModal();
+    });
   }
 
+
   const mediaUploaderModal = MediaUploaderModal();
+
+  function removeImage(path: string) {
+    const imagesContain = data?.filter(item => item !== path);
+    updateUpsaveProductValue(id, imagesContain);
+  }
+
   return (
-    <div component-name={"MediaList"} className="col-span-1 flex flex-col gap-2">
+    <div component-name={"MediaList"} className={className}>
       <div className="flex items-center justify-between">
-        <Label>Gallery</Label>
+        <Label>{label}</Label>
         <span
           className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer"
           onClick={openMediaUploaderModal}
@@ -27,11 +48,20 @@ const MediaList = ({ data }: IMediaListProps) => {
                         className=" text-white h-4 w-4"
                       />
                     </span>
-        <div className={"mt-4 "}>
-          {data?.map(path => <img src={path} alt={"Image"} className={"w-8 h-8 rounded-lg"} />)}
-        </div>
-
       </div>
+      <div className={"mt-4 p-4 border border-b-gray-300 rounded-lg grid grid-cols-12 gap-4 "}>
+        {data?.map(path => <div key={path} className={"rounded-lg col-span-3 relative"}>
+          <img src={`http://localhost:8090/upload${path}`} alt={"Image"}
+               className={"w-full object-cover h-16 rounded-lg"} />
+          {/*<CommonPopConfirm onConfirm={() => removeImage(path)}>*/}
+          <span onClick={() => removeImage(path)}
+                className={"absolute top-[-10px] right-[-10px] bg-white rounded-full shadow-lg cursor-pointer"}>
+            <Icon icon={"lucide:circle-x"} className={"h-6 w-6 text-red-700"} />
+          </span>
+          {/*</CommonPopConfirm>*/}
+        </div>)}
+      </div>
+      {mediaUploaderModal.content}
     </div>
   );
 };

@@ -36,6 +36,10 @@ import { BrandDto } from "@/types/brand/brand.model";
 import CreateCountryModal from "@/components/specific/Admin/Product/CreateCountryModal";
 import { CountryDto } from "@/types/country/country.model";
 
+import UpsaveInput from "@/components/specific/Admin/Product/UpsaveInput";
+import UpsaveSelect from "@/components/specific/Admin/Product/UpsaveSelect";
+import MediaList from "@/components/specific/Admin/Product/MediaList";
+
 const CreateProductModal = () => {
   const [upsaveProduct, setUpsaveProduct] = useState<UpsaveProductDto>(
     dummyUpsaveProductDto
@@ -103,7 +107,6 @@ const CreateProductModal = () => {
   function openYearModal() {
     createYearModal.open().then((data) => {
       handleYearModalSubmit(data);
-
     });
   }
 
@@ -125,139 +128,38 @@ const CreateProductModal = () => {
     content: (
       <>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogContent className="min-w-[60%] h-[90%]">
+          <DialogContent className="min-w-[60%] h-[90%] overflow-y-auto">
             <DialogHeader>
               <DialogTitle className="mb-4 font-bold text-base">
                 Tạo sản phẩm mới
               </DialogTitle>
-              <form className="grid grid-cols-3 gap-8">
-                <div className="col-span-1 flex flex-col gap-2">
-                  <div className="flex items-center justify-between">
-                    <Label>Tên sản phẩm</Label>
-                    <span
-                      className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer opacity-0">
-                      <Icon
-                        icon={"lucide:plus"}
-                        className=" text-white h-4 w-4"
-                      />
-                    </span>
-                  </div>
-                  <Input placeholder="Nhập tên sản phẩm..." />
-                </div>
-                <div className="col-span-1 flex flex-col gap-2">
-                  <div className="flex items-center justify-between">
-                    <Label>Slug</Label>
-                    <span
-                      className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer opacity-0">
-                      <Icon
-                        icon={"lucide:plus"}
-                        className=" text-white h-4 w-4"
-                      />
-                    </span>
-                  </div>
-                  <Input placeholder="Bỏ trống để tự generate slug..." />
-                </div>
-                <div className="col-span-1 flex flex-col gap-2">
-                  <div className="flex items-center justify-between">
-                    <Label>Năm sản xuất</Label>
-                    <span
-                      className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer"
-                      onClick={openYearModal}
-                    >
-                      <Icon
-                        icon={"lucide:plus"}
-                        className=" text-white h-4 w-4"
-                      />
-                    </span>
-                  </div>
-                  <Select
-                    value={upsaveProduct.dateReleased.id ? `${upsaveProduct.dateReleased.id}` : ""}
-                    onValueChange={(value) => onDateReleasedChange(value)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Chọn năm sản xuất" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Năm sản xuất</SelectLabel>
+              <form className="grid grid-cols-12 gap-8">
+                <UpsaveInput label={"Tên sản phẩm"} placeholder={"Nhập tên sản phẩm"} name={"name"}
+                             className={"col-span-6 flex flex-col gap-2"} />
+                <UpsaveInput label={"Slug"} placeholder={"Bỏ trống để tự generate slug"} name={"slug"}
+                             className={"col-span-6 flex flex-col gap-2"} />
+                <UpsaveSelect className={"col-span-6 flex flex-col gap-2"} label={"Năm sản xuất"} data={years}
+                              openModal={openYearModal}
+                              value={upsaveProduct.dateReleased.id ? `${upsaveProduct.dateReleased.id}` : ""}
+                              onValueChange={onDateReleasedChange} type={"Year"} />
+                <UpsaveSelect className={"col-span-6 flex flex-col gap-2"} label={"Thương hiệu"} data={brands}
+                              openModal={openBrandModal}
+                              value={upsaveProduct.brand.id ? `${upsaveProduct.brand.id}` : ""}
+                              onValueChange={onBrandChange} type={"Brand"} />
+                <UpsaveSelect className={"col-span-6 flex flex-col gap-2"} label={"Quốc gia"} data={countries}
+                              openModal={openCountryModal}
+                              value={upsaveProduct.country.id ? `${upsaveProduct.country.id}` : ""}
+                              onValueChange={onCountryChange} type={"Country"} />
+                <div className={"col-span-6"}>
 
-                        {years.map((year) => (
-                          <SelectItem value={String(year.id)} key={year.id}>
-                            {year.value}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
                 </div>
 
-                <div className="col-span-1 flex flex-col gap-2">
-                  <div className="flex items-center justify-between">
-                    <Label>Thương hiệu</Label>
-                    <span
-                      className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer"
-                      onClick={openBrandModal}
-                    >
-                      <Icon
-                        icon={"lucide:plus"}
-                        className=" text-white h-4 w-4"
-                      />
-                    </span>
-                  </div>
-                  <Select
-                    value={upsaveProduct.brand.id ? `${upsaveProduct.brand.id}` : ""}
-                    onValueChange={(id) => onBrandChange(id)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Chọn thương hiệu" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Thương hiệu</SelectLabel>
-
-                        {brands.map((brand) => (
-                          <SelectItem value={String(brand.id)} key={brand.id}>
-                            {brand.name}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="col-span-1 flex flex-col gap-2">
-                  <div className="flex items-center justify-between">
-                    <Label>Quốc gia</Label>
-                    <span
-                      className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer"
-                      onClick={openCountryModal}
-                    >
-                      <Icon
-                        icon={"lucide:plus"}
-                        className=" text-white h-4 w-4"
-                      />
-                    </span>
-                  </div>
-                  <Select
-                    value={upsaveProduct.country.id ? `${upsaveProduct.country.id}` : ""}
-                    onValueChange={(id) => onCountryChange(id)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Chọn quốc gia" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Quốc gia</SelectLabel>
-
-                        {countries.map((country) => (
-                          <SelectItem value={String(country.id)} key={country.id}>
-                            {country.name}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </div>
+                <MediaList className={"col-span-6 flex flex-col gap-2 w-full"}
+                           data={upsaveProduct.galleries} updateUpsaveProductValue={updateUpsaveProductValue}
+                           id={"galleries"} label={"Galleries"} />
+                <MediaList className={"col-span-6 flex flex-col gap-2 w-full"}
+                           data={upsaveProduct.outfits} updateUpsaveProductValue={updateUpsaveProductValue}
+                           id={"outfits"} label={"Outfits"} />
               </form>
             </DialogHeader>
           </DialogContent>
