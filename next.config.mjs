@@ -1,26 +1,26 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**",
+        hostname: "**"
       },
       {
         protocol: "http",
-        hostname: "localhost",
-      },
-    ],
+        hostname: "localhost"
+      }
+    ]
   },
   async rewrites() {
     return [
       {
         source: "/api/:path*",
-        destination: "http://localhost:8080/:path*",
-      },
+        destination: "http://localhost:8090/:path*"
+      }
     ];
-  },
+  }
 };
 
 export default nextConfig;
