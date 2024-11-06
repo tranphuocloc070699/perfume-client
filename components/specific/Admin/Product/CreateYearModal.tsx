@@ -92,24 +92,6 @@ const CreateYearModal = () => {
                   Tạo
                 </Button>
               </div>
-              {/* <h4 className="mt-10">Danh sách hiện tại</h4>
-              <div className="border rounded-md min-h-[2.5rem] overflow-y-auto p-2 flex gap-2 flex-wrap items-center">
-                {yearsData.map((item, idx) => (
-                  <Badge key={idx} variant="secondary">
-                    {item}
-                    <button
-                      type="button"
-                      className="w-3 ml-2"
-                      onClick={() => removeValue(item)}
-                    >
-                      <Icon
-                        icon={"material-symbols-light:close"}
-                        className="w-3 h-3"
-                      />
-                    </button>
-                  </Badge>
-                ))}
-              </div> */}
             </DialogHeader>
           </DialogContent>
         </Dialog>
