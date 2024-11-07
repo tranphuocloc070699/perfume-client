@@ -31,7 +31,7 @@ const AdminDashboard = () => {
       }
     ],
     onBtnCreatedClick: () => {
-      router.push("/admin/nuoc-hoa/up-save");
+      router.push("/admin/nuoc-hoa");
     }
   };
 

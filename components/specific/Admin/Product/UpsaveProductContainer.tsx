@@ -22,6 +22,7 @@ import UpsaveMultiSelect from "@/components/specific/Admin/Product/UpsaveMultiSe
 import UpsaveThumbnail from "@/components/specific/Admin/Product/UpsaveThumbnail";
 import CommonTipTap from "@/components/common/CommonTipTap";
 
+
 const UpsaveProductContainer = () => {
   const [upsaveProduct, setUpsaveProduct] = useState<UpsaveProductDto>(
     dummyUpsaveProductDto
@@ -104,36 +105,36 @@ const UpsaveProductContainer = () => {
   }
 
   return (<div className="grid grid-cols-12 gap-8">
-    <UpsaveThumbnail className={"space-y-4 col-span-12"} thumbnail={upsaveProduct.thumbnail} preview={thumbnailUpload}
+    <UpsaveThumbnail className={"space-y-4 col-span-4"} thumbnail={upsaveProduct.thumbnail} preview={thumbnailUpload}
                      setPreview={setThumbnailUpload} />
     <UpsaveInput label={"Tên sản phẩm"} placeholder={"Nhập tên sản phẩm"} name={"name"}
-                 className={"col-span-6 flex flex-col gap-2"} />
+                 className={"col-span-4 flex flex-col gap-2"} />
     <UpsaveInput label={"Slug"} placeholder={"Bỏ trống để tự generate slug"} name={"slug"}
-                 className={"col-span-6 flex flex-col gap-2"} />
-    <UpsaveSelect className={"col-span-6 flex flex-col gap-2"} label={"Năm sản xuất"} data={years}
+                 className={"col-span-4 flex flex-col gap-2"} />
+    <UpsaveSelect className={"col-span-4 flex flex-col gap-2"} label={"Năm sản xuất"} data={years}
                   openModal={openYearModal}
                   value={upsaveProduct.dateReleased.id ? `${upsaveProduct.dateReleased.id}` : ""}
                   onValueChange={onDateReleasedChange} type={"Year"} />
-    <UpsaveSelect className={"col-span-6 flex flex-col gap-2"} label={"Thương hiệu"} data={brands}
+    <UpsaveSelect className={"col-span-4 flex flex-col gap-2"} label={"Thương hiệu"} data={brands}
                   openModal={openBrandModal}
                   value={upsaveProduct.brand.id ? `${upsaveProduct.brand.id}` : ""}
                   onValueChange={onBrandChange} type={"Brand"} />
-    <UpsaveSelect className={"col-span-6 flex flex-col gap-2"} label={"Quốc gia"} data={countries}
+    <UpsaveSelect className={"col-span-4 flex flex-col gap-2"} label={"Quốc gia"} data={countries}
                   openModal={openCountryModal}
                   value={upsaveProduct.country.id ? `${upsaveProduct.country.id}` : ""}
                   onValueChange={onCountryChange} type={"Country"} />
 
-    <UpsaveMultiSelect className={"col-span-6"} label={"Top Notes"} options={notes} openModal={openNoteModal}
+    <UpsaveMultiSelect className={"col-span-4"} label={"Top Notes"} options={notes} openModal={openNoteModal}
                        updateUpsaveProductValue={updateUpsaveProductValue}
                        values={upsaveProduct.topNotes}
                        id={"topNotes"}
     />
-    <UpsaveMultiSelect className={"col-span-6"} label={"Middle Notes"} options={notes} openModal={openNoteModal}
+    <UpsaveMultiSelect className={"col-span-4"} label={"Middle Notes"} options={notes} openModal={openNoteModal}
                        updateUpsaveProductValue={updateUpsaveProductValue}
                        values={upsaveProduct.middleNotes}
                        id={"middleNotes"}
     />
-    <UpsaveMultiSelect className={"col-span-6"} label={"Base Notes"} options={notes} openModal={openNoteModal}
+    <UpsaveMultiSelect className={"col-span-4"} label={"Base Notes"} options={notes} openModal={openNoteModal}
                        updateUpsaveProductValue={updateUpsaveProductValue}
                        values={upsaveProduct.baseNotes}
                        id={"baseNotes"}
