@@ -1,7 +1,12 @@
 import React from "react";
+import UpsaveProductContainer from "@/components/specific/Admin/Product/UpsaveProductContainer";
 
 const ProductManagement = () => {
-  return <div>Quản lý nước hoa</div>;
+  return (
+    <div component-name="ProductManagement">
+      <UpsaveProductContainer />
+    </div>
+  );
 };
 
 export default ProductManagement;

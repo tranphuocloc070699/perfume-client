@@ -1,6 +1,7 @@
 export type ProductNoteDto = {
-  id: string;
+  id?: number;
   name: string;
+  slug: string;
   enName: string;
   thumbnail: string;
   createdAt: string;

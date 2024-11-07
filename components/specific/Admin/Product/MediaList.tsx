@@ -53,12 +53,12 @@ const MediaList = ({ data, className, updateUpsaveProductValue, id, label }: IMe
         {data?.map(path => <div key={path} className={"rounded-lg col-span-3 relative"}>
           <img src={`http://localhost:8090/upload${path}`} alt={"Image"}
                className={"w-full object-cover h-16 rounded-lg"} />
-          {/*<CommonPopConfirm onConfirm={() => removeImage(path)}>*/}
-          <span onClick={() => removeImage(path)}
-                className={"absolute top-[-10px] right-[-10px] bg-white rounded-full shadow-lg cursor-pointer"}>
+          <CommonPopConfirm onConfirm={() => removeImage(path)}>
+          <span
+            className={"absolute top-[-10px] right-[-10px] bg-white rounded-full shadow-lg cursor-pointer"}>
             <Icon icon={"lucide:circle-x"} className={"h-6 w-6 text-red-700"} />
           </span>
-          {/*</CommonPopConfirm>*/}
+          </CommonPopConfirm>
         </div>)}
       </div>
       {mediaUploaderModal.content}
