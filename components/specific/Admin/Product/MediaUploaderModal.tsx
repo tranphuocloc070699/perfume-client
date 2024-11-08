@@ -9,6 +9,7 @@ import { useUserStore } from "@/store/user.store";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { BrandDto } from "@/types/brand/brand.model";
+import { CloudUpload } from "lucide-react";
 
 function dummyResolvePromise(data: string[]) {
 
@@ -93,7 +94,6 @@ const MediaUploaderModal = () => {
 
   function addImageToProduct() {
     const imagesPath = imagesSelected.map(item => item.path);
-
     resolvePromise(imagesPath);
   }
 
@@ -105,15 +105,25 @@ const MediaUploaderModal = () => {
             <DialogTitle className="mb-4 font-bold text-base">
               Upload hình ảnh
             </DialogTitle>
-            <Tabs defaultValue="account" className="w-full">
+            <Tabs defaultValue="gallery" className="w-full">
               <TabsList>
                 <TabsTrigger value="local">Upload file</TabsTrigger>
                 <TabsTrigger value="gallery">Thư viện</TabsTrigger>
               </TabsList>
               <TabsContent value="local">
-                <Input type={"file"} multiple onChange={e => {
-                  uploadFilesFromLocal(e);
-                }} />
+
+                <div className="flex items-center justify-center w-full mt-12">
+                  <label htmlFor="dropzone-file"
+                         className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 ">
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                      <CloudUpload size={32} className={"text-gray-500"} />
+                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or
+                        drag and drop</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">Chỉ cho phép <b>hình ảnh</b></p>
+                    </div>
+                    <input id="dropzone-file" type="file" className="hidden" multiple onChange={uploadFilesFromLocal} />
+                  </label>
+                </div>
               </TabsContent>
               <TabsContent value="gallery">
                 <p className={"mt-4 text-sm font-medium text-gray-900"}>Đã chọn {imagesSelected.length} hình</p>

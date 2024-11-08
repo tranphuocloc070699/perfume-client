@@ -9,7 +9,7 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from "@/components/ui/select";
 import { useProductPageSearchingData } from "@/hooks/fetch-data/nuoc-hoa-page/useProductPageSearchingData";
 import { useParamsUtil } from "@/hooks/use-params";
@@ -22,49 +22,49 @@ export const sortByList = [
     value: 1,
     query: {
       sortBy: "price_VIETNAM_MARKET",
-      sortDir: "desc",
-    },
+      sortDir: "desc"
+    }
   },
   {
     label: "Giá VN: thấp đến cao",
     value: 2,
     query: {
       sortBy: "price_VIETNAM_MARKET",
-      sortDir: "asc",
-    },
+      sortDir: "asc"
+    }
   },
   {
     label: "Giá hãng: cao đến thấp",
     value: 3,
     query: {
       sortBy: "price_LISTED",
-      sortDir: "desc",
-    },
+      sortDir: "desc"
+    }
   },
   {
     label: "Giá hãng: thấp đến cao",
     value: 4,
     query: {
       sortBy: "price_LISTED",
-      sortDir: "asc",
-    },
+      sortDir: "asc"
+    }
   },
   {
     label: "Mới ra mắt",
     value: 5,
     query: {
       sortBy: "dateReleased",
-      sortDir: "desc",
-    },
+      sortDir: "desc"
+    }
   },
   {
     label: "Ra mắt lâu đời",
     value: 6,
     query: {
       sortBy: "dateReleased",
-      sortDir: "asc",
-    },
-  },
+      sortDir: "asc"
+    }
+  }
 ];
 
 const ProductPageSearching = () => {
@@ -75,7 +75,7 @@ const ProductPageSearching = () => {
   const { getParams, updateParams } = useParamsUtil({
     searchParams,
     pathname,
-    router,
+    router
   });
 
   /* Fetching select data */
@@ -96,7 +96,7 @@ const ProductPageSearching = () => {
       updateParams({
         key: "productName",
         value: event.target.value,
-        resetPage: true,
+        resetPage: true
       });
     }
   };
@@ -123,7 +123,7 @@ const ProductPageSearching = () => {
           <SelectGroup>
             <SelectLabel>Thương hiệu</SelectLabel>
             {options.brand.map((item) => (
-              <SelectItem key={item.id} value={item.id.toString()}>
+              <SelectItem key={item.id} value={`${item.id}`}>
                 {item.name}
               </SelectItem>
             ))}
@@ -144,7 +144,7 @@ const ProductPageSearching = () => {
           <SelectGroup>
             <SelectLabel>Quốc gia</SelectLabel>
             {options.country.map((item) => (
-              <SelectItem key={item.id} value={item.id.toString()}>
+              <SelectItem key={item.id} value={`${item?.id}`}>
                 {item.name}
               </SelectItem>
             ))}

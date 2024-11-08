@@ -20,7 +20,7 @@ import { MultiSelect } from "@/components/common/CommonMultiSelect";
 import UpsaveNoteModal from "@/components/specific/Admin/Product/UpsaveNoteModal";
 import UpsaveMultiSelect from "@/components/specific/Admin/Product/UpsaveMultiSelect";
 import UpsaveThumbnail from "@/components/specific/Admin/Product/UpsaveThumbnail";
-import CommonTipTap from "@/components/common/CommonTipTap";
+import CommonTipTap from "@/components/common/editor/CommonTipTap";
 
 
 const UpsaveProductContainer = () => {
