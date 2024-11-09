@@ -1,7 +1,7 @@
 "use client";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -12,27 +12,51 @@ import ProductNoteService from "@/services/modules/product-note.service";
 import { dummyProductNoteDto } from "@/types/product-note/product-note.data";
 
 import { Label } from "@/components/ui/label";
+import UpsaveThumbnail from "@/components/specific/Admin/Product/UpsaveThumbnail";
+import MediaService from "@/services/modules/media.service";
+import { UpsaveProductDto } from "@/types/admin/admin.interface";
 
-function dummyResolvePromise(dto: ProductNoteDto) {
+function dummyResolvePromise(dto: IResolvePromise) {
 
+}
+
+interface IResolvePromise {
+  key: keyof UpsaveProductDto;
+  data: ProductNoteDto;
 }
 
 const UpsaveNoteModal = () => {
   const { toast } = useToast();
   const { accessToken } = useUserStore();
-  const [resolvePromise, setResolvePromise] = useState<((value: ProductNoteDto) => void)>(dummyResolvePromise);
+  const [resolvePromise, setResolvePromise] = useState<((dto: IResolvePromise) => void)>(dummyResolvePromise);
   const [isOpen, setIsOpen] = useState(false);
   const [dto, setDto] = useState<ProductNoteDto>(dummyProductNoteDto);
   const [loading, setLoading] = useState(false);
+  const [thumbnailUpload, setThumbnailUpload] = useState<File | null>(null);
+  const [key, setKey] = useState<keyof UpsaveProductDto>("name");
 
   function updateDto(key: keyof ProductNoteDto, value: any) {
     setDto({ ...dto, [key]: value });
   }
 
 
-  function openModal() {
+  const mediaService = useMemo(() => {
+    return new MediaService(accessToken);
+  }, [accessToken]);
+
+  async function uploadImage(file: File) {
+    if (!file) return;
+    const response = await mediaService.uploadImage(file);
+    if (response.status == 200 && response.data) {
+      return response.data;
+    }
+  }
+
+
+  function openModal(id: keyof UpsaveProductDto) {
     setIsOpen(true);
-    return new Promise<ProductNoteDto>((resolve) => {
+    setKey(id);
+    return new Promise<IResolvePromise>((resolve) => {
       setResolvePromise(() => resolve);
     });
   }
@@ -42,19 +66,21 @@ const UpsaveNoteModal = () => {
   }
 
   async function onSubmit() {
-    // if (!dto.) {
-    //   toast({ variant: "destructive", title: "Value is required" });
-    //   return;
-    // }
     setLoading(true);
+    const req = { ...dto };
+    if (thumbnailUpload) {
+      const path = await uploadImage(thumbnailUpload);
+      req.thumbnail = path || "";
+    }
     const noteService = new ProductNoteService(accessToken);
-    const response = await noteService.createNote(dto);
-    console.log({ response });
-    if (response.status == 200) {
+    const response = await noteService.createNote(req);
 
-      // toast({ description: response.message });
-      // resolvePromise(response.data);
-      // closeModal();
+    if (response.status == 200) {
+      toast({ description: response.message });
+      resolvePromise({
+        data: response.data,
+        key
+      });
     }
     setLoading(false);
   }
@@ -90,7 +116,7 @@ const UpsaveNoteModal = () => {
                   />
                 </span>
                 <span className="col-span-4">
-                  <Label>Tên tiếng anh</Label>
+                  <Label>Slug</Label>
                   <Input
                     value={dto.slug}
                     onChange={e => {
@@ -99,6 +125,9 @@ const UpsaveNoteModal = () => {
                     placeholder="Bỏ trống để tự generate slug"
                   />
                 </span>
+
+                <UpsaveThumbnail className={"space-y-4 col-span-4"} thumbnail={dto.thumbnail} preview={thumbnailUpload}
+                                 setPreview={setThumbnailUpload} />
 
                 <div className={"flex justify-end col-span-12"}>
                   <Button

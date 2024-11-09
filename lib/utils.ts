@@ -27,6 +27,17 @@ export function extractIdFromUrl(url: string) {
   }
 }
 
+export function convertToSlug(name: string) {
+  return name
+    .toLowerCase()
+    .replace(/'/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-")
+    .trim();
+}
+
+
 export function checkIsOnServer() {
   return typeof window === "undefined";
 }

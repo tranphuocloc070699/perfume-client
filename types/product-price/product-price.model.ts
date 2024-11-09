@@ -1,8 +1,8 @@
 export type ProductPriceDto = {
-  id: number;
+  id?: number;
   labelType: "LISTED" | "VIETNAM_MARKET";
   priceType: "VND" | "USD";
-  value: number;
+  value: string;
   isSearch: boolean;
   link: string;
   createdAt: string;

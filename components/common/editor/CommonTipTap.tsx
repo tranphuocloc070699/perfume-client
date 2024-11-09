@@ -14,9 +14,12 @@ import { twMerge } from "tailwind-merge";
 
 interface ICommonTipTapProps {
   className?: string;
+  content: string;
+  onChange: (content: string) => void;
+  label?: string;
 }
 
-const CommonTipTap = ({ className }: ICommonTipTapProps) => {
+const CommonTipTap = ({ className, content, onChange, label }: ICommonTipTapProps) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -43,16 +46,26 @@ const CommonTipTap = ({ className }: ICommonTipTapProps) => {
     ],
     editorProps: {
       attributes: {
-        class: "prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl focus:outline-none border border-gray-300 border-t-0 rounded-b-lg p-4 w-full max-w-full"
+        class: "prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl focus:outline-none border border-gray-300 border-t-0 rounded-b-lg p-4 w-full max-w-full",
+        style: `
+        font-family: 'Roboto', sans-serif;
+          font-size: 16px;
+        `
       }
     },
     immediatelyRender: false,
-    content: ""
+    content,
+    onUpdate({ editor }) {
+      onChange(editor.getHTML());
+    }
   });
 
   const mediaUploaderModal = MediaUploaderModal();
   return (
     <div component-name={"CommonTipTap"} className={twMerge(`${className}`)}>
+      {
+        label && <h4 className={"mb-4 text-base font-medium"}>{label}</h4>
+      }
       <TipTapToolbar editor={editor}
       />
       <EditorContent editor={editor} />

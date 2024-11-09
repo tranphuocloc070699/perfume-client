@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Icon } from "@iconify/react";
 import { MultiSelect } from "@/components/common/CommonMultiSelect";
@@ -8,7 +8,7 @@ import { UpsaveProductDto } from "@/types/admin/admin.interface";
 interface IUpsaveMultiSelectProps {
   className?: string,
   label: string,
-  openModal: () => void,
+  openModal: (id: keyof UpsaveProductDto) => void,
   options: ProductNoteDto[],
   updateUpsaveProductValue: (key: keyof UpsaveProductDto, value: any) => void
   id: keyof UpsaveProductDto,
@@ -25,18 +25,35 @@ const UpsaveMultiSelect = ({
                              values
                            }: IUpsaveMultiSelectProps) => {
 
+
+  const [valuesProcessor, setValuesProcessor] = useState<string[]>([]);
+
   const dataOptionsProcessor = useMemo(() => {
     return options.map((item) => ({ value: `${item.id}`, label: item.name }));
   }, [options]);
 
-  const valuesProcessor = useMemo(() => {
-    return values?.map(value => `${value?.id}`);
+  useEffect(() => {
+    console.log("trigger...");
+    const newValues = values?.map(val => `${val?.id}`);
+    setValuesProcessor(newValues);
   }, [values]);
+
+  // const valuesProcessor = useMemo(() => {
+  //   console.log({ values });
+  //   return values?.map(value => `${value?.id}`);
+  // }, [values]);
 
   function onNoteSelectChange(values: string[]) {
     const notesSelected = options.filter(note => values.includes(note.id?.toString() ?? ""));
     updateUpsaveProductValue(id, notesSelected);
   }
+
+  // const onNoteSelectChange = useCallback((values: string[]) => {
+  //
+  //   const notesSelected = options.filter(note => values.includes(note.id?.toString() ?? ""));
+  //   console.log({ values, id, notesSelected, options });
+  //   updateUpsaveProductValue(id, notesSelected);
+  // }, [values, options]);
 
 
   return (
@@ -44,7 +61,7 @@ const UpsaveMultiSelect = ({
       <div className="flex items-center justify-between">
         <Label>{label}</Label>
         <span
-          onClick={openModal}
+          onClick={() => openModal(id)}
           className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer"
         >
                       <Icon
@@ -56,7 +73,7 @@ const UpsaveMultiSelect = ({
       <MultiSelect
         options={dataOptionsProcessor}
         placeholder="Chọn nốt hương..."
-        value={valuesProcessor}
+        defaultValue={valuesProcessor}
         onValueChange={onNoteSelectChange}
         variant="inverted"
         animation={2}

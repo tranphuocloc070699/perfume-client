@@ -19,4 +19,26 @@ export const dummyUpsaveProductDto: UpsaveProductDto = {
   brand: dummyBrandDto,
   dateReleased: dummyYearDto,
   country: dummyCountryDto,
+  topNotes: [],
+  middleNotes: [],
+  baseNotes: [],
+  prices: [
+    {
+      labelType: "VIETNAM_MARKET",
+      priceType: "VND",
+      value: "",
+      isSearch: true,
+      link: "",
+      createdAt: "",
+      updatedAt: ""
+    }, {
+      labelType: "LISTED",
+      priceType: "USD",
+      value: "",
+      isSearch: true,
+      link: "",
+      createdAt: "",
+      updatedAt: ""
+    }
+  ]
 };

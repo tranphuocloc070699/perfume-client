@@ -5,7 +5,7 @@ import {
   AlignLeft,
   AlignRight,
   Bold,
-  Code, Heading1,
+  Code, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6,
   ImageUp,
   Italic,
   Link,
@@ -105,6 +105,26 @@ export const headingOptions = [{
   {
     value: "h1",
     icon: <Heading1 size={defaultOptionSize} className={defaultClass} />
+  },
+  {
+    value: "h2",
+    icon: <Heading2 size={defaultOptionSize} className={defaultClass} />
+  },
+  {
+    value: "h3",
+    icon: <Heading3 size={defaultOptionSize} className={defaultClass} />
+  },
+  {
+    value: "h4",
+    icon: <Heading4 size={defaultOptionSize} className={defaultClass} />
+  },
+  {
+    value: "h5",
+    icon: <Heading5 size={defaultOptionSize} className={defaultClass} />
+  },
+  {
+    value: "h6",
+    icon: <Heading6 size={defaultOptionSize} className={defaultClass} />
   }
 
 ];

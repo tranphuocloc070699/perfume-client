@@ -6,19 +6,26 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
+  TableRow
 } from "@/components/ui/table";
 import { ITableHeader } from "@/types/admin/admin.interface";
 import NextImg from "next/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import CommonPopConfirm from "@/components/common/CommonPopConfirm";
+
 export interface ICommonTableManagementProps {
   title: string;
   desc: string;
   headers: ITableHeader[];
   data: Array<any>;
   onBtnCreatedClick: () => void;
+  onBtnDeleteClick: (id?: string) => void;
+  updatePath: string;
+
 }
+
 const CommonTableManagement = (props: ICommonTableManagementProps) => {
   const renderUiFromType = useCallback(
     (header: ITableHeader, data: any) => {
@@ -70,14 +77,18 @@ const CommonTableManagement = (props: ICommonTableManagementProps) => {
               ))}
               <TableCell>
                 <div className="flex gap-4 items-center">
-                  <Icon
-                    icon={"fluent-mdl2:edit"}
-                    className="w-8 h-8 p-2 bg-gray-200 rounded cursor-pointer"
-                  />{" "}
-                  <Icon
-                    icon={"iconoir:trash"}
-                    className="w-8 h-8 p-2 bg-gray-200 rounded cursor-pointer"
-                  />
+                  <Link href={`${props.updatePath}?id=${data?.id}`}>
+                    <Icon
+                      icon={"fluent-mdl2:edit"}
+                      className="w-8 h-8 p-2 bg-gray-200 rounded cursor-pointer"
+                    />
+                  </Link>
+                  <CommonPopConfirm onConfirm={() => props.onBtnDeleteClick(data?.id)}>
+                    <Icon
+                      icon={"iconoir:trash"}
+                      className="w-8 h-8 p-2 bg-gray-200 rounded cursor-pointer"
+                    />
+                  </CommonPopConfirm>
                 </div>
               </TableCell>
             </TableRow>

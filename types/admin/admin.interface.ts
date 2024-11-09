@@ -2,6 +2,7 @@ import { BrandDto } from "../brand/brand.model";
 import { CountryDto } from "../country/country.model";
 import { YearDto } from "../year/year.model";
 import { ProductNoteDto } from "@/types/product-note/product-note.model";
+import { ProductPriceDto } from "@/types/product-price/product-price.model";
 
 export interface ITableHeader {
   name: string;
@@ -10,6 +11,7 @@ export interface ITableHeader {
 }
 
 export interface UpsaveProductDto {
+  id?: string;
   name: string;
   slug: string;
   description: string;
@@ -22,4 +24,5 @@ export interface UpsaveProductDto {
   dateReleased: YearDto;
   brand: BrandDto;
   country: CountryDto;
+  prices: ProductPriceDto[];
 }

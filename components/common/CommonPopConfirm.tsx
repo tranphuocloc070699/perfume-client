@@ -27,7 +27,6 @@ const CommonPopConfirm = ({
   const [open, setOpen] = useState(false);
 
   const handleConfirm = () => {
-    console.log("handle confirm");
     onConfirm();
     setOpen(false);
   };

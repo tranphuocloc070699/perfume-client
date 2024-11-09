@@ -38,9 +38,8 @@ export const usePerfumePageData = (props: IUseParams) => {
   };
 
   useEffect(() => {
-    console.log("fetch data trigger...");
     fetchData();
   }, [props.searchParams]);
 
-  return { data, loading };
+  return { data, loading, fetchData };
 };
