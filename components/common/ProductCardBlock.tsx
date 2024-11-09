@@ -5,12 +5,13 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
 
 interface IProductCardBlockProps {
   title: string;
   children: ReactNode;
+
 }
 
 const ProductCardBlock = ({ title, children }: IProductCardBlockProps) => {

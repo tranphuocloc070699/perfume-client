@@ -1,44 +1,42 @@
 "use client";
-import React, { useMemo, useState } from "react";
-import UpsaveProductContainer from "@/components/specific/Admin/Product/UpsaveProductContainer";
+import React, { useMemo } from "react";
 import CommonTableManagement, {
   ICommonTableManagementProps
 } from "@/components/common/CommonManagement/CommonTableManagement";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useUserStore } from "@/store/user.store";
 import ProductService from "@/services/modules/product.service";
-import { ProductDto } from "@/types/product/product.model";
 import { usePerfumePageData } from "@/hooks/fetch-data/nuoc-hoa-page/usePerfumePageData";
 import { useParamsUtil } from "@/hooks/use-params";
 import CommonPagination from "@/components/common/CommonPagination";
 import { useToast } from "@/hooks/use-toast";
-import productService from "@/services/modules/product.service";
+import PostService from "@/services/modules/post.service";
+import { usePostPageData } from "@/hooks/fetch-data/blog-page/usePostPageData";
 
-const ProductManagement = () => {
-
+const NewsManagement = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const { data, loading, fetchData } = usePerfumePageData({
+  const { data, loading, fetchData } = usePostPageData({
     searchParams,
     pathname,
     router
   });
+
+
   const { updateParams } = useParamsUtil({ searchParams, pathname, router });
   const { toast } = useToast();
   const { accessToken } = useUserStore();
 
 
-  const productService = useMemo(() => {
-    return new ProductService(accessToken);
+  const postService = useMemo(() => {
+    return new PostService(accessToken);
   }, [accessToken]);
 
   const currentPage = useMemo(() => {
-    const currentPage = searchParams.get("page")
+    return searchParams.get("page")
       ? Number(searchParams.get("page"))
       : 1;
-
-    return currentPage;
   }, [searchParams]);
 
   const onPageChange = (page: number) => {
@@ -49,21 +47,21 @@ const ProductManagement = () => {
   const dataSource = useMemo(() => {
     return data.content.map(item => ({
       id: item.id,
-      thumbnail: item.thumbnail.startsWith("https://") ? item.thumbnail : `http://localhost:8090/upload${item.thumbnail}`,
-      productName: item.name
+      thumbnail: item?.thumbnail?.startsWith("https://") ? item?.thumbnail : `http://localhost:8090/upload${item?.thumbnail}`,
+      title: item.title
     }));
   }, [data]);
 
-  async function handleDeleteProduct(id?: string) {
+  async function handleDeletePost(id?: string) {
     if (!id) {
-      toast({ description: "không tìm thấy product id" });
+      toast({ description: "không tìm thấy post id" });
       return;
     }
     try {
-      const response = await productService.deleteProduct(id);
+      const response = await postService.deletePost(id);
       console.log({ response });
       if (response.status == 200 && response.data) {
-        toast({ description: "Xóa sản phẩm thành công" });
+        toast({ description: "Xóa bài viết thành công" });
         fetchData();
       }
     } catch (error) {
@@ -72,36 +70,34 @@ const ProductManagement = () => {
   }
 
 
-  function handleSearchProduct(input: string) {
+  function handleSearchPost(input: string) {
     updateParams({
-      key: "productName",
+      key: "title",
       value: input,
       resetPage: true
     });
   }
 
   const headers: ICommonTableManagementProps = {
-    title: "Quản lý sản phẩm",
-    desc: "Danh sách sản phẩm",
+    title: "Quản lý bài viết",
+    desc: "Danh sách bài viết",
     headers: [
       { name: "ID", type: "text" },
       { name: "Thumbnail", type: "image", className: "w-16 h-16" },
-      { name: "Tên sản phẩm", type: "text", className: "font-semibold" }
+      { name: "Tên bài viết", type: "text", className: "font-semibold" }
     ],
     data: [],
-    updatePath: "/admin/nuoc-hoa/up-save",
+    updatePath: "/admin/blog/up-save",
     onBtnCreatedClick: () => {
-      router.push("/admin/nuoc-hoa/up-save");
+      router.push("/admin/blog/up-save");
     },
-    onBtnDeleteClick: handleDeleteProduct,
-    onSearching: handleSearchProduct,
+    onBtnDeleteClick: handleDeletePost,
+    onSearching: handleSearchPost,
     loading
-
-
   };
 
   return (
-    <div component-name="ProductManagement">
+    <div component-name="NewsManagement">
       <CommonTableManagement {...headers}
                              data={dataSource} />
 
@@ -118,4 +114,4 @@ const ProductManagement = () => {
   );
 };
 
-export default ProductManagement;
+export default NewsManagement;

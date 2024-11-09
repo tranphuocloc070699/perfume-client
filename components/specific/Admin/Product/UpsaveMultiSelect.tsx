@@ -33,7 +33,6 @@ const UpsaveMultiSelect = ({
   }, [options]);
 
   useEffect(() => {
-    console.log("trigger...");
     const newValues = values?.map(val => `${val?.id}`);
     setValuesProcessor(newValues);
   }, [values]);

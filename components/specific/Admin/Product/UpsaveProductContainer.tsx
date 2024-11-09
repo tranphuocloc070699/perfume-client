@@ -12,7 +12,7 @@ import { BrandDto } from "@/types/brand/brand.model";
 import CreateCountryModal from "@/components/specific/Admin/Product/CreateCountryModal";
 import { CountryDto } from "@/types/country/country.model";
 import UpsaveInput from "@/components/specific/Admin/Product/UpsaveInput";
-import UpsaveSelect from "@/components/specific/Admin/Product/UpsaveSelect";
+import UpsaveProductSelect from "@/components/specific/Admin/Product/UpsaveProductSelect";
 import MediaList from "@/components/specific/Admin/Product/MediaList";
 import UpsaveNoteModal from "@/components/specific/Admin/Product/UpsaveNoteModal";
 import UpsaveMultiSelect from "@/components/specific/Admin/Product/UpsaveMultiSelect";
@@ -222,18 +222,18 @@ const UpsaveProductContainer = () => {
     <UpsaveInput type={"currency"} label={"Giá Hãng (USD)"} placeholder={"Nhập giá..."}
                  className={"col-span-4 flex flex-col gap-2"} value={priceInUSD.value}
                  onChange={(value) => onPriceChange("USD", value)} />
-    <UpsaveSelect className={"col-span-4 flex flex-col gap-2"} label={"Năm sản xuất"} data={years}
-                  openModal={openYearModal}
-                  value={upsaveProduct.dateReleased.id ? `${upsaveProduct.dateReleased.id}` : ""}
-                  onValueChange={onDateReleasedChange} type={"Year"} />
-    <UpsaveSelect className={"col-span-4 flex flex-col gap-2"} label={"Thương hiệu"} data={brands}
-                  openModal={openBrandModal}
-                  value={upsaveProduct.brand.id ? `${upsaveProduct.brand.id}` : ""}
-                  onValueChange={onBrandChange} type={"Brand"} />
-    <UpsaveSelect className={"col-span-4 flex flex-col gap-2"} label={"Quốc gia"} data={countries}
-                  openModal={openCountryModal}
-                  value={upsaveProduct.country.id ? `${upsaveProduct.country.id}` : ""}
-                  onValueChange={onCountryChange} type={"Country"} />
+    <UpsaveProductSelect className={"col-span-4 flex flex-col gap-2"} label={"Năm sản xuất"} data={years}
+                         openModal={openYearModal}
+                         value={upsaveProduct.dateReleased.id ? `${upsaveProduct.dateReleased.id}` : ""}
+                         onValueChange={onDateReleasedChange} type={"Year"} />
+    <UpsaveProductSelect className={"col-span-4 flex flex-col gap-2"} label={"Thương hiệu"} data={brands}
+                         openModal={openBrandModal}
+                         value={upsaveProduct.brand.id ? `${upsaveProduct.brand.id}` : ""}
+                         onValueChange={onBrandChange} type={"Brand"} />
+    <UpsaveProductSelect className={"col-span-4 flex flex-col gap-2"} label={"Quốc gia"} data={countries}
+                         openModal={openCountryModal}
+                         value={upsaveProduct.country.id ? `${upsaveProduct.country.id}` : ""}
+                         onValueChange={onCountryChange} type={"Country"} />
 
     <UpsaveMultiSelect className={"col-span-4"} label={"Top Notes"} options={notes} openModal={openNoteModal}
                        updateUpsaveProductValue={updateUpsaveProductValue}
@@ -258,7 +258,7 @@ const UpsaveProductContainer = () => {
                id={"outfits"} label={"Outfits"} />
 
     <CommonTipTap label={"Câu chuyện"} className={"col-span-12 mt-4"} content={upsaveProduct.description}
-                  onChange={(content) => updateUpsaveProductValue("description", content)} />
+                  onChange={(content) => updateUpsaveProductValue("description", content)} editMode={editMode} />
     <div className={"flex item-center justify-end mt-4 col-span-12"}>
       <Button onClick={onSubmit}>{editMode ? "Cập nhật sản phẩm" : "Tạo sản phẩm"}</Button>
     </div>

@@ -14,40 +14,27 @@ import { YearDto } from "@/types/year/year.model";
 import { BrandDto } from "@/types/brand/brand.model";
 import { CountryDto } from "@/types/country/country.model";
 
+interface SelectOptionProps {
+  label: string;
+  value: string;
+}
+
 interface IUpsaveSelectProps {
   className?: string;
   label: string;
-  data: YearDto[] | BrandDto[] | CountryDto[];
-  openModal: () => void;
+  options: SelectOptionProps[];
   value: string;
-  onValueChange: (value: string) => void;
-  type: "Brand" | "Country" | "Year" | "ProductNote";
-
+  onChange: (value: string) => void;
 }
 
-const UpsaveSelect = ({ label, data, openModal, value, onValueChange, type, className }: IUpsaveSelectProps) => {
-
-  const getLabel = useCallback((item: YearDto | BrandDto | CountryDto) => {
-    if (type === "Brand" && "name" in item) {
-      return item.name;
-    }
-    if (type === "Year" && "value" in item) {
-      return item.value;
-    }
-    if (type === "Country" && "name" in item) {
-      return item.name;
-    }
-
-    return "";
-  }, [data]);
+const UpsaveSelect = ({ label, value, onChange, className, options }: IUpsaveSelectProps) => {
 
   return (
     <div component-name="UpsaveSelect" className={className}>
       <div className="flex items-center justify-between">
         <Label>{label}</Label>
         <span
-          className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer"
-          onClick={openModal}
+          className="p-2 w-8 h-8 bg-black rounded flex items-center justify-center cursor-pointer opacity-0"
         >
                       <Icon
                         icon={"lucide:plus"}
@@ -57,7 +44,7 @@ const UpsaveSelect = ({ label, data, openModal, value, onValueChange, type, clas
       </div>
       <Select
         value={value}
-        onValueChange={onValueChange}
+        onValueChange={onChange}
       >
         <SelectTrigger>
           <SelectValue placeholder={`Chọn ${label}...`} />
@@ -65,9 +52,9 @@ const UpsaveSelect = ({ label, data, openModal, value, onValueChange, type, clas
         <SelectContent>
           <SelectGroup>
             <SelectLabel>{label}</SelectLabel>
-            {data.map((item) => (
-              <SelectItem value={String(item.id)} key={item.id}>
-                {getLabel(item)}
+            {options.map((item) => (
+              <SelectItem value={String(item.value)} key={item.value}>
+                {item.label}
               </SelectItem>
             ))}
           </SelectGroup>

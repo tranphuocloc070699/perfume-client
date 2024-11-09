@@ -145,7 +145,6 @@ export const MultiSelect = React.forwardRef<
 
 
     useEffect(() => {
-      console.log("trigger values", defaultValue, selectedValues);
       if (defaultValue.length > 0) {
         setSelectedValues(defaultValue);
 

@@ -2,7 +2,7 @@
 
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TipTapToolbar from "@/components/common/editor/TipTapToolbar";
 import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
@@ -13,65 +13,77 @@ import MediaUploaderModal from "@/components/specific/Admin/Product/MediaUploade
 import { twMerge } from "tailwind-merge";
 
 interface ICommonTipTapProps {
-  className?: string;
-  content: string;
-  onChange: (content: string) => void;
-  label?: string;
+  className?: string,
+  content: string,
+  onChange: (content: string) => void,
+  label?: string,
+  editMode: boolean
 }
 
-const CommonTipTap = ({ className, content, onChange, label }: ICommonTipTapProps) => {
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Image.configure({
-        inline: false,
-        HTMLAttributes: {
-          class: "rounded-lg shadow-sm w-full h-auto object-cover"
+const CommonTipTap = ({ className, content, onChange, label, editMode }: ICommonTipTapProps) => {
+  const [alreadyInsertContent, setAlreadyInsertContent] = useState(false);
+
+  const editor = useEditor(
+    {
+      immediatelyRender: false,
+      extensions: [
+        StarterKit,
+        Image.configure({
+          inline: false,
+          HTMLAttributes: {
+            class: "rounded-lg shadow-sm w-full h-auto object-cover"
+          }
+        }),
+        Underline,
+        TextAlign.configure({
+          types: ["heading", "paragraph"]
+        }),
+        Placeholder.configure({ placeholder: "Write something..." }),
+        Link.configure({
+          openOnClick: false,
+          autolink: true,
+          linkOnPaste: true,
+          HTMLAttributes: {
+            target: "_blank",
+            class: "text-gray-900 font-medium cursor-pointer "
+          }
+        })
+      ],
+      editorProps: {
+        attributes: {
+          class: "prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl focus:outline-none border border-gray-300 border-t-0 rounded-b-lg p-4 w-full max-w-full",
+          style: `
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+          `
         }
-      }),
-      Underline,
-      TextAlign.configure({
-        types: ["heading", "paragraph"]
-      }),
-      Placeholder.configure({ placeholder: "Write something..." }),
-      Link.configure({
-        openOnClick: false,
-        autolink: true,
-        linkOnPaste: true,
-        HTMLAttributes: {
-          target: "_blank",
-          class: "text-gray-900 font-medium cursor-pointer "
-        }
-      })
-    ],
-    editorProps: {
-      attributes: {
-        class: "prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl focus:outline-none border border-gray-300 border-t-0 rounded-b-lg p-4 w-full max-w-full",
-        style: `
-        font-family: 'Roboto', sans-serif;
-          font-size: 16px;
-        `
+      },
+      content,
+      onUpdate({ editor }) {
+        onChange(editor.getHTML());
       }
-    },
-    immediatelyRender: false,
-    content,
-    onUpdate({ editor }) {
-      onChange(editor.getHTML());
     }
-  });
+  );
+
+
+  useEffect(() => {
+
+    if (content && !alreadyInsertContent && editMode) {
+      editor?.commands.insertContent(content);
+      setAlreadyInsertContent(true);
+    }
+  }, [content, editMode]);
+
 
   const mediaUploaderModal = MediaUploaderModal();
+
   return (
     <div component-name={"CommonTipTap"} className={twMerge(`${className}`)}>
-      {
-        label && <h4 className={"mb-4 text-base font-medium"}>{label}</h4>
-      }
-      <TipTapToolbar editor={editor}
-      />
+      {label && <h4 className={"mb-4 text-base font-medium"}>{label}</h4>}
+      <TipTapToolbar editor={editor} />
       <EditorContent editor={editor} />
       {mediaUploaderModal.content}
     </div>
-
   );
 };
 

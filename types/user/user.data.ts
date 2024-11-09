@@ -5,7 +5,7 @@ export const initUserData: UserDto = {
   id: 0,
   name: "",
   avatar: "",
-  role: "USER",
+  role: "USER"
 };
 
 export const defaultList: ISidebarGroup = {
@@ -16,37 +16,37 @@ export const defaultList: ISidebarGroup = {
       iconUrl: "iconamoon:home-thin",
       type: "icon",
       link: "/",
-      children: [],
+      children: []
     },
     {
       title: "Nước hoa",
       iconUrl: "game-icons:square-bottle",
       type: "icon",
       link: "/nuoc-hoa",
-      children: [],
+      children: []
     },
     {
       title: "Nốt hương",
       iconUrl: "mdi:smell",
       type: "icon",
       link: "/not-huong",
-      children: [],
+      children: []
     },
     {
       title: "Thương hiệu",
       iconUrl: "ph:building",
       type: "icon",
       link: "/thuong-hieu",
-      children: [],
+      children: []
     },
     {
       title: "Tin tức",
       iconUrl: "emojione-monotone:newspaper",
       type: "icon",
-      link: "/tin-tuc",
-      children: [],
-    },
-  ],
+      link: "/blog",
+      children: []
+    }
+  ]
 };
 
 export const userList: ISidebarGroup = {
@@ -57,7 +57,7 @@ export const userList: ISidebarGroup = {
       iconUrl: "mingcute:user-4-fill",
       type: "icon",
       link: "/me",
-      children: [],
+      children: []
     },
     {
       title: "Thoát",
@@ -65,9 +65,9 @@ export const userList: ISidebarGroup = {
       type: "icon",
       link: "/log-out",
       children: [],
-      danger: true,
-    },
-  ],
+      danger: true
+    }
+  ]
 };
 
 export const adminList: ISidebarGroup = {
@@ -78,42 +78,42 @@ export const adminList: ISidebarGroup = {
       iconUrl: "iconamoon:home-thin",
       type: "icon",
       link: "/admin",
-      children: [],
+      children: []
     },
     {
       title: "Quản lý nước hoa",
       iconUrl: "game-icons:square-bottle",
       type: "icon",
       link: "/admin/nuoc-hoa",
-      children: [],
+      children: []
     },
     {
       title: "Quản lý nốt hương",
       iconUrl: "mdi:smell",
       type: "icon",
       link: "/admin/not-huong",
-      children: [],
+      children: []
     },
     {
       title: "Quản lý thương hiệu",
       iconUrl: "ph:building",
       type: "icon",
       link: "/admin/thuong-hieu",
-      children: [],
+      children: []
     },
     {
       title: "Quản lý tin tức",
       iconUrl: "emojione-monotone:newspaper",
       type: "icon",
-      link: "/admin/tin-tuc",
-      children: [],
+      link: "/admin/blog",
+      children: []
     },
     {
       title: "Quản lý bình luận",
       iconUrl: "ep:chat-dot-round",
       type: "icon",
       link: "/admin/binh-luan",
-      children: [],
-    },
-  ],
+      children: []
+    }
+  ]
 };

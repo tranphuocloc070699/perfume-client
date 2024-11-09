@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Table,
   TableBody,
@@ -14,19 +14,37 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import CommonPopConfirm from "@/components/common/CommonPopConfirm";
+import { Input } from "@/components/ui/input";
+import _debounce from "lodash/debounce";
+import CommonLoadDataSpinner from "@/components/common/CommonLoadDataSpinner";
 
 export interface ICommonTableManagementProps {
-  title: string;
-  desc: string;
-  headers: ITableHeader[];
-  data: Array<any>;
-  onBtnCreatedClick: () => void;
-  onBtnDeleteClick: (id?: string) => void;
-  updatePath: string;
-
+  title: string,
+  desc: string,
+  headers: ITableHeader[],
+  data: Array<any>,
+  onBtnCreatedClick: () => void,
+  onBtnDeleteClick: (id?: string) => void,
+  onSearching: (input: string) => void,
+  updatePath: string,
+  loading: boolean
 }
 
 const CommonTableManagement = (props: ICommonTableManagementProps) => {
+
+  const [input, setInput] = useState("");
+
+  function handleDebounceFn(inputValue: string) {
+    props.onSearching(inputValue);
+  }
+
+  const debounceFn = useCallback(_debounce(handleDebounceFn, 1000), []);
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setInput(event.target.value);
+    debounceFn(event.target.value);
+  }
+
   const renderUiFromType = useCallback(
     (header: ITableHeader, data: any) => {
       if (header.type === "image") {
@@ -44,11 +62,14 @@ const CommonTableManagement = (props: ICommonTableManagementProps) => {
     },
     [props]
   );
-
   return (
     <div className="border border-gray-300 rounded-lg p-4 shadow-md">
       <div className="flex items-center justify-between mb-6">
-        <h4 className="text-2xl font-semibold">{props.title}</h4>
+        <div className={"flex item-center gap-4"}>
+          <h4 className="text-2xl font-semibold text-nowrap">{props.title}</h4>
+          <Input placeholder={"Searching..."} value={input}
+                 onChange={(e) => handleChange(e)} />
+        </div>
         <Button
           className="flex items-center gap-2"
           onClick={props.onBtnCreatedClick}
@@ -68,7 +89,13 @@ const CommonTableManagement = (props: ICommonTableManagementProps) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {props.data.map((data, index) => (
+          {props.loading && <TableRow>
+            <TableCell colSpan={props.headers.length + 1}>
+              <CommonLoadDataSpinner text={"Load data"} loading={props.loading} />
+            </TableCell>
+          </TableRow>}
+
+          {!props.loading && props.data.map((data, index) => (
             <TableRow key={data?.id}>
               {Object.keys(data).map((key, index) => (
                 <TableCell key={key + index}>
