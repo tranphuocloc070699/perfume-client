@@ -75,7 +75,7 @@ const CommonTableManagement = (props: ICommonTableManagementProps) => {
           onClick={props.onBtnCreatedClick}
         >
           <Icon icon={"lucide:plus"} className="w-6 h-6" />
-          Tạo sản phẩm
+          Thêm mới
         </Button>
       </div>
       <Table>

@@ -203,7 +203,6 @@ const UpsaveProductContainer = () => {
       console.log("create product error", e);
     }
 
-
   }
 
   return (<div className="grid grid-cols-12 gap-8">
