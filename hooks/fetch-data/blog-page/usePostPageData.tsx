@@ -18,8 +18,8 @@ export const usePostPageData = (props: IUseParams) => {
   const fetchData = async () => {
     setData(dummyGetAllPostResponse);
     setLoading(true);
-    const { getParams } = useParamsUtil(props);
 
+    const { getParams } = useParamsUtil(props);
     let params = getParams(props.searchParams);
     if (params?.sortByType) {
       const index = sortByList.findIndex(
@@ -38,7 +38,6 @@ export const usePostPageData = (props: IUseParams) => {
     }
     setLoading(false);
   };
-
   useEffect(() => {
     fetchData();
   }, [props.searchParams]);

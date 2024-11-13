@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Check, Unlink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import CommonIcon from "@/components/common/CommonIcon";
 
 interface Props {
   onSubmit: (value: string) => void,
@@ -51,7 +52,8 @@ const LinkForm = ({ onSubmit, editMode, onUnlink, initialValue }: Props) => {
       <Input value={input} onChange={e => setInput(e.target.value)} placeholder={"Nhập link..."}
              onKeyDown={handleKeyDown} />
       <Button onClick={handleConfirm} className={"bg-green-600 w-10 h-10 flex items-center justify-center"}>
-        <Check className={"text-gray-100"} size={28} />
+        {/*<Check className={"text-gray-100"} size={28} />*/}
+        <CommonIcon name={"check"} className={"text-gray-100"} size={28} />
       </Button>
       {
         editMode && <Button onClick={handleUnlink} className={"bg-red-600 w-10 h-10 flex items-center justify-center"}>

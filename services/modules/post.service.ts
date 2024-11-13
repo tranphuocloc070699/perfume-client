@@ -32,7 +32,7 @@ class ProductService extends HttpFactory {
     });
   }
 
-  async getPostById(id: string) {
+  async getPostById(id: Number) {
     return this.call<ResponseDto<PostDto>>({
       method: "GET",
       url: `${getClientOrServerUrl()}${this.PREFIX}/${id}`
