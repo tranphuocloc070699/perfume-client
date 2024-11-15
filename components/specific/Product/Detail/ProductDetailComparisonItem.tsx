@@ -2,20 +2,17 @@
 
 import React from "react";
 import NextImg from "next/image";
-import ProductCardLine from "@/components/common/ProductCardLine";
-import {
-  IProductCardValue,
-  IProductDetailInfo,
-} from "@/types/product/product.interface";
 import CountingIcon from "@/components/common/CountingIcon";
 import ProductCompareModal from "@/components/common/modal/ProductCompareModal";
-import { useModalStore } from "@/store/modal.store";
 import { ProductCompareDto } from "@/types/product-compare/product-compare.model";
 import ProductCompareService from "@/services/modules/product-compare.service";
 
 const ProductDetailComparisonItem = ({ data }: { data: ProductCompareDto }) => {
   const modal = ProductCompareModal();
-  async function onIconClick(id: number) {}
+
+  async function onIconClick(id: number) {
+  }
+
   async function onClick() {
     const productCompareService = new ProductCompareService();
     const response = await productCompareService.getProductCompareById(data.id);
@@ -43,7 +40,7 @@ const ProductDetailComparisonItem = ({ data }: { data: ProductCompareDto }) => {
           data={{
             icon: "material-symbols-light:how-to-vote-outline",
             counting: data?.totalVotes,
-            onClick: onIconClick,
+            onClick: onIconClick
           }}
         />
       </div>

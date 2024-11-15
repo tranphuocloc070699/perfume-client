@@ -1,17 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Input } from "../ui/input";
+import React, { useState } from "react";
 import CommonInput from "./CommonInput";
 import Link from "next/link";
 import UserService from "@/services/modules/user.service";
 import { ISignUpLoginForm } from "@/types/user/user.interface";
 import { useToast } from "@/hooks/use-toast";
-import { title } from "process";
-import { ResponseDto } from "@/types/response";
-import { User } from "@/types/user/user.model";
 import { useUserStore } from "@/store/user.store";
 import { useRouter } from "next/navigation";
+
 interface ICommonSignupLoginForm {
   type: "login" | "signup";
 }
@@ -25,20 +22,20 @@ const CommonSignupLoginForm = ({ type }: ICommonSignupLoginForm) => {
       title: "Đăng nhập",
       switchTitle: "Chưa có tài khoản?",
       switchBtnLabel: "Đăng ký",
-      switchLink: "/dang-ky",
+      switchLink: "/dang-ky"
     },
     signup: {
       title: "Đăng ký",
       switchTitle: "Đã có tài khoản?",
       switchBtnLabel: "Đăng nhập",
-      switchLink: "/dang-nhap",
-    },
+      switchLink: "/dang-nhap"
+    }
   };
 
   const [requestData, setRequestData] = useState<ISignUpLoginForm>({
     email: "",
     name: "",
-    password: "",
+    password: ""
   });
 
   function onInputChange(
@@ -66,7 +63,7 @@ const CommonSignupLoginForm = ({ type }: ICommonSignupLoginForm) => {
     } else {
       toast.toast({
         title: response?.errors,
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   }
@@ -362,7 +359,8 @@ const CommonSignupLoginForm = ({ type }: ICommonSignupLoginForm) => {
                       fill="#f14336"
                       d="m419.404 58.936-82.933 67.896C313.136 112.246 285.552 103.82 256 103.82c-66.729 0-123.429 42.957-143.965 102.724l-83.397-68.276h-.014C71.23 56.123 157.06 0 256 0c62.115 0 119.068 22.126 163.404 58.936z"
                     ></path>
-                  </svg>{" "}
+                  </svg>
+                  {" "}
                   {data[type].title} bằng Gmail{" "}
                 </button>
               </div>
