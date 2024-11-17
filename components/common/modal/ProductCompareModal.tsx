@@ -4,7 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
+  DialogTitle
 } from "@/components/ui/dialog";
 import { convertNumToPrice } from "@/lib/utils";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -28,6 +28,7 @@ const ProductCompareModal = () => {
     setIsOpen(true);
     setData(props);
   }
+
   function closeModal() {
     setIsOpen(false);
     setData(initDataProductCompareDetail);
@@ -46,7 +47,7 @@ const ProductCompareModal = () => {
     content: (
       <>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogContent>
+          <DialogContent className={"max-w-[90%]"}>
             <DialogHeader>
               <div className="max-h-[500px] overflow-y-auto px-2">
                 <DialogTitle className="mb-4 font-bold text-base">
@@ -158,7 +159,7 @@ const ProductCompareModal = () => {
       </>
     ),
     close: closeModal,
-    open: openModal,
+    open: openModal
   };
 };
 
