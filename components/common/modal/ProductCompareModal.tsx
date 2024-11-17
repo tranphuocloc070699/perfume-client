@@ -34,9 +34,9 @@ const ProductCompareModal = () => {
     setData(initDataProductCompareDetail);
   }
 
-  function getPriceByType(prices: ProductPriceDto[], type: "VND" | "USD") {
-    if (!prices || prices.length == 0) return { value: 0 };
-    return prices[prices?.findIndex((price) => price.priceType === type)];
+  function getPriceByType(prices: ProductPriceDto[], type: "VND" | "USD"): number {
+    if (!prices || prices.length == 0) return 0;
+    return Number(prices[prices?.findIndex((price) => price.priceType === type)].value);
   }
 
   function onChange() {
@@ -110,15 +110,11 @@ const ProductCompareModal = () => {
                     </div>
                     <h5 className="col-span-1 border-r border-gray-300 text-center p-4">
                       {convertNumToPrice(
-                        getPriceByType(data?.productOriginal?.prices, "USD")
-                          ?.value,
-                        "USD"
-                      )}
+                        getPriceByType(data?.productOriginal?.prices, "USD"), "USD")}
                     </h5>
                     <h5 className="col-span-1 text-center p-4">
                       {convertNumToPrice(
-                        getPriceByType(data?.productCompare?.prices, "USD")
-                          ?.value,
+                        getPriceByType(data?.productCompare?.prices, "USD"),
                         "USD"
                       )}
                     </h5>
@@ -131,14 +127,14 @@ const ProductCompareModal = () => {
                     <h5 className="col-span-1 border-r border-gray-300 text-center p-4">
                       {convertNumToPrice(
                         getPriceByType(data?.productOriginal?.prices, "VND")
-                          ?.value,
+                        ,
                         "VND"
                       )}
                     </h5>
                     <h5 className="col-span-1 text-center p-4">
                       {convertNumToPrice(
                         getPriceByType(data?.productCompare?.prices, "VND")
-                          ?.value,
+                        ,
                         "VND"
                       )}
                     </h5>
