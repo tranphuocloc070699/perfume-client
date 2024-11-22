@@ -4,7 +4,7 @@ import { ProductDto } from "@/types/product/product.model";
 
 
 export type PostDto = {
-  id?: string;
+  id?: number;
   title: string;
   excerpt: string;
   content: string;

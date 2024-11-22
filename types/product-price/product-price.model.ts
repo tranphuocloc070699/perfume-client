@@ -8,3 +8,4 @@ export type ProductPriceDto = {
   createdAt: string;
   updatedAt: string;
 };
+

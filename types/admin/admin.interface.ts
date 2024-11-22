@@ -11,7 +11,7 @@ export interface ITableHeader {
 }
 
 export interface UpsaveProductDto {
-  id?: string;
+  id?: number;
   name: string;
   slug: string;
   description: string;

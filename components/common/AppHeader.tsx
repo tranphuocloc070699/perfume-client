@@ -13,6 +13,9 @@ const AppHeader = () => {
           <div className="col-span-3 h-full hidden md:block">
             <Logo />
           </div>
+          <div>
+            <HeaderMenu />
+          </div>
           <div className="col-span-6 h-full">
             <SearchBox />
           </div>
