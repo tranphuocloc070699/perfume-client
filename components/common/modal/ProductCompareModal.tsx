@@ -4,7 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
+  DialogTitle
 } from "@/components/ui/dialog";
 import { convertNumToPrice } from "@/lib/utils";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -28,14 +28,15 @@ const ProductCompareModal = () => {
     setIsOpen(true);
     setData(props);
   }
+
   function closeModal() {
     setIsOpen(false);
     setData(initDataProductCompareDetail);
   }
 
-  function getPriceByType(prices: ProductPriceDto[], type: "VND" | "USD") {
-    if (!prices || prices.length == 0) return { value: 0 };
-    return prices[prices?.findIndex((price) => price.priceType === type)];
+  function getPriceByType(prices: ProductPriceDto[], type: "VND" | "USD"): number {
+    if (!prices || prices.length == 0) return 0;
+    return Number(prices[prices?.findIndex((price) => price.priceType === type)].value);
   }
 
   function onChange() {
@@ -46,7 +47,7 @@ const ProductCompareModal = () => {
     content: (
       <>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogContent>
+          <DialogContent className={"max-w-[90%]"}>
             <DialogHeader>
               <div className="max-h-[500px] overflow-y-auto px-2">
                 <DialogTitle className="mb-4 font-bold text-base">
@@ -109,15 +110,11 @@ const ProductCompareModal = () => {
                     </div>
                     <h5 className="col-span-1 border-r border-gray-300 text-center p-4">
                       {convertNumToPrice(
-                        getPriceByType(data?.productOriginal?.prices, "USD")
-                          ?.value,
-                        "USD"
-                      )}
+                        getPriceByType(data?.productOriginal?.prices, "USD"), "USD")}
                     </h5>
                     <h5 className="col-span-1 text-center p-4">
                       {convertNumToPrice(
-                        getPriceByType(data?.productCompare?.prices, "USD")
-                          ?.value,
+                        getPriceByType(data?.productCompare?.prices, "USD"),
                         "USD"
                       )}
                     </h5>
@@ -130,14 +127,14 @@ const ProductCompareModal = () => {
                     <h5 className="col-span-1 border-r border-gray-300 text-center p-4">
                       {convertNumToPrice(
                         getPriceByType(data?.productOriginal?.prices, "VND")
-                          ?.value,
+                        ,
                         "VND"
                       )}
                     </h5>
                     <h5 className="col-span-1 text-center p-4">
                       {convertNumToPrice(
                         getPriceByType(data?.productCompare?.prices, "VND")
-                          ?.value,
+                        ,
                         "VND"
                       )}
                     </h5>
@@ -158,7 +155,7 @@ const ProductCompareModal = () => {
       </>
     ),
     close: closeModal,
-    open: openModal,
+    open: openModal
   };
 };
 

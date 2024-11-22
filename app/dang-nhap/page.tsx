@@ -1,12 +1,12 @@
 "use client";
 
-import CommonSignupLoginForm from "@/components/common/CommonSignupLoginForm";
+import AuthForm from "@/components/common/AuthForm";
 import React from "react";
 
 const page = () => {
   return (
     <div>
-      <CommonSignupLoginForm type="login" />
+      <AuthForm type="login" />
     </div>
   );
 };
