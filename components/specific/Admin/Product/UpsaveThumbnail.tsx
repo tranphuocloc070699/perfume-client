@@ -15,11 +15,12 @@ const UpsaveThumbnail = ({ className, thumbnail, preview, setPreview }: IUpsaveT
 
 
   const thumbnailProcessor = useMemo(() => {
+    console.log({ thumbnail });
     if (preview) {
       return URL.createObjectURL(preview);
     }
     if (thumbnail) {
-      return `http://localhost:8090/upload/${thumbnail}`;
+      return thumbnail.startsWith("https://") ? thumbnail : `http://localhost:8090/upload/${thumbnail}`;
     }
 
     return "/assets/images/default-image.png";

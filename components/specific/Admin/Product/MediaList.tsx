@@ -51,7 +51,7 @@ const MediaList = ({ data, className, updateUpsaveProductValue, id, label }: IMe
       </div>
       <div className={"mt-4 p-4 border border-b-gray-300 rounded-lg grid grid-cols-12 gap-4 "}>
         {data?.map(path => <div key={path} className={"rounded-lg col-span-3 relative"}>
-          <img src={`http://localhost:8090/upload${path}`} alt={"Image"}
+          <img src={path} alt={"Image"}
                className={"w-full object-cover h-16 rounded-lg"} />
           <CommonPopConfirm onConfirm={() => removeImage(path)}>
           <span

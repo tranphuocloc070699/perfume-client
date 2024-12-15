@@ -25,13 +25,15 @@ import ProductService from "@/services/modules/product.service";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { convertToSlug } from "@/lib/utils";
 import { ProductNoteDto } from "@/types/product-note/product-note.model";
+import { ProductDto } from "@/types/product/product.model";
+import { dummyProductDto } from "@/types/product/product.data";
 
 
 const UpsaveProductContainer = () => {
 
 
-  const [upsaveProduct, setUpsaveProduct] = useState<UpsaveProductDto>(
-    dummyUpsaveProductDto
+  const [upsaveProduct, setUpsaveProduct] = useState<ProductDto>(
+    dummyProductDto
   );
   const [thumbnailUpload, setThumbnailUpload] = useState<File | null>(null);
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -50,7 +52,7 @@ const UpsaveProductContainer = () => {
     try {
       const response = await productService.getProductById(Number(id));
       if (response.status === 200) {
-        setUpsaveProduct(response.data as UpsaveProductDto);
+        setUpsaveProduct(response.data);
       }
     } catch (error) {
       console.error(error);
@@ -69,11 +71,14 @@ const UpsaveProductContainer = () => {
   }, [accessToken]);
 
   const priceInVND = useMemo(() => {
+    console.log({ upsaveProduct });
     const index = upsaveProduct.prices.findIndex(item => item.priceType === "VND");
     return upsaveProduct.prices[index];
   }, [upsaveProduct]);
 
   const priceInUSD = useMemo(() => {
+    console.log({ upsaveProduct });
+
     const index = upsaveProduct.prices.findIndex(item => item.priceType === "USD");
     return upsaveProduct.prices[index];
   }, [upsaveProduct]);
@@ -216,10 +221,10 @@ const UpsaveProductContainer = () => {
                  onChange={(value) => updateUpsaveProductValue("slug", value)} />
 
     <UpsaveInput type={"currency"} label={"Giá VN (VND)"} placeholder={"Nhập giá..."}
-                 className={"col-span-4 flex flex-col gap-2"} value={priceInVND.value}
+                 className={"col-span-4 flex flex-col gap-2"} value={priceInVND?.value}
                  onChange={(value) => onPriceChange("VND", value)} />
     <UpsaveInput type={"currency"} label={"Giá Hãng (USD)"} placeholder={"Nhập giá..."}
-                 className={"col-span-4 flex flex-col gap-2"} value={priceInUSD.value}
+                 className={"col-span-4 flex flex-col gap-2"} value={priceInUSD?.value}
                  onChange={(value) => onPriceChange("USD", value)} />
     <UpsaveProductSelect className={"col-span-4 flex flex-col gap-2"} label={"Năm sản xuất"} data={years}
                          openModal={openYearModal}

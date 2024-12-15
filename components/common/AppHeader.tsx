@@ -4,6 +4,7 @@ import SearchBox from "../specific/Header/SearchBox";
 import Sidebar from "../specific/Header/Sidebar";
 import UserControl from "../specific/Header/UserControl";
 import { useMemo } from "react";
+import HeaderMenu from "@/components/specific/Header/HeaderMenu";
 
 const AppHeader = () => {
   return (
@@ -13,9 +14,9 @@ const AppHeader = () => {
           <div className="col-span-3 h-full hidden md:block">
             <Logo />
           </div>
-          <div>
-            <HeaderMenu />
-          </div>
+          {/*<div>*/}
+          {/*  <HeaderMenu />*/}
+          {/*</div>*/}
           <div className="col-span-6 h-full">
             <SearchBox />
           </div>

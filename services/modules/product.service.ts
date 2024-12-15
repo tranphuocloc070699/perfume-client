@@ -35,7 +35,7 @@ class ProductService extends HttpFactory {
     });
   }
 
-  async createProduct(dto: UpsaveProductDto) {
+  async createProduct(dto: ProductDto) {
     return this.call<ResponseDto<ProductDto>>({
       method: "POST",
       url: `${getClientOrServerUrl()}/product`,
@@ -43,7 +43,7 @@ class ProductService extends HttpFactory {
     });
   }
 
-  async updateProduct(dto: UpsaveProductDto) {
+  async updateProduct(dto: ProductDto) {
     return this.call<ResponseDto<ProductDto>>({
       method: "PUT",
       url: `${getClientOrServerUrl()}/product/${dto.id}`,
