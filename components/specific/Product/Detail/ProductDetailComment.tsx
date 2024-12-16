@@ -1,6 +1,6 @@
-import ProductCardBlock from "@/components/common/ProductCardBlock";
-import CompareCommentList from "@/components/common/modal/CompareCommentList";
-import WriteComment from "@/components/common/modal/WriteComment";
+import ProductCardBlock from "@/components/common/product-card-block";
+import CompareCommentList from "@/components/common/modal/compare-comment-list";
+import CommentWriter from "@/components/common/modal/comment-writer";
 import { CommentDto } from "@/types/comment/comment.model";
 import React from "react";
 
@@ -12,7 +12,7 @@ const ProductDetailComment = (props: ProductDetailCommentProps) => {
   return (
     <>
       <ProductCardBlock title="Bình luận">
-        <WriteComment />
+        <CommentWriter />
         <div className="mt-8">
           <CompareCommentList comments={props.comments} />
         </div>

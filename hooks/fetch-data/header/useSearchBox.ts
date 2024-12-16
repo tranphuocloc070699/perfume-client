@@ -1,4 +1,4 @@
-import { ISearchResultList } from "@/components/specific/Header/SearchResultBox";
+import { ISearchResultList } from "@/components/specific/Header/search-result-box";
 import { sortByList } from "@/components/specific/Product/ProductPageSearching";
 import { IUseParams, useParamsUtil } from "@/hooks/use-params";
 
@@ -16,22 +16,22 @@ export const useSearchBoxData = () => {
   const [data, setData] = useState<ISearchResultList[]>([
     {
       title: "Nước hoa",
-      children: [],
-    },
+      children: []
+    }
   ]);
   const [loading, setLoading] = useState(true);
   const execute = async (props: IUseSearchBoxParams) => {
     setData([
       {
         title: "Nước hoa",
-        children: [],
-      },
+        children: []
+      }
     ]);
     setLoading(true);
 
     const productService = new ProductService();
     const response = await productService.getAllProduct({
-      productName: props.searchInput,
+      productName: props.searchInput
     });
     if (response?.data) {
       setData([
@@ -39,9 +39,9 @@ export const useSearchBoxData = () => {
           title: "Nước hoa",
           children: response.data.content.map((item) => ({
             title: item.name,
-            link: `/nuoc-hoa/${item.slug}-${item.id}`,
-          })),
-        },
+            link: `/nuoc-hoa/${item.slug}-${item.id}`
+          }))
+        }
       ]);
     }
 

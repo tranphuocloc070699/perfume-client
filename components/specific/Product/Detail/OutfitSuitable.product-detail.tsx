@@ -4,11 +4,11 @@ import {
   CarouselContent,
   CarouselItem,
   CarouselNext,
-  CarouselPrevious,
+  CarouselPrevious
 } from "@/components/ui/carousel";
 import { fakeProductData } from "@/types/product/product.data";
 import NextImg from "next/image";
-import ProductCardBlock from "@/components/common/ProductCardBlock";
+import ProductCardBlock from "@/components/common/product-card-block";
 
 interface OutfitSuitableProps {
   outfits: string[];
@@ -19,7 +19,7 @@ const OutfitSuitable = (props: OutfitSuitableProps) => {
     <ProductCardBlock title="Trang phục phù hợp">
       <Carousel
         opts={{
-          align: "start",
+          align: "start"
         }}
       >
         <CarouselContent className="-ml-8">

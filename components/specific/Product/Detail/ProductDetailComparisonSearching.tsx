@@ -1,6 +1,6 @@
 "use client";
 
-import AppInput from "@/components/common/AppInput";
+import ProductCompareSearchingInput from "@/components/common/product-compare-searching-input";
 import React, { useState } from "react";
 
 const ProductDetailComparisonSearching = () => {
@@ -9,9 +9,10 @@ const ProductDetailComparisonSearching = () => {
   function handleSearchValueChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(evt.target.value);
   }
+
   return (
     <div className="mb-8">
-      <AppInput
+      <ProductCompareSearchingInput
         value={searchValue}
         onChange={handleSearchValueChange}
         name="search-input"

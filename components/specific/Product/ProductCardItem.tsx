@@ -5,13 +5,13 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
 import NextImg from "next/image";
 import { ProductDto } from "@/types/product/product.model";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import CountingIcon from "@/components/common/CountingIcon";
-import TextIcon from "@/components/common/TextIcon";
+import CountingIcon from "@/components/common/counting-icon";
+import TextIcon from "@/components/common/text-icon";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -24,16 +24,19 @@ const ProductCardItem = ({ data, showIcon }: IProps) => {
   function onIconClick(id: number) {
     console.log("on click trigger with id: " + id);
   }
+
   return (
-    <div className="w-full relative flex flex-col justify-between  bg-gradient-to-b from-gray-200 to-gray-50 rounded-xl ">
+    <div
+      className="w-full relative flex flex-col justify-between  bg-gradient-to-b from-gray-200 to-gray-50 rounded-xl ">
       <section className="flex items-start justify-end  p-4 pb-0 rounded-2xl ">
         {showIcon && (
-          <div className="col-span-1 px-2 py-1 border border-gray-200 rounded-full flex items-center hover:shadow-md transition-all cursor-pointer bg-white">
+          <div
+            className="col-span-1 px-2 py-1 border border-gray-200 rounded-full flex items-center hover:shadow-md transition-all cursor-pointer bg-white">
             <CountingIcon
               data={{
                 icon: "ph:heart-light",
                 counting: 1,
-                onClick: onIconClick,
+                onClick: onIconClick
               }}
             />
           </div>
@@ -52,7 +55,7 @@ const ProductCardItem = ({ data, showIcon }: IProps) => {
         className="h-32 w-32 self-center object-cover  rounded-xl  cursor-pointer"
       />
       <h4 className="text-base text-center leading-5  text-gray-900 mb-4 font-semibold  hover:underline">
-        <Link href={`/nuoc-hoa/${data.slug}-${data.id}`}>{data.name}</Link>
+        <Link href={`/app/(default)/nuoc-hoa/${data.slug}-${data.id}`}>{data.name}</Link>
       </h4>
       {/* <div className="bg-white rounded-xl p-4 absolute w-full bottom-0 border border-gray-200 transition-all duration-300  h-0 opacity-0 hover:h-full hover:opacity-100">
         <div className="space-y-2 mb-6">

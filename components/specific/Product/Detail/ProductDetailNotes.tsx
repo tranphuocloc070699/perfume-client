@@ -1,6 +1,6 @@
 "use client";
 
-import ProductCardBlock from "@/components/common/ProductCardBlock";
+import ProductCardBlock from "@/components/common/product-card-block";
 import React, { useMemo, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -31,7 +31,7 @@ const ProductDetailNotes = (data: ProductDetailNotesProps) => {
     const object: { [key: string]: string } = {
       topNotes: "Hương đầu",
       middleNotes: "Hương giữa",
-      baseNotes: "Hương cuối",
+      baseNotes: "Hương cuối"
     };
 
     return object[key];
@@ -40,7 +40,7 @@ const ProductDetailNotes = (data: ProductDetailNotesProps) => {
   const noteKeys: Array<keyof ProductDetailNotesProps> = [
     "topNotes",
     "middleNotes",
-    "baseNotes",
+    "baseNotes"
   ];
 
   return (

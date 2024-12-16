@@ -1,4 +1,4 @@
-import AppTitle from "@/components/common/AppTitle";
+import AppTitle from "@/components/common/app-title";
 import ProductCardList from "@/components/specific/Product/ProductCardList";
 import ProductService from "@/services/modules/product.service";
 import { ProductDto } from "@/types/product/product.model";

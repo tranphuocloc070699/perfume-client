@@ -13,10 +13,10 @@ import NextImg from "next/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import CommonPopConfirm from "@/components/common/CommonPopConfirm";
+import PopConfirm from "@/components/common/pop-confirm";
 import { Input } from "@/components/ui/input";
 import _debounce from "lodash/debounce";
-import CommonLoadDataSpinner from "@/components/common/CommonLoadDataSpinner";
+import DataLoadingSpinner from "@/components/common/data-loading-spinner";
 
 export interface ICommonTableManagementProps {
   title: string,
@@ -91,7 +91,7 @@ const CommonTableManagement = (props: ICommonTableManagementProps) => {
         <TableBody>
           {props.loading && <TableRow>
             <TableCell colSpan={props.headers.length + 1}>
-              <CommonLoadDataSpinner text={"Load data"} loading={props.loading} />
+              <DataLoadingSpinner text={"Load data"} loading={props.loading} />
             </TableCell>
           </TableRow>}
 
@@ -110,12 +110,12 @@ const CommonTableManagement = (props: ICommonTableManagementProps) => {
                       className="w-8 h-8 p-2 bg-gray-200 rounded cursor-pointer"
                     />
                   </Link>
-                  <CommonPopConfirm onConfirm={() => props.onBtnDeleteClick(data?.id)}>
+                  <PopConfirm onConfirm={() => props.onBtnDeleteClick(data?.id)}>
                     <Icon
                       icon={"iconoir:trash"}
                       className="w-8 h-8 p-2 bg-gray-200 rounded cursor-pointer"
                     />
-                  </CommonPopConfirm>
+                  </PopConfirm>
                 </div>
               </TableCell>
             </TableRow>
