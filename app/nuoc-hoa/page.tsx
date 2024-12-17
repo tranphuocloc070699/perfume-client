@@ -1,15 +1,15 @@
 "use client";
 
-import CommonPagination from "@/components/common/CommonPagination";
-import ProductPageList from "@/components/specific/Product/ProductPageList";
-import ProductPageSearching from "@/components/specific/Product/ProductPageSearching";
+import CommonPagination from "@/components/common/pagination";
+import ProductPageList from "@/components/specific/Product/product-page-list";
+import ProductPageSearching from "@/components/specific/Product/product-page-searching";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 
 import { usePerfumePageData } from "@/hooks/fetch-data/nuoc-hoa-page/usePerfumePageData";
 import { useParamsUtil } from "@/hooks/use-params";
-import CommonEmpty from "@/components/common/CommonEmpty";
-import CommonLoadDataSpinner from "@/components/common/CommonLoadDataSpinner";
+import CommonEmpty from "@/components/common/empty";
+import CommonLoadDataSpinner from "@/components/common/data-loading-spinner";
 
 const page = () => {
   const searchParams = useSearchParams();
@@ -19,7 +19,7 @@ const page = () => {
   const { data, loading } = usePerfumePageData({
     searchParams,
     pathname,
-    router,
+    router
   });
   const { updateParams } = useParamsUtil({ searchParams, pathname, router });
 

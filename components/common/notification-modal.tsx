@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
-import Icon from "@/components/common/icon";
+import Icon from "@/components/ui/icon";
 
 
 function dummyResolvePromise() {

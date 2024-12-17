@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
     "@iconify/react": "^5.0.2",
     "@next/env": "^14.2.14",
     "@radix-ui/react-checkbox": "^1.1.2",
@@ -42,12 +43,14 @@
     "lodash": "^4.17.21",
     "lucide-react": "^0.454.0",
     "next": "14.2.4",
+    "next-auth": "^4.24.11",
     "react": "^18",
     "react-dom": "^18",
     "react-drag-drop-files": "^2.4.0",
-    "react-hook-form": "^7.53.0",
+    "react-hook-form": "^7.54.1",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
+    "yup": "^1.6.0",
     "zustand": "^4.5.5"
   },
   "devDependencies": {

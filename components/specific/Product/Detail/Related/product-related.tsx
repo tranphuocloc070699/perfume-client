@@ -1,6 +1,6 @@
 import ProductCardBlock from "@/components/common/product-card-block";
 import React from "react";
-import ProductCardItem from "../../ProductCardItem";
+import ProductCardItem from "../../product-card-item";
 import { fakeProductData } from "@/types/product/product.data";
 
 const ProductRelated = () => {

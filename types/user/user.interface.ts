@@ -2,8 +2,8 @@ import { UserDto } from "./user.model";
 
 export interface ISignUpLoginForm {
   name?: string;
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
 }
 
 export interface ISignUpLoginResponse {
@@ -24,6 +24,7 @@ export interface ISidebarList {
   danger?: boolean;
   children: ISidebarItem[];
 }
+
 export interface ISidebarItem {
   title: string;
   icon: string;

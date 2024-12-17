@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Input from "./input";
+import React, { useEffect, useMemo, useState } from "react";
+
 import Link from "next/link";
 import UserService from "@/services/modules/user.service";
 import { ISignUpLoginForm } from "@/types/user/user.interface";
@@ -10,6 +10,12 @@ import { useUserStore } from "@/store/user.store";
 import { useRouter } from "next/navigation";
 import NotificationModal from "@/components/common/notification-modal";
 import AuthFormBackground from "@/components/common/auth-form-background";
+import Input from "@/components/ui/input";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import { signIn } from "next-auth/react";
 
 interface ICommonSignupLoginForm {
   type: "login" | "signup";
@@ -37,29 +43,69 @@ const AuthForm = ({ type }: ICommonSignupLoginForm) => {
     }
   };
 
-  const [requestData, setRequestData] = useState<ISignUpLoginForm>({
-    email: "",
-    name: "",
-    password: ""
+  const schema = useMemo(() => {
+    if (type === "signup") {
+      return yup.object({
+        name: yup
+          .string()
+          .required("Vui lòng nhập tên của bạn"),
+        email: yup
+          .string()
+          .required("Vui lòng nhập email")
+          .email("Email không hợp lệ"),
+        password: yup
+          .string()
+          .required("Mật khẩu là bắt buộc")
+          .min(6, "Mật khẩu phải có ít nhất 6 ký tự")
+      });
+    }
+
+    if (type === "login") {
+      return yup.object({
+        email: yup
+          .string()
+          .required("Vui lòng nhập email")
+          .email("Email không hợp lệ"),
+        password: yup
+          .string()
+          .required("Mật khẩu là bắt buộc")
+          .min(6, "Mật khẩu phải có ít nhất 6 ký tự")
+      });
+    }
+  }, [type]);
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting }
+  } = useForm<ISignUpLoginForm>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: ""
+    }
   });
 
-  function onInputChange(
-    objectKey: "email" | "name" | "password",
-    value: string
-  ) {
-    setRequestData({ ...requestData, [objectKey]: value });
-  }
+  async function onSubmit(data: ISignUpLoginForm) {
 
-
-  async function onSubmit() {
     const userService = new UserService();
 
     let response;
     if (type === "signup") {
-      response = await userService.signup(requestData);
+      response = await userService.signup(data);
     }
     if (type === "login") {
-      response = await userService.login(requestData);
+      const loginResponse = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false
+      });
+      console.log({ loginResponse });
+
+      return;
+      response = await userService.login(data);
     }
 
     if (response?.status === 200) {
@@ -88,7 +134,7 @@ const AuthForm = ({ type }: ICommonSignupLoginForm) => {
   const commonNotifyModal = NotificationModal();
 
   return (
-    <div>
+    <form onSubmit={handleSubmit(onSubmit)}>
       {commonNotifyModal.content}
       <div className="flex h-screen">
         <div className="hidden lg:flex items-center justify-center flex-1 bg-white text-black">
@@ -139,43 +185,54 @@ const AuthForm = ({ type }: ICommonSignupLoginForm) => {
             {/*<div className="my-4 text-sm text-gray-600 text-center">*/}
             {/*  <p>Hoặc</p>*/}
             {/*</div>*/}
-            <div className="space-y-4">
+            <div>
               {type === "signup" && (
                 <Input
+                  name={"name"}
                   type="text"
-                  name="username"
-                  placeholder=""
-                  className="bg-white"
-                  label="Tên người dùng"
-                  value={requestData.name}
-                  onChange={(e) => onInputChange("name", e.target.value)}
+                  input={{ className: "bg-white" }}
+                  wrapperClassName={"bg-white border border-gray-700"}
+                  icon={{ name: "user" }}
+                  placeholder="Nhập tên của bạn"
+                  label={{ title: "Tên người dùng" }}
+                  validation={{
+                    control
+                  }}
                 />
               )}
               <Input
                 type="text"
                 name="email"
-                placeholder=""
-                className="bg-white"
-                label="Email"
-                value={requestData.email}
-                onChange={(e) => onInputChange("email", e.target.value)}
+                placeholder="Nhập email"
+                icon={{ name: "email" }}
+                input={{ className: "bg-white" }}
+                wrapperClassName={"bg-white border border-gray-700"}
+                label={{ title: "Email" }}
+                validation={{
+                  control
+                }}
+
               />
               <Input
-                type="text"
+                type="password"
                 name="password"
-                placeholder=""
-                className="bg-white"
-                label="Mật khẩu"
-                value={requestData.password}
-                onChange={(e) => onInputChange("password", e.target.value)}
+                placeholder="Nhập mật khẩu"
+                icon={{ name: "key" }}
+                input={{ className: "bg-white" }}
+                wrapperClassName={"bg-white border border-gray-700"}
+                label={{ title: "Mật khẩu" }}
+                validation={{
+                  control
+                }}
               />
               <div>
-                <button
-                  onClick={onSubmit}
-                  className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300"
+                <Button
+                  loading={isSubmitting}
+                  type={"submit"}
+                  className="mt-6 w-full"
                 >
                   {data[type].title}
-                </button>
+                </Button>
               </div>
             </div>
             <div className="mt-4 text-sm text-gray-600 text-center">
@@ -192,7 +249,7 @@ const AuthForm = ({ type }: ICommonSignupLoginForm) => {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Check, Unlink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import Icon from "@/components/common/icon";
+import Icon from "@/components/ui/icon";
 
 interface Props {
   onSubmit: (value: string) => void,

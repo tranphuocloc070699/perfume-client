@@ -1,5 +1,5 @@
 import { ISearchResultList } from "@/components/specific/Header/search-result-box";
-import { sortByList } from "@/components/specific/Product/ProductPageSearching";
+import { sortByList } from "@/components/specific/Product/product-page-searching";
 import { IUseParams, useParamsUtil } from "@/hooks/use-params";
 
 import ProductService from "@/services/modules/product.service";

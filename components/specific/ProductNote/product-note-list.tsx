@@ -1,6 +1,6 @@
 import { ProductNoteDto } from "@/types/product-note/product-note.model";
 import React from "react";
-import ProductNoteItem from "./ProductNoteItem";
+import ProductNoteItem from "./product-note-item";
 
 interface IProps {
   data: ProductNoteDto[];

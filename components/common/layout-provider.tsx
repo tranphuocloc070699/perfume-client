@@ -17,9 +17,12 @@ const LayoutProvider = ({
       {!loading && (
         <>
           {showLayout && <AppHeader />}
-          <section className={showLayout ? "md:ml-80 mt-16 md:mr-8" : ""}>
-            {children}
-          </section>
+          {/*<section className={showLayout ? "md:ml-80 mt-16 md:mr-8" : ""}>*/}
+          {/*  {children}*/}
+          {/*</section> */}
+
+          {children}
+
           {showLayout && <AppFooter />}
         </>
       )}

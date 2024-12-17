@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import {
-  Pagination,
+  Pagination as ShadcnPagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
@@ -23,7 +23,7 @@ const Pagination = ({
   return (
     <div component-name="Pagination">
       {
-        totalPages > 0 ? <Pagination>
+        totalPages > 0 ? <ShadcnPagination>
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious
@@ -84,7 +84,7 @@ const Pagination = ({
               />
             </PaginationItem>
           </PaginationContent>
-        </Pagination> : <></>
+        </ShadcnPagination> : <></>
       }
     </div>
   );

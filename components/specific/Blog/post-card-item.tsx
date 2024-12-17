@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import NextImg from "next/image";
-import Icon from "@/components/common/icon";
+import Icon from "@/components/ui/icon";
 import { twMerge } from "tailwind-merge";
 import { PostDto } from "@/types/post/post.model";
 import Link from "next/link";

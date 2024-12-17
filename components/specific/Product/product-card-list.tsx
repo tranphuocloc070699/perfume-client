@@ -6,18 +6,18 @@ import {
   CarouselContent,
   CarouselItem,
   CarouselNext,
-  CarouselPrevious,
+  CarouselPrevious
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { ProductDto } from "@/types/product/product.model";
-import ProductCardItem from "./ProductCardItem";
+import ProductCardItem from "./product-card-item";
 
 const ProductCardList = ({ data }: { data: ProductDto[] }) => {
   return (
     <Carousel
       opts={{
         align: "start",
-        slidesToScroll: 4,
+        slidesToScroll: 4
       }}
     >
       <CarouselContent className="-ml-8">

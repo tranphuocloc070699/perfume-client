@@ -2,7 +2,7 @@
 
 import ProductCardBlock from "@/components/common/product-card-block";
 import React from "react";
-import ProductDetailComparisonSearching from "./ProductDetailComparisonSearching";
+import ProductDetailComparisonSearching from "./product-detail-comparison-searching";
 import { Button } from "@/components/ui/button";
 import ProductDetailComparisonList from "./product-detail-comparison-list";
 import { ProductCompareDto } from "@/types/product-compare/product-compare.model";
