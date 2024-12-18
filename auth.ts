@@ -46,6 +46,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               name: user.name,
               accessToken: response.data.accessToken
             };
+          } else {
+            return null;
           }
         } catch (error) {
           if (typeof error?.message === "string" && error.message.includes("fetch failed")) throw new FetchError();

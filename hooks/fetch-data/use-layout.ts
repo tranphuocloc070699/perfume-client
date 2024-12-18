@@ -5,12 +5,14 @@ import { usePathname } from "next/navigation";
 import UserService from "@/services/modules/user.service";
 import { useUserStore } from "@/store/user.store";
 import { signIn } from "next-auth/react";
+import { useToast } from "@/hooks/use-toast";
 
 const useLayout = () => {
   const hidingLayoutRoutes: string[] = ["/dang-nhap", "/dang-ky"];
   const pathName = usePathname();
   const [showLayout, setShowLayout] = useState(true);
   const [loading, setLoading] = useState(true);
+  const toast = useToast();
 
   useEffect(() => {
     if (hidingLayoutRoutes.includes(pathName)) {
@@ -31,8 +33,12 @@ const useLayout = () => {
         redirect: false
       });
       console.log({ response });
-      if (!response?.code && response.ok) {
-        setLoading(false);
+      setLoading(false);
+      if (response?.code && response.code === "Không thể kết nối đến máy chủ, vui lòng kiểm tra lại đường truyền hoặc thử lại sau") {
+        toast.toast({
+          title: response.code,
+          variant: "destructive"
+        });
       }
     } catch (error: any) {
       console.log({ catchError: error });
