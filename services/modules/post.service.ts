@@ -14,8 +14,7 @@ import { UpsaveProductDto } from "@/types/admin/admin.interface";
 import { GetAllPostRequest, GetAllPostResponse, PostDto } from "@/types/post/post.model";
 
 class ProductService extends HttpFactory {
-
-  PREFIX: string = "/post";
+  readonly PREFIX: string = "/post";
 
   async getAllPost(params: GetAllPostRequest) {
     return this.call<ResponseDto<GetAllPostResponse>>({

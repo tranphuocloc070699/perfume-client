@@ -6,8 +6,12 @@ import UserControl from "../specific/Header/user-control";
 import { useMemo } from "react";
 import HeaderNav from "@/components/specific/Header/header-nav";
 import HeaderSearching from "@/components/specific/Header/header-searching";
+import { useSession } from "next-auth/react";
+import HeaderAuth from "@/components/specific/Header/header-auth";
 
 const AppHeader = () => {
+
+
   return (
     <header className={"flex items-center justify-between p-4"}>
       <section className={"flex items-center gap-10"}>
@@ -16,6 +20,7 @@ const AppHeader = () => {
       </section>
       <section>
         <HeaderSearching />
+        <HeaderAuth />
       </section>
     </header>
   );

@@ -49,13 +49,13 @@ class HttpFactory {
       method,
       headers,
       cache: "no-store",
+      credentials: "include",
       ...fetchOptions
     };
     if (body) {
       if (body instanceof FormData) options.body = body as BodyInit;
       else {
         options.body = JSON.stringify(body);
-
         headers.set("Content-Type", "application/json");
         options.headers = headers;
       }

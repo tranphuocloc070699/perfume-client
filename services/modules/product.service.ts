@@ -13,10 +13,13 @@ import { BrandDto } from "@/types/brand/brand.model";
 import { UpsaveProductDto } from "@/types/admin/admin.interface";
 
 class ProductService extends HttpFactory {
+  readonly PREFIX: string = "/product";
+
+
   async getAllProduct(params: GetAllProductRequest) {
     return this.call<ResponseDto<GetAllProductResponse>>({
       method: "GET",
-      url: `${getClientOrServerUrl()}/product`,
+      url: `${getClientOrServerUrl()}${this.PREFIX}`,
       params: Object.keys(params).length > 0 ? params : null
     });
   }
@@ -24,21 +27,21 @@ class ProductService extends HttpFactory {
   async getAllProductId() {
     return this.call<ResponseDto<number[]>>({
       method: "GET",
-      url: `${getClientOrServerUrl()}/product/id`
+      url: `${getClientOrServerUrl()}${this.PREFIX}/id`
     });
   }
 
   async getProductById(id: number) {
     return this.call<ResponseDto<ProductDto>>({
       method: "GET",
-      url: `${getClientOrServerUrl()}/product/${id}`
+      url: `${getClientOrServerUrl()}${this.PREFIX}/${id}`
     });
   }
 
   async createProduct(dto: ProductDto) {
     return this.call<ResponseDto<ProductDto>>({
       method: "POST",
-      url: `${getClientOrServerUrl()}/product`,
+      url: `${getClientOrServerUrl()}${this.PREFIX}`,
       body: dto
     });
   }
@@ -46,7 +49,7 @@ class ProductService extends HttpFactory {
   async updateProduct(dto: ProductDto) {
     return this.call<ResponseDto<ProductDto>>({
       method: "PUT",
-      url: `${getClientOrServerUrl()}/product/${dto.id}`,
+      url: `${getClientOrServerUrl()}${this.PREFIX}/${dto.id}`,
       body: dto
     });
   }
@@ -54,7 +57,7 @@ class ProductService extends HttpFactory {
   async deleteProduct(id: string) {
     return this.call<ResponseDto<ProductDto>>({
       method: "DELETE",
-      url: `${getClientOrServerUrl()}/product/${id}`
+      url: `${getClientOrServerUrl()}${this.PREFIX}/${id}`
     });
   }
 }

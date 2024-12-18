@@ -7,7 +7,7 @@ const HeaderNav = () => {
   return (
     <nav>
       <ul className={"flex items-center md:gap-6"}>
-        {defaultList.children.map(item => <li key={item.link}><Link className={"font-merriweather"}
+        {defaultList.children.map(item => <li key={item.link}><Link className={"font-merriweather font-normal"}
                                                                     href={item.link}>{item.title}</Link></li>)}
       </ul>
     </nav>

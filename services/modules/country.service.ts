@@ -8,17 +8,19 @@ import { CountryDto } from "@/types/country/country.model";
 import { BrandDto } from "@/types/brand/brand.model";
 
 class CountryService extends HttpFactory {
+  readonly PREFIX: string = "/country";
+
   async getAllCountry() {
     return this.call<ResponseDto<CountryDto[]>>({
       method: "GET",
-      url: `${getClientOrServerUrl()}/country`
+      url: `${getClientOrServerUrl()}${this.PREFIX}`
     });
   }
 
   async createCountry(dto: CountryDto) {
     return this.call<ResponseDto<CountryDto>>({
       method: "POST",
-      url: `${getClientOrServerUrl()}/country`,
+      url: `${getClientOrServerUrl()}${this.PREFIX}`,
       body: dto
     });
   }

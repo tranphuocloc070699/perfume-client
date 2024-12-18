@@ -4,12 +4,16 @@ import {
   ISignUpLoginForm,
   ISignUpLoginResponse
 } from "@/types/user/user.interface";
+import { getClientOrServerUrl } from "@/lib/utils";
 
 class UserService extends HttpFactory {
+  readonly PREFIX: string = "/user";
+
+
   async signup(requestData: ISignUpLoginForm) {
     return this.call<ResponseDto<ISignUpLoginResponse>>({
       method: "POST",
-      url: `/api/user/signup`,
+      url: `${getClientOrServerUrl()}${this.PREFIX}/signup`,
       body: requestData
     });
   }
@@ -17,22 +21,27 @@ class UserService extends HttpFactory {
   async login(requestData: ISignUpLoginForm) {
     return this.call<ResponseDto<ISignUpLoginResponse>>({
       method: "POST",
-      url: `/api/user/login`,
+      url: `${getClientOrServerUrl()}${this.PREFIX}/login`,
       body: requestData
     });
   }
 
-  async authenticate() {
+  async authenticate(cookie?: string) {
     return this.call<ResponseDto<ISignUpLoginResponse>>({
       method: "GET",
-      url: `/api/user`
+      url: `${getClientOrServerUrl()}${this.PREFIX}`,
+      fetchOptions: {
+        headers: {
+          ...(cookie ? { Cookie: cookie } : {})
+        }
+      }
     });
   }
 
   async logout() {
     return this.call<ResponseDto<ISignUpLoginResponse>>({
       method: "PUT",
-      url: `/api/user/log-out`
+      url: `${getClientOrServerUrl()}${this.PREFIX}/log-out`
     });
   }
 

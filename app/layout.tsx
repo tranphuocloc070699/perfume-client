@@ -3,6 +3,7 @@ import { Montserrat, Merriweather_Sans } from "next/font/google";
 import "../styles/global.css";
 import { Toaster } from "@/components/ui/toaster";
 import LayoutProvider from "@/components/common/layout-provider";
+import SessionProvider from "@/components/common/SessionProvider";
 
 
 const montserrat = Montserrat({
@@ -33,7 +34,9 @@ export default function RootLayout({
     <html lang="en" className={` ${merriweather.variable} ${montserrat.variable}`}>
     <body suppressHydrationWarning={true}>
     <Toaster />
-    <LayoutProvider>{children}</LayoutProvider>
+    <SessionProvider>
+      <LayoutProvider>{children}</LayoutProvider>
+    </SessionProvider>
     </body>
     </html>
   );

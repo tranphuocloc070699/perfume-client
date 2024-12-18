@@ -13,17 +13,20 @@ import { ProductNoteDto } from "@/types/product-note/product-note.model";
 import { BrandDto } from "@/types/brand/brand.model";
 
 class ProductNoteService extends HttpFactory {
+  readonly PREFIX: string = "/notes";
+
+
   async getAllProductNote() {
     return this.call<ResponseDto<ProductNoteDto[]>>({
       method: "GET",
-      url: `${getClientOrServerUrl()}/notes`
+      url: `${getClientOrServerUrl()}${this.PREFIX}`
     });
   }
 
   async createNote(dto: ProductNoteDto) {
     return this.call<ResponseDto<ProductNoteDto>>({
       method: "POST",
-      url: `${getClientOrServerUrl()}/notes`,
+      url: `${getClientOrServerUrl()}${this.PREFIX}`,
       body: dto
     });
   }

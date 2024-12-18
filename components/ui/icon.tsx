@@ -26,7 +26,8 @@ import {
   BadgeDollarSign,
   Minus,
   SlidersHorizontal,
-  Loader
+  Loader,
+  LogOut
 } from "lucide-react";
 import NextImg from "next/image";
 
@@ -58,6 +59,7 @@ export const icons = {
   minus: <Minus />,
   filters: <SlidersHorizontal />,
   spinner: <Loader />,
+  logout: <LogOut />,
   google_local: "/assets/images/google-icon.svg"
 } as const;
 

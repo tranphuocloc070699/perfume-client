@@ -88,30 +88,32 @@ const AuthForm = ({ type }: ICommonSignupLoginForm) => {
     }
   });
 
-  async function onSubmit(data: ISignUpLoginForm) {
-
-    const userService = new UserService();
-
-    let response;
-    if (type === "signup") {
-      response = await userService.signup(data);
-    }
-    if (type === "login") {
-      const loginResponse = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
+  async function onSubmit(formData: ISignUpLoginForm) {
+    let response = null;
+    try {
+      response = await signIn("credentials", {
+        ...(type === "signup" ? {
+          name: formData.name
+        } : {}),
+        type,
+        email: formData.email,
+        password: formData.password,
         redirect: false
       });
-      console.log({ loginResponse });
-
-      return;
-      response = await userService.login(data);
+    } catch (error: any) {
+      console.log({ catchError: error });
     }
+    console.log({ response });
 
-    if (response?.status === 200) {
-      userStore.setAccessToken(response.data.accessToken);
-      userStore.setUser(response.data.data);
-      if (type === "signup") {
+    if (response?.code?.length > 0) {
+      toast.toast({
+        title: response?.code,
+        variant: "destructive"
+      });
+    } else {
+      if (type === "login") {
+        router.push("/");
+      } else if (type === "signup") {
         commonNotifyModal.openModal({
           title: data[type].successTitle,
           description: data[type].successDescription,
@@ -120,14 +122,6 @@ const AuthForm = ({ type }: ICommonSignupLoginForm) => {
           onCancel: () => router.push("/")
         });
       }
-      if (type === "login") {
-        router.push("/");
-      }
-    } else {
-      toast.toast({
-        title: response?.errors,
-        variant: "destructive"
-      });
     }
   }
 

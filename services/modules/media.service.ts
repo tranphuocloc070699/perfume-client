@@ -7,10 +7,12 @@ import { BrandDto } from "@/types/brand/brand.model";
 import { MediaDto } from "@/types/media/media.model";
 
 class MediaService extends HttpFactory {
+  readonly PREFIX: string = "/media";
+
   async getAllMedia() {
     return this.call<ResponseDto<MediaDto[]>>({
       method: "GET",
-      url: `${getClientOrServerUrl()}/media`
+      url: `${getClientOrServerUrl()}${this.PREFIX}`
     });
   }
 
@@ -20,7 +22,7 @@ class MediaService extends HttpFactory {
 
     return this.call<ResponseDto<string>>({
       method: "POST",
-      url: `/api/media`,
+      url: `${getClientOrServerUrl()}${this.PREFIX}`,
       body: formData
     });
   }
