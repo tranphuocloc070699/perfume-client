@@ -19,7 +19,7 @@ const page = () => {
 
   const logout = async () => {
     const response = await userService.logout();
-    if (response.status === 200) {
+    if (response.body.status === 200) {
       navigateToHomePage();
     }
   };

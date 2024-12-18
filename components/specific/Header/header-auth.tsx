@@ -9,6 +9,9 @@ const HeaderAuth = () => {
   const { data, status } = useSession();
 
   async function handleLogout() {
+    /*
+    * Call api to sign out on server side
+    * */
     await signOut();
   }
 

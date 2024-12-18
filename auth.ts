@@ -28,23 +28,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             response = await userService.authenticate(req?.headers.get("cookie"));
           }
           console.log({ response });
-          if (response.status === 400 && type === "login") {
+          if (response?.body?.status === 400 && type === "login") {
             throw new EmailOrPasswordIncorrect();
           }
-          if (response.status === 400 && type === "signup") {
+          if (response?.body?.status === 400 && type === "signup") {
             throw new EmailAlreadyExists();
           }
 
-          if (response.status === 404) {
+          if (response?.body?.status === 404) {
             throw new EmailNotFoundError();
           }
           const user = response?.data?.data;
-          if (response.status === 200 && user) {
+          if (response?.body?.status === 200 && user) {
             return {
               id: String(user.id),
               email: user.email,
               name: user.name,
-              accessToken: response.data.accessToken
+              accessToken: response?.body?.data.accessToken
             };
           } else {
             return null;

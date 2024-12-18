@@ -24,6 +24,11 @@ interface IHttpFactory {
   params?: any;
 }
 
+interface IResponse<T> {
+  headers: Headers,
+  body: T
+}
+
 class HttpFactory {
   accessToken: string = "";
 
@@ -37,7 +42,7 @@ class HttpFactory {
                   fetchOptions,
                   body,
                   params
-                }: IHttpFactory): Promise<T> {
+                }: IHttpFactory): Promise<IResponse<T>> {
 
     const headers = new Headers({
       ...(this.accessToken && {
@@ -66,8 +71,10 @@ class HttpFactory {
         newUrl = `${url}?${new URLSearchParams(params)}`;
       }
       const response = await fetch(newUrl, options);
+      const body = await response.json();
+      return { headers: response.headers, body };
 
-      return await response.json();
+      // return await response.json();
     } catch (error) {
       throw new Error(`Fetch error: ${(error as Error).message}`);
     }
