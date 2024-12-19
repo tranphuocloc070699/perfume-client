@@ -51,8 +51,8 @@ const UpsaveProductContainer = () => {
   async function fetchProductOnUpdateMode(id: string) {
     try {
       const response = await productService.getProductById(Number(id));
-      if (response.status === 200) {
-        setUpsaveProduct(response.data);
+      if (response.body.status === 200) {
+        setUpsaveProduct(response.body.data);
       }
     } catch (error) {
       console.error(error);
@@ -176,9 +176,9 @@ const UpsaveProductContainer = () => {
 
   async function uploadImage(file: File) {
     if (!file) return;
-    const response = await mediaService.uploadImage(file);
-    if (response.status == 200 && response.data) {
-      return response.data;
+    const { body } = await mediaService.uploadImage(file);
+    if (body.status == 200 && body.data) {
+      return body.data;
     }
   }
 

@@ -11,11 +11,12 @@ interface ProductPageSearchingInnerProps {
   brand: BrandDto[];
   year: YearDto[];
 }
+
 export const useProductPageSearchingData = () => {
   const [options, setOptions] = useState<ProductPageSearchingInnerProps>({
     country: [],
     brand: [],
-    year: [],
+    year: []
   });
 
   const fetchData = async () => {
@@ -28,9 +29,9 @@ export const useProductPageSearchingData = () => {
     const yearResponse = await yearService.getAllYear();
 
     setOptions({
-      country: countryResponse.data,
-      brand: brandResponse.data,
-      year: yearResponse.data,
+      country: countryResponse.body.data,
+      brand: brandResponse.body.data,
+      year: yearResponse.body.data
     });
   };
 

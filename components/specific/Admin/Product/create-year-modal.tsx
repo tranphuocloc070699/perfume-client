@@ -10,7 +10,7 @@ import { useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import Input from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { validYears } from "@/types/admin/admin.data";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -50,9 +50,9 @@ const CreateYearModal = () => {
     setLoading(true);
     const yearService = new YearService(accessToken);
     const response = await yearService.createYear({ value });
-    if (response.status == 200) {
-      toast({ description: response.message });
-      resolvePromise(response.data);
+    if (response.body.status == 200) {
+      toast({ description: response.body.message });
+      resolvePromise(response.body.data);
       closeModal();
     }
     setLoading(false);
@@ -69,10 +69,10 @@ const CreateYearModal = () => {
               </DialogTitle>
               <div className="flex items-center gap-4 mb-6">
                 <Input
-                  id="pending-value"
                   value={value}
                   type="number"
                   placeholder="Nhập năm sản xuất"
+                  name={"year"}
                   onChange={(e) => setValue(Number(e.target.value))}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {

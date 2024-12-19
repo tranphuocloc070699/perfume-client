@@ -3,7 +3,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import React, { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import Input from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useUserStore } from "@/store/user.store";
 
@@ -46,9 +46,9 @@ const UpsaveNoteModal = () => {
 
   async function uploadImage(file: File) {
     if (!file) return;
-    const response = await mediaService.uploadImage(file);
-    if (response.status == 200 && response.data) {
-      return response.data;
+    const { body } = await mediaService.uploadImage(file);
+    if (body.status == 200 && body.data) {
+      return body.data;
     }
   }
 
@@ -73,12 +73,12 @@ const UpsaveNoteModal = () => {
       req.thumbnail = path || "";
     }
     const noteService = new ProductNoteService(accessToken);
-    const response = await noteService.createNote(req);
+    const { body } = await noteService.createNote(req);
 
-    if (response.status == 200) {
-      toast({ description: response.message });
+    if (body.status == 200) {
+      toast({ description: body.message });
       resolvePromise({
-        data: response.data,
+        data: body.data,
         key
       });
     }
@@ -98,6 +98,7 @@ const UpsaveNoteModal = () => {
                  <span className="col-span-4">
                   <Label>Tên nốt hương</Label>
                   <Input
+                    name={"name"}
                     value={dto.name}
                     onChange={e => {
                       updateDto("name", e.target.value);
@@ -108,6 +109,7 @@ const UpsaveNoteModal = () => {
                 <span className="col-span-4">
                   <Label>Tên tiếng anh</Label>
                   <Input
+                    name={"enName"}
                     value={dto.enName}
                     onChange={e => {
                       updateDto("enName", e.target.value);
@@ -118,6 +120,7 @@ const UpsaveNoteModal = () => {
                 <span className="col-span-4">
                   <Label>Slug</Label>
                   <Input
+                    name={"slug"}
                     value={dto.slug}
                     onChange={e => {
                       updateDto("slug", e.target.value);

@@ -43,8 +43,8 @@ export const useAdminDashboardPageData = () => {
   const fetchNotes = () => {
     const noteService = new ProductNoteService();
     noteService.getAllProductNote().then((response) => {
-      if (response.data.length > 0) {
-        setNotes(response.data);
+      if (response.body.data.length > 0) {
+        setNotes(response.body.data);
       }
     }).catch((err) => {
       console.error("fetch year error", err);
@@ -57,8 +57,8 @@ export const useAdminDashboardPageData = () => {
   const fetchCountries = () => {
     const countryService = new CountryService();
     countryService.getAllCountry().then((response) => {
-      if (response.data.length > 0) {
-        setCountries(response.data);
+      if (response.body.data.length > 0) {
+        setCountries(response.body.data);
       }
     }).catch((err) => {
       console.error("fetch year error", err);
@@ -74,8 +74,8 @@ export const useAdminDashboardPageData = () => {
     brandService
       .getAllBrand()
       .then((response) => {
-        if (response.data.length > 0) {
-          setBrands(response.data);
+        if (response.body.data.length > 0) {
+          setBrands(response.body.data);
         }
       })
       .catch((err) => {
@@ -91,8 +91,8 @@ export const useAdminDashboardPageData = () => {
     yearService
       .getAllYear()
       .then((response) => {
-        if (response.data.length > 0) {
-          setYears(response.data);
+        if (response.body.data.length > 0) {
+          setYears(response.body.data);
         }
       })
       .catch((err) => {

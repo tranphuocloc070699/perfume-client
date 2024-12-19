@@ -32,9 +32,9 @@ export const usePostPageData = (props: IUseParams) => {
       }
     }
     const postService = new PostService();
-    const response = await postService.getAllPost(params);
-    if (response?.data) {
-      setData(response.data);
+    const { body } = await postService.getAllPost(params);
+    if (body?.data) {
+      setData(body.data);
     }
     setLoading(false);
   };

@@ -13,7 +13,7 @@ import { BrandDto } from "@/types/brand/brand.model";
 import { UpsaveProductDto } from "@/types/admin/admin.interface";
 import { GetAllPostRequest, GetAllPostResponse, PostDto } from "@/types/post/post.model";
 
-class ProductService extends HttpFactory {
+class PostService extends HttpFactory {
   readonly PREFIX: string = "/post";
 
   async getAllPost(params: GetAllPostRequest) {
@@ -62,4 +62,4 @@ class ProductService extends HttpFactory {
   }
 }
 
-export default ProductService;
+export default PostService;

@@ -19,25 +19,25 @@ export const useSearchBoxData = () => {
       children: []
     }
   ]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const execute = async (props: IUseSearchBoxParams) => {
-    setData([
-      {
-        title: "Nước hoa",
-        children: []
-      }
-    ]);
+    // setData([
+    //   {
+    //     title: "Nước hoa",
+    //     children: []
+    //   }
+    // ]);
     setLoading(true);
 
     const productService = new ProductService();
-    const response = await productService.getAllProduct({
+    const { body } = await productService.getAllProduct({
       productName: props.searchInput
     });
-    if (response?.data) {
+    if (body?.data) {
       setData([
         {
           title: "Nước hoa",
-          children: response.data.content.map((item) => ({
+          children: body.data.content.map((item) => ({
             title: item.name,
             link: `/nuoc-hoa/${item.slug}-${item.id}`
           }))

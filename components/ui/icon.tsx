@@ -29,6 +29,9 @@ import {
   Loader,
   LogOut
 } from "lucide-react";
+
+// import { User as UserSolid } from "lucide-solid";
+
 import NextImg from "next/image";
 
 export const icons = {
@@ -60,6 +63,7 @@ export const icons = {
   filters: <SlidersHorizontal />,
   spinner: <Loader />,
   logout: <LogOut />,
+  // user_solid: <UserSolid />,
   google_local: "/assets/images/google-icon.svg"
 } as const;
 
@@ -67,10 +71,11 @@ interface Props {
   name: keyof typeof icons | string;
   className?: string;
   size?: number;
+  fill?: string;
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
-const Icon = ({ name, className, size = 16, onClick }: Props) => {
+const Icon = ({ name, className, size = 16, onClick, fill }: Props) => {
   const icon = useMemo(() => {
     const isIconFromProvider = name in icons && !name.includes("_local");
 
@@ -79,7 +84,8 @@ const Icon = ({ name, className, size = 16, onClick }: Props) => {
       return React.cloneElement(icon as React.ReactElement, {
         className,
         size,
-        onClick
+        onClick,
+        ...(fill && { fill })
       });
     } else {
       return (

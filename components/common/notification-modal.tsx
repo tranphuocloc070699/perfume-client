@@ -1,22 +1,8 @@
-import React, { useMemo, useState } from "react";
-import { useUserStore } from "@/store/user.store";
-import { UpsaveProductDto } from "@/types/admin/admin.interface";
-import MediaService from "@/services/modules/media.service";
+import React, { useState } from "react";
 import useCustomState from "@/hooks/fetch-data/use-custom-state";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import NextImg from "next/image";
+
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select";
 import Icon from "@/components/ui/icon";
 
 

@@ -39,9 +39,9 @@ const UpsaveBlogContainer = () => {
 
   async function fetchPostOnUpdateMode(id: string) {
     try {
-      const response = await postService.getPostById(id);
-      if (response.status === 200) {
-        setDto(response.data);
+      const { body } = await postService.getPostById(Number(id));
+      if (body.status === 200) {
+        setDto(body.data);
       }
     } catch (error) {
       console.error(error);
@@ -69,9 +69,9 @@ const UpsaveBlogContainer = () => {
 
   async function uploadImage(file: File) {
     if (!file) return;
-    const response = await mediaService.uploadImage(file);
-    if (response.status == 200 && response.data) {
-      return response.data;
+    const { body } = await mediaService.uploadImage(file);
+    if (body.status == 200 && body.data) {
+      return body.data;
     }
   }
 

@@ -2,6 +2,8 @@ import AppDataNotFound from "@/components/common/app-data-not-found";
 import Loading from "@/components/common/loading";
 import Link from "next/link";
 import React from "react";
+import DataLoadingSpinner from "@/components/common/data-loading-spinner";
+import { twMerge } from "tailwind-merge";
 
 interface ISearchResultItem {
   title: string;
@@ -44,15 +46,42 @@ const SearchResultList = ({
 };
 
 export interface ISearchResultBoxProps {
-  loading: Boolean;
+  loading: boolean;
   data: ISearchResultList[];
 }
 
 const SearchResultBox = ({ loading, data }: ISearchResultBoxProps) => {
+
   return (
     <div
-      className="w-full md:border md:border-gray-100 rounded-b-lg bg-white  md:shadow-sm max-h-96 overflow-y-auto scrollbar-1">
-      <Loading loading={loading}>
+      className="w-full md:border md:border-gray-100 rounded-b-lg bg-white  md:shadow-sm max-h-96 overflow-y-auto scrollbar-1 transition-all">
+      <div className={twMerge(``)}>
+        <DataLoadingSpinner text={"Đang tìm kiếm"} loading={true} />
+      </div>
+      {data.length > 0 ? (
+        data.map((item) => (
+          <div
+            key={item.title}
+            className="md:p-4 py-4 md:border-b md:border-gray-100 last:border-b-none last:pb-4"
+          >
+            <SearchResultList searchResultList={item} />
+          </div>
+        ))
+      ) : (
+        <div>
+          <AppDataNotFound />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default SearchResultBox;
+
+
+/*
+*
+*  <Loading loading={loading}>
         {data.length > 0 ? (
           data.map((item) => (
             <div
@@ -68,8 +97,4 @@ const SearchResultBox = ({ loading, data }: ISearchResultBoxProps) => {
           </div>
         )}
       </Loading>
-    </div>
-  );
-};
-
-export default SearchResultBox;
+* */

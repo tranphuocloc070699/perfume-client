@@ -1,18 +1,15 @@
 "use client";
-import React, { useMemo, useState } from "react";
-import UpsaveProductContainer from "@/components/specific/Admin/Product/UpsaveProductContainer";
+import React, { useMemo } from "react";
 import CommonTableManagement, {
   ICommonTableManagementProps
 } from "@/components/common/CommonManagement/CommonTableManagement";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useUserStore } from "@/store/user.store";
 import ProductService from "@/services/modules/product.service";
-import { ProductDto } from "@/types/product/product.model";
 import { usePerfumePageData } from "@/hooks/fetch-data/nuoc-hoa-page/usePerfumePageData";
 import { useParamsUtil } from "@/hooks/use-params";
-import CommonPagination from "@/components/common/CommonPagination";
+import CommonPagination from "@/components/common/pagination";
 import { useToast } from "@/hooks/use-toast";
-import productService from "@/services/modules/product.service";
 
 const ProductManagement = () => {
 
@@ -62,7 +59,7 @@ const ProductManagement = () => {
     try {
       const response = await productService.deleteProduct(id);
       console.log({ response });
-      if (response.status == 200 && response.data) {
+      if (response.body.status == 200 && response.body.data) {
         toast({ description: "Xóa sản phẩm thành công" });
         fetchData();
       }

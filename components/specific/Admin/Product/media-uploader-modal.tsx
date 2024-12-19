@@ -4,11 +4,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import MediaService from "@/services/modules/media.service";
 import { MediaDto } from "@/types/media/media.model";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { Input } from "@/components/ui/input";
+
 import { useUserStore } from "@/store/user.store";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
-import { BrandDto } from "@/types/brand/brand.model";
 import { CloudUpload } from "lucide-react";
 
 function dummyResolvePromise(data: string[]) {
@@ -30,9 +29,9 @@ const MediaUploaderModal = () => {
 
   async function fetchGalleries() {
     const mediaService = new MediaService();
-    const response = await mediaService.getAllMedia();
-    if (response.data.length > 0) {
-      setGalleries(response.data);
+    const { body } = await mediaService.getAllMedia();
+    if (body.data.length > 0) {
+      setGalleries(body.data);
     }
   }
 
@@ -79,9 +78,9 @@ const MediaUploaderModal = () => {
       const uploadPromises = Array.from(files).map(file => mediaService.uploadImage(file));
       const responses = await Promise.all(uploadPromises);
       console.log("All files uploaded:", responses);
-      if (responses.length > 0 && responses[0].status === 200) {
+      if (responses.length > 0 && responses[0].body.status === 200) {
         await fetchGalleries();
-        toast({ description: responses[0].message });
+        toast({ description: responses[0].body.message });
       } else {
         toast({ description: "Có lỗi xảy ra trong quá trình upload" });
       }

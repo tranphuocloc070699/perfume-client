@@ -10,26 +10,46 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  // If logged in and accessing "dang-nhap" or "dang-ky", redirect to "/"
-  if (token) {
+  if (token && token?.refreshToken) {
+
+    const cookieParts = (token?.refreshToken as String).split("; ");
+    const [nameValue, ...attributes] = cookieParts;
+    const [name, value] = nameValue.split("=");
+    const cookieAttributes = Object.fromEntries(
+      attributes.map((attr) => {
+        const [key, val] = attr.split("=");
+        return [key.toLowerCase(), val || true];
+      })
+    );
+    const response = NextResponse.next();
+    response.cookies.set({
+      name,
+      value,
+      ...cookieAttributes,
+      expires: new Date(cookieAttributes?.expires as string)
+    });
     if (pathname === "/dang-nhap" || pathname === "/dang-ky") {
       return NextResponse.redirect(new URL("/", request.url));
     }
+
+    return response;
   } else {
-    // If not logged in and accessing "/user" pages, redirect to "/"
     if (pathname.startsWith("/user")) {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
-
-  // Allow other requests to proceed
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    "/dang-nhap",  // Match exactly "/dang-nhap"
-    "/dang-ky",    // Match exactly "/dang-ky"
-    "/user/:path*" // Match any route starting with "/user"
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     */
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)"
   ]
 };

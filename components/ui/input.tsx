@@ -15,6 +15,7 @@ export interface IconProps {
   name: keyof typeof icons | string;
   size?: number;
   className?: string;
+  reverse?: boolean;
 }
 
 export interface InputFieldProps {
@@ -22,8 +23,8 @@ export interface InputFieldProps {
 }
 
 type ControlledProps = {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string | number;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   validation?: never; // Prevent `validation` when `value` or `onChange` is used
 };
 
@@ -50,13 +51,15 @@ export type InputProps = {
   label?: LabelProps;
   icon?: IconProps;
   input?: InputFieldProps;
+  defaultValue?: string | number;
   placeholder?: string;
   type?: string;
   debounce?: DebounceProps;
   groupClassName?: string;
   wrapperClassName?: string;
-  variant?: "secondary";
+  variant?: "solid";
   fieldState?: ControllerFieldState;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   field?: ControllerRenderProps<FieldValues, string>;
 } & (ControlledProps | UncontrolledProps);
 
@@ -83,7 +86,9 @@ const InputField = forwardRef<HTMLInputElement, InputProps>(
       field,
       placeholder,
       value,
-      onChange
+      onChange,
+      defaultValue,
+      onKeyDown
     },
     ref
   ) => {
@@ -93,11 +98,18 @@ const InputField = forwardRef<HTMLInputElement, InputProps>(
     const classNameProcessor = useMemo(() => {
       const baseClassName: IDefaultClassName = {
         inputGroup: `w-full`,
-        inputFieldWrapper: `h-10 border border-input shadow-sm flex items-center rounded-lg px-4 py-2 gap-2 ${label?.title && "mt-1"}`,
+        inputFieldWrapper: `h-full border border-input shadow-sm flex items-center rounded-lg px-4 py-2 gap-2 ${label?.title && "mt-1"}`,
         label: "",
-        input: `outline-none flex  w-full rounded-md  bg-transparent  py-1 text-sm  transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground `,
+        input: `outline-none flex  w-full rounded-md  bg-transparent  py-1 text-sm  transition-colors file:border-0  file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground `,
         icon: ""
       };
+
+      if (variant && variant === "solid") {
+        baseClassName.inputFieldWrapper += ` bg-gray-100 border-none rounded`;
+        baseClassName.input += ` bg-gray-100 `;
+      }
+
+
       baseClassName.inputGroup += ` ${groupClassName}`;
       baseClassName.inputFieldWrapper += ` ${wrapperClassName} ${fieldState?.error?.message && "border-red-500"}`;
       baseClassName.label += ` ${label?.className}`;
@@ -140,8 +152,6 @@ const InputField = forwardRef<HTMLInputElement, InputProps>(
       }
       if (debounce) debouncedSearch(e);
     };
-
-
     return (
       <div className={twMerge(classNameProcessor.inputGroup)}>
         {label?.title && (
@@ -151,12 +161,14 @@ const InputField = forwardRef<HTMLInputElement, InputProps>(
         )}
         <span className={twMerge(classNameProcessor.inputFieldWrapper)}>
           {
-            icon?.name && (<Icon size={icon?.size || 18} name={icon.name} />)
+            (icon?.name && !icon?.reverse) && (<Icon size={icon?.size || 18} name={icon.name} />)
           }
           <input
             placeholder={placeholder}
             type={typeProcessor}
             className={twMerge(classNameProcessor.input)}
+            defaultValue={defaultValue}
+            onKeyDown={onKeyDown}
             {...(field
               ? { ...field }
               : { value, onChange: handleInputFieldChange, ref })}
@@ -168,6 +180,9 @@ const InputField = forwardRef<HTMLInputElement, InputProps>(
               className={twMerge(`h-5 w-5 cursor-pointer ${icon?.className}`)}
             />
           )}
+          {
+            (icon?.name && icon?.reverse) && (<Icon size={icon?.size || 18} name={icon.name} />)
+          }
         </span>
 
         {field && (

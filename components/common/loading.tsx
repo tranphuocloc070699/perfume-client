@@ -9,8 +9,8 @@ const Loading = ({ loading, children }: IAppLoadingProps) => {
   return (
     <>
       <div
-        className={`flex items-center justify-center w-full my-20 text-gray-900 dark:text-gray-100 dark:bg-gray-950 transition-opacitY ${
-          loading ? "opacity-100" : "opacity-0 hidden"
+        className={`flex items-center justify-center w-full my-20 text-gray-900 dark:text-gray-100 dark:bg-gray-950 transition-all ${
+          loading ? "opacity-100" : "opacity-0 h-0"
         }`}
       >
         <div>

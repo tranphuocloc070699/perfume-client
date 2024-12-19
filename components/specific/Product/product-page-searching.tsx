@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import Input from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -92,6 +92,7 @@ const ProductPageSearching = () => {
   };
 
   const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    console.log("trigger...");
     if (event.key === "Enter" && event.target instanceof HTMLInputElement) {
       updateParams({
         key: "productName",
@@ -104,10 +105,13 @@ const ProductPageSearching = () => {
   return (
     <div className="flex items-center flex-wrap gap-4">
       <Input
+        name={"productName"}
         onKeyDown={handleInputKeyDown}
         placeholder="Tên sản phẩm"
-        className="md:w-[33%] w-full"
-        defaultValue={defaultValue?.productName}
+        groupClassName="md:w-[33%] w-full"
+        defaultValue={defaultValue?.productName as string}
+
+
       />
 
       <Select

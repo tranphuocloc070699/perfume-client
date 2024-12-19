@@ -1,10 +1,11 @@
-import AppTitle from "@/components/common/AppTitle";
-import ProductNoteList from "@/components/specific/ProductNote/ProductNoteList";
+import AppTitle from "@/components/common/app-title";
+import ProductNoteList from "@/components/specific/ProductNote/product-note-list";
 import React from "react";
 import ProductNoteService from "@/services/modules/product-note.service";
+
 const NotePage = async () => {
   const productNoteService = new ProductNoteService();
-  const { data } = await productNoteService.getAllProductNote();
+  const { body: { data } } = await productNoteService.getAllProductNote();
 
   return (
     <div>

@@ -29,9 +29,9 @@ export const usePerfumePageData = (props: IUseParams) => {
       }
     }
     const productService = new ProductService();
-    const response = await productService.getAllProduct(params);
-    if (response?.data) {
-      setData(response.data);
+    const { body } = await productService.getAllProduct(params);
+    if (body?.data) {
+      setData(body.data);
     }
 
     setLoading(false);

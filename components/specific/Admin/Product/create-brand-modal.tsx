@@ -3,7 +3,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import React, { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import Input from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useUserStore } from "@/store/user.store";
 import { BrandDto } from "@/types/brand/brand.model";
@@ -82,20 +82,20 @@ const CreateBrandModal = () => {
 
   async function uploadImage() {
     if (!imageUploader) return;
-    const response = await mediaService.uploadImage(imageUploader);
-    if (response.status == 200 && response.data) {
-      setDto({ ...dto, thumbnail: response.data });
-      toast({ description: response.message });
+    const { body } = await mediaService.uploadImage(imageUploader);
+    if (body.status == 200 && body.data) {
+      setDto({ ...dto, thumbnail: body.data });
+      toast({ description: body.message });
     }
   }
 
   async function createBrand() {
     try {
       if (imageUploader) await uploadImage();
-      const response = await brandService.createBrand(dto);
-      if (response.status == 200 && response.data) {
-        toast({ description: response.message });
-        resolvePromise(response.data);
+      const { body } = await brandService.createBrand(dto);
+      if (body.status == 200 && body.data) {
+        toast({ description: body.message });
+        resolvePromise(body.data);
         closeModal();
       }
     } catch (error) {
@@ -190,8 +190,11 @@ const CreateBrandModal = () => {
               <span className="col-span-12">
                   <Label>Mô tả</Label>
                   <Input
-
+                    name={"description"}
                     placeholder="Nhập mô tả"
+                    value={""}
+                    onChange={(e) => {
+                    }}
                   />
                 </span>
               <div className={"col-span-12 mt-4 flex justify-end gap-4"}>

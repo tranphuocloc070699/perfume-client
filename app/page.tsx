@@ -5,7 +5,7 @@ import { ProductDto } from "@/types/product/product.model";
 
 export default async function Home() {
   const productService = new ProductService();
-  const { data } = await productService.getAllProduct({});
+  const { body } = await productService.getAllProduct({});
 
   return (
     <main className={`md:px-0 px-4 w-full max-w-`}>
@@ -15,7 +15,7 @@ export default async function Home() {
           title="Mới ra mắt"
           icon="material-symbols-light:award-star-outline"
         >
-          <ProductCardList data={data.content} />
+          <ProductCardList data={body.data.content} />
           <div></div>
         </AppTitle>
       </section>

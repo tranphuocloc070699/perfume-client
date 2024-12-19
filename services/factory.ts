@@ -73,8 +73,6 @@ class HttpFactory {
       const response = await fetch(newUrl, options);
       const body = await response.json();
       return { headers: response.headers, body };
-
-      // return await response.json();
     } catch (error) {
       throw new Error(`Fetch error: ${(error as Error).message}`);
     }

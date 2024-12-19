@@ -3,7 +3,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import Input from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useUserStore } from "@/store/user.store";
 import { BrandDto } from "@/types/brand/brand.model";
@@ -68,19 +68,19 @@ const CreateCountryModal = () => {
 
   async function uploadImage() {
     if (!imageUploader) return;
-    const response = await mediaService.uploadImage(imageUploader);
-    if (response.status == 200 && response.data) {
-      setDto({ ...dto, thumbnail: response.data });
+    const { body } = await mediaService.uploadImage(imageUploader);
+    if (body.status == 200 && body.data) {
+      setDto({ ...dto, thumbnail: body.data });
     }
   }
 
   async function createCountry() {
     try {
       if (imageUploader) await uploadImage();
-      const response = await countryService.createCountry(dto);
-      if (response.status == 200 && response.data) {
-        toast({ description: response.message });
-        resolvePromise(response.data);
+      const { body } = await countryService.createCountry(dto);
+      if (body.status == 200 && body.data) {
+        toast({ description: body.message });
+        resolvePromise(body.data);
         closeModal();
       }
     } catch (error) {

@@ -2,10 +2,7 @@
 
 import React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import ProductPageSearching from "@/components/specific/Product/ProductPageSearching";
-import CommonLoadDataSpinner from "@/components/common/CommonLoadDataSpinner";
-import CommonPagination from "@/components/common/CommonPagination";
-import PostPageList from "@/components/specific/Blog/PostPageList";
+import PostPageList from "@/components/specific/Blog/post-page-list";
 import { usePostPageData } from "@/hooks/fetch-data/blog-page/usePostPageData";
 
 const BlogPage = () => {

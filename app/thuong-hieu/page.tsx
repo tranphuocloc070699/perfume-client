@@ -1,11 +1,11 @@
-import AppTitle from "@/components/common/AppTitle";
-import BrandList from "@/components/specific/Brand/BrandList";
+import AppTitle from "@/components/common/app-title";
+import BrandList from "@/components/specific/Brand/brand-list";
 import BrandService from "@/services/modules/brand.service";
 import React from "react";
 
 const page = async () => {
   const brandService = new BrandService();
-  const { data } = await brandService.getAllBrand();
+  const { body: { data } } = await brandService.getAllBrand();
   return (
     <div>
       <AppTitle

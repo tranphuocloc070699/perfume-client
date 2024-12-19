@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import UserService from "@/services/modules/user.service";
 import { ISignUpLoginForm } from "@/types/user/user.interface";
-
 import {
   EmailAlreadyExists,
   EmailNotFoundError,
@@ -10,7 +9,7 @@ import {
   FetchError,
   UnknownError
 } from "@/lib/errors/credentials-error";
-
+import { cookies } from "next/headers";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -27,7 +26,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           } else if (type === "authenticate") {
             response = await userService.authenticate(req?.headers.get("cookie"));
           }
-          console.log({ response });
+          const setCookieHeader = response?.headers?.get("Set-Cookie");
+          /*
+          * How to set it?
+          * */
+
           if (response?.body?.status === 400 && type === "login") {
             throw new EmailOrPasswordIncorrect();
           }
@@ -38,13 +41,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (response?.body?.status === 404) {
             throw new EmailNotFoundError();
           }
-          const user = response?.data?.data;
+          const user = response?.body?.data?.data;
           if (response?.body?.status === 200 && user) {
             return {
               id: String(user.id),
               email: user.email,
               name: user.name,
-              accessToken: response?.body?.data.accessToken
+              accessToken: response?.body?.data.accessToken,
+              ...(setCookieHeader ? { refreshToken: setCookieHeader } : {})
             };
           } else {
             return null;
@@ -63,6 +67,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.accessToken = (user as any)?.accessToken;
+        token.refreshToken = (user as any)?.refreshToken;
         token.id = user.id;
       }
       return token;
@@ -78,3 +83,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }
   }
 });
+
+
+
+
+

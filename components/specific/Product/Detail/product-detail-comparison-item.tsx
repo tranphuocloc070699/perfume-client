@@ -16,7 +16,7 @@ const ProductDetailComparisonItem = ({ data }: { data: ProductCompareDto }) => {
   async function onClick() {
     const productCompareService = new ProductCompareService();
     const response = await productCompareService.getProductCompareById(data.id);
-    modal.open(response.data);
+    modal.open(response.body.data);
   }
 
   return (

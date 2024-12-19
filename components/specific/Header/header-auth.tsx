@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import { signOut } from "next-auth/react";
+import UserService from "@/services/modules/user.service";
 
 const HeaderAuth = () => {
   const { data, status } = useSession();
@@ -12,6 +13,8 @@ const HeaderAuth = () => {
     /*
     * Call api to sign out on server side
     * */
+    const userService = new UserService();
+    await userService.logout();
     await signOut();
   }
 
@@ -23,7 +26,8 @@ const HeaderAuth = () => {
       {
         data ? <div className={"relative group"}>
           <Icon name={"user"}
-                className={"rounded-full w-8 h-8 p-1 shadow border border-gray-300 transition-all duration-300 cursor-pointer hover:shadow-none"} />
+                fill={"#000"}
+                className={"w-6 h-6 "} />
           <div
             className={"absolute z-10 shadow-xl bg-white rounded-lg top-[100%] right-0 min-w-[200px]  p-4 border border-gray-300 hidden group-hover:block"}>
             <div className={"flex items-center gap-2 border-b border-gray-300 pb-4"}>
