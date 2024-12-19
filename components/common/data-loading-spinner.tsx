@@ -3,6 +3,7 @@ import React from "react";
 interface ICommonLoadDataSpinnerProps {
   text: string;
   loading: boolean;
+
 }
 
 const DataLoadingSpinner = ({

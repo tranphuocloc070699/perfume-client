@@ -27,9 +27,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             response = await userService.authenticate(req?.headers.get("cookie"));
           }
           const setCookieHeader = response?.headers?.get("Set-Cookie");
-          /*
-          * How to set it?
-          * */
 
           if (response?.body?.status === 400 && type === "login") {
             throw new EmailOrPasswordIncorrect();
