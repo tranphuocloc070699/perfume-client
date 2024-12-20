@@ -44,6 +44,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               id: String(user.id),
               email: user.email,
               name: user.name,
+              role: user.role,
               accessToken: response?.body?.data.accessToken,
               ...(setCookieHeader ? { refreshToken: setCookieHeader } : {})
             };
@@ -65,17 +66,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.accessToken = (user as any)?.accessToken;
         token.refreshToken = (user as any)?.refreshToken;
+        token.role = (user as any)?.role;
         token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
-      // console.log({ session, token });
-      // session.user = {
-      //   id: token.id,
-      //   email: session.user?.email,
-      //   accessToken: token.accessToken,
-      // };
+      (session.user as any).role = token.role;
+      (session.user as any).accessToken = token.accessToken;
       return session;
     }
   }

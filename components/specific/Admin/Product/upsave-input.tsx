@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Icon } from "@iconify/react";
-import { Input } from "@/components/ui/input";
+import Input from "@/components/ui/input";
 
 
 interface IUpsaveInputProps {

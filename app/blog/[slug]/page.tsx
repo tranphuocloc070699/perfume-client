@@ -7,16 +7,13 @@ export const dynamicParams = true;
 const postService = new PostService();
 
 export async function generateStaticParams() {
-  const { data } = await postService.getAllPostId();
-  return data;
+  const { body } = await postService.getAllPostId();
+  return body.data;
 }
 
 const PostDetailPage = async (params: any) => {
   const id = extractIdFromUrl(params?.params?.slug);
-  const { data, errors } = await postService.getPostById(Number(id));
-
-
-  console.log({ data });
+  const { body } = await postService.getPostById(Number(id));
 
 
   return (
@@ -28,7 +25,7 @@ const PostDetailPage = async (params: any) => {
         <h1 className={"font-bold text-3xl text-slate-700"}>Nước hoa hay dầu thơm (tiếng Anh: Perfume, tiếng Pháp:
           Parfum) là hỗn hợp chất tạo mùi của tinh dầu thơm hoặc các hợp chất tạo mùi thơm, chất hãm hương</h1>
         <div className={"mt-4"}>
-          <div dangerouslySetInnerHTML={{ __html: data.content }}></div>
+          <div dangerouslySetInnerHTML={{ __html: body?.data?.content }}></div>
         </div>
       </section>
       <section className="col-span-3">

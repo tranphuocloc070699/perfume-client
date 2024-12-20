@@ -58,23 +58,25 @@ const SearchResultBox = ({ loading, data }: ISearchResultBoxProps) => {
 
       <div
         className={twMerge(`absolute inset-0 w-full h-full flex items-center justify-center opacity-0 transition-all duration-300 ${loading && "opacity-100"}`)}>
-        <DataLoadingSpinner text={"Đang tìm kiếm"} loading={true} />
+        <DataLoadingSpinner text={"Đang tìm kiếm"} />
       </div>
 
-      {data[0].children.length > 0 ? (
-        data.map((item) => (
-          <div
-            key={item.title}
-            className="md:p-4 py-4 md:border-b md:border-gray-100 last:border-b-none last:pb-4"
-          >
-            <SearchResultList searchResultList={item} />
+      {!loading && <>
+        {data[0].children.length > 0 ? (
+          data.map((item) => (
+            <div
+              key={item.title}
+              className="md:p-4 py-4 md:border-b md:border-gray-100 last:border-b-none last:pb-4"
+            >
+              <SearchResultList searchResultList={item} />
+            </div>
+          ))
+        ) : (
+          <div className={"absolute inset-0 bg-gray-50 flex items-center justify-center"}>
+            <AppDataNotFound />
           </div>
-        ))
-      ) : (
-        <div className={"absolute inset-0 bg-gray-50 flex items-center justify-center"}>
-          <AppDataNotFound />
-        </div>
-      )}
+        )}
+      </>}
     </div>
   );
 };

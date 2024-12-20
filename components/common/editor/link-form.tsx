@@ -1,5 +1,5 @@
 import React, { KeyboardEvent, useEffect, useState } from "react";
-import { Input } from "@/components/ui/input";
+import Input from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Check, Unlink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -49,7 +49,7 @@ const LinkForm = ({ onSubmit, editMode, onUnlink, initialValue }: Props) => {
 
   return (
     <div className={"flex items-center gap-4"} component-name="LinkForm">
-      <Input value={input} onChange={e => setInput(e.target.value)} placeholder={"Nhập link..."}
+      <Input name={"link-form"} value={input} onChange={e => setInput(e.target.value)} placeholder={"Nhập link..."}
              onKeyDown={handleKeyDown} />
       <Button onClick={handleConfirm} className={"bg-green-600 w-10 h-10 flex items-center justify-center"}>
         {/*<Check className={"text-gray-100"} size={28} />*/}

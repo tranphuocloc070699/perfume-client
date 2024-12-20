@@ -3,5 +3,7 @@ export type UserDto = {
   name: string;
   email: string;
   avatar: string;
-  role: "USER" | "ADMIN";
+  role: Role;
 };
+
+export type Role = "USER" | "ADMIN";

@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import Input from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import NextImg from "next/image";
 
@@ -12,8 +12,6 @@ interface IUpsaveThumbnailProps {
 }
 
 const UpsaveThumbnail = ({ className, thumbnail, preview, setPreview }: IUpsaveThumbnailProps) => {
-
-
   const thumbnailProcessor = useMemo(() => {
     console.log({ thumbnail });
     if (preview) {
@@ -42,8 +40,13 @@ const UpsaveThumbnail = ({ className, thumbnail, preview, setPreview }: IUpsaveT
         <NextImg width={200} height={200} src={thumbnailProcessor} alt="Thumbnail Preview"
                  className="w-32 h-32 object-cover rounded-md" />
         <div className={"relative"}>
-          <Input type={"file"} onChange={handleFileChange}
-                 className={"absolute top-0 left-0 right-0 bottom-0 opacity-0"} />
+          <input
+            type="file"
+            onChange={handleFileChange}
+            name="thumbnail"
+            accept="image/*"
+            className="absolute top-0 left-0 right-0 bottom-0 opacity-0"
+          />
           <Button>Upload ảnh</Button>
         </div>
       </div>

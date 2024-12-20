@@ -6,19 +6,21 @@ import { useClickOutSide } from "@/hooks/useClickOutside";
 
 const HeaderSearching = () => {
 
-  const { data, loading, execute } = useSearchBoxData();
+  const { data, loading, setLoading, execute } = useSearchBoxData();
   const [isShowSearchResultBox, setIsShowSearchResultBox] = useState(false);
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
-
     if (!e.target.value || e.target.value.trim().length === 0) {
-
       closeSearchResultBox();
-
       return;
     }
+
     execute({ searchInput: e.target.value });
-    openSearchResultBox();
+  }
+
+  function handleSearchInputTyping(e: React.ChangeEvent<HTMLInputElement>) {
+    if (!isShowSearchResultBox) openSearchResultBox();
+    if (!loading) setLoading(true);
   }
 
   function openSearchResultBox() {
@@ -38,7 +40,8 @@ const HeaderSearching = () => {
       <div className={"relative"}>
         <Input icon={{ name: "search", reverse: true, className: "text-gray-500" }} variant={"solid"}
                groupClassName={"h-8 md:min-w-[320px]"} name={"search-input"}
-               placeholder={"Tìm nước hoa..."} debounce={{ callback: handleSearch }} />
+               placeholder={"Tìm nước hoa..."} debounce={{ callback: handleSearch }}
+               onChange={handleSearchInputTyping} />
 
         <div
           ref={searchResultRef}

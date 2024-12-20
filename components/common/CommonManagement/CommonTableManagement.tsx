@@ -14,7 +14,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import PopConfirm from "@/components/common/pop-confirm";
-import { Input } from "@/components/ui/input";
+import Input from "@/components/ui/input";
 import _debounce from "lodash/debounce";
 import DataLoadingSpinner from "@/components/common/data-loading-spinner";
 
@@ -67,7 +67,7 @@ const CommonTableManagement = (props: ICommonTableManagementProps) => {
       <div className="flex items-center justify-between mb-6">
         <div className={"flex item-center gap-4"}>
           <h4 className="text-2xl font-semibold text-nowrap">{props.title}</h4>
-          <Input placeholder={"Searching..."} value={input}
+          <Input name={"search"} placeholder={"Searching..."} value={input}
                  onChange={(e) => handleChange(e)} />
         </div>
         <Button
@@ -91,7 +91,7 @@ const CommonTableManagement = (props: ICommonTableManagementProps) => {
         <TableBody>
           {props.loading && <TableRow>
             <TableCell colSpan={props.headers.length + 1}>
-              <DataLoadingSpinner text={"Load data"} loading={props.loading} />
+              <DataLoadingSpinner text={"Load data"} />
             </TableCell>
           </TableRow>}
 

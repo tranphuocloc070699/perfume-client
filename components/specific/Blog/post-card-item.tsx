@@ -22,7 +22,7 @@ const PostCardItem = ({ className, dto }: Props) => {
   }, [dto]);
 
   return (
-    <Link href={`/app/(default)/blog/${dto.excerpt}-${dto.id}`} component-name="PostCardItem"
+    <Link href={`/blog/${dto.excerpt}-${dto.id}`} component-name="PostCardItem"
           className={twMerge(`flex items-start  rounded-lg  shadow-1 ${className}`)}>
       <NextImg src={thumbnailSource}
                alt={dto.title} width={200} height={200}

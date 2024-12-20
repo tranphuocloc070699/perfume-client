@@ -8,7 +8,7 @@ import { useUserStore } from "@/store/user.store";
 import ProductService from "@/services/modules/product.service";
 import { usePerfumePageData } from "@/hooks/fetch-data/nuoc-hoa-page/usePerfumePageData";
 import { useParamsUtil } from "@/hooks/use-params";
-import CommonPagination from "@/components/common/CommonPagination";
+import CommonPagination from "@/components/common/pagination";
 import { useToast } from "@/hooks/use-toast";
 import PostService from "@/services/modules/post.service";
 import { usePostPageData } from "@/hooks/fetch-data/blog-page/usePostPageData";
@@ -59,8 +59,8 @@ const NewsManagement = () => {
     }
     try {
       const response = await postService.deletePost(id);
-      console.log({ response });
-      if (response.status == 200 && response.data) {
+
+      if (response.body.status == 200 && response.body.data) {
         toast({ description: "Xóa bài viết thành công" });
         fetchData();
       }

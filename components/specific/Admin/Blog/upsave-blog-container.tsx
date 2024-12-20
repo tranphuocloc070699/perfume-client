@@ -16,9 +16,11 @@ import { PostDto } from "@/types/post/post.model";
 import { dummyPostDto, postTypeList } from "@/types/post/post.data";
 import UpsaveSelect from "@/components/specific/Admin/Blog/upsave-select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useSession } from "next-auth/react";
 
 
 const UpsaveBlogContainer = () => {
+  const { data } = useSession();
 
 
   const [dto, setDto] = useState<PostDto>(
@@ -48,15 +50,16 @@ const UpsaveBlogContainer = () => {
     }
   }
 
+
   const { accessToken } = useUserStore();
 
   const mediaService = useMemo(() => {
-    return new MediaService(accessToken);
-  }, [accessToken]);
+    return new MediaService((data?.user as any)?.accessToken);
+  }, [data]);
 
   const postService = useMemo(() => {
-    return new PostService(accessToken);
-  }, [accessToken]);
+    return new PostService((data?.user as any)?.accessToken);
+  }, [data]);
 
   function updateDto(key: keyof PostDto, value: any) {
     setDto({ ...dto, [key]: value });
@@ -93,8 +96,8 @@ const UpsaveBlogContainer = () => {
       } else {
         response = await postService.createPost(req);
       }
-      if (response.status === 200 && response.data) {
-        toast({ description: response.message });
+      if (response?.body?.status === 200 && response?.body.data) {
+        toast({ description: response?.body?.message });
         router.push("/admin/blog");
       }
     } catch (e) {
@@ -120,7 +123,7 @@ const UpsaveBlogContainer = () => {
     <UpsaveSelect className={"col-span-4 flex flex-col gap-2"} label={"Loại"} options={postTypeList}
                   value={dto.type ? `${dto.type}` : ""}
                   onChange={(value) => updateDto("type", value)} />
-    <div className={"col-span-4"}>
+    <div className={"col-span-4 flex items-center justify-center gap-2"}>
       <Checkbox checked={dto.isPinned} onCheckedChange={checked => {
         updateDto("isPinned", checked);
       }} />

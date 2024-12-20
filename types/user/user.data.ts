@@ -5,7 +5,8 @@ export const initUserData: UserDto = {
   id: 0,
   name: "",
   avatar: "",
-  role: "USER"
+  role: "USER",
+  email: ""
 };
 
 export const defaultList: ISidebarGroup = {

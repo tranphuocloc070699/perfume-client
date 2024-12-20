@@ -8,28 +8,36 @@ import { usePathname } from "next/navigation";
 import { ISidebarGroup } from "@/types/user/user.interface";
 import { adminList, defaultList, userList } from "@/types/user/user.data";
 import { useUserStore } from "@/store/user.store";
+import { useSession } from "next-auth/react";
 
 const Sidebar = () => {
+
+
   const [sidebarGroupList, setSidebarGroupList] = useState<ISidebarGroup[]>([
-    defaultList,
+    defaultList
   ]);
 
   const { user, isAuthenticated } = useUserStore();
-
+  const { data } = useSession();
   const pathName = usePathname();
 
   const [isMenuOpened, setIsMenuOpened] = useState(false);
-
+  //
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     if (user.role === "USER") {
+  //       setSidebarGroupList([...sidebarGroupList, userList]);
+  //     }
+  //     if (user.role === "ADMIN") {
+  //       setSidebarGroupList([...sidebarGroupList, adminList, userList]);
+  //     }
+  //   }
+  // }, [isAuthenticated]);
   useEffect(() => {
-    if (isAuthenticated) {
-      if (user.role === "USER") {
-        setSidebarGroupList([...sidebarGroupList, userList]);
-      }
-      if (user.role === "ADMIN") {
-        setSidebarGroupList([...sidebarGroupList, adminList, userList]);
-      }
+    if ((data?.user as any)?.role === "ADMIN") {
+      setSidebarGroupList([adminList]);
     }
-  }, [isAuthenticated]);
+  }, [data]);
 
   return (
     <section>
@@ -44,7 +52,8 @@ const Sidebar = () => {
         type="checkbox"
         className="absolute top-2 left-5 w-9 h-9 [&:checked+.menu]:left-0 z-50 opacity-0"
       />
-      <div className="fixed top-[54px] w-full max-w-full  md:max-w-72 h-screen border-r border-gray-100 py-6 menu transition-all duration-300 left-[-768px]  md:left-0 z-10 bg-white ">
+      <div
+        className="fixed top-[54px] w-full max-w-full  md:max-w-72 h-screen border-r border-gray-100 py-6 menu transition-all duration-300 left-[-768px]  md:left-0 z-10 bg-white ">
         {sidebarGroupList.map((sidebarGroup) => (
           <div key={sidebarGroup.title}>
             <h4 className="flex items-center px-8 font-medium mt-6">

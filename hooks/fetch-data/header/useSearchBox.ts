@@ -48,5 +48,5 @@ export const useSearchBoxData = () => {
     setLoading(false);
   };
 
-  return { data, loading, execute };
+  return { data, loading, setLoading, execute };
 };

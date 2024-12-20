@@ -98,7 +98,7 @@ const InputField = forwardRef<HTMLInputElement, InputProps>(
     const classNameProcessor = useMemo(() => {
       const baseClassName: IDefaultClassName = {
         inputGroup: `w-full`,
-        inputFieldWrapper: `h-full border border-input shadow-sm flex items-center rounded-lg px-4 py-2 gap-2 ${label?.title && "mt-1"}`,
+        inputFieldWrapper: `h-full max-h-9 border border-input shadow-sm flex items-center rounded-lg px-4 py-2 gap-2 ${label?.title && "mt-1"}`,
         label: "",
         input: `outline-none flex  w-full rounded-md  bg-transparent  py-1 text-sm  transition-colors file:border-0  file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground `,
         icon: ""

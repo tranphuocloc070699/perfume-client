@@ -185,7 +185,7 @@ const AuthForm = ({ type }: ICommonSignupLoginForm) => {
                   name={"name"}
                   type="text"
                   input={{ className: "bg-white" }}
-                  wrapperClassName={"bg-white border border-gray-700"}
+                  wrapperClassName={"bg-white border border-gray-700 max-h-10"}
                   icon={{ name: "user" }}
                   placeholder="Nhập tên của bạn"
                   label={{ title: "Tên người dùng" }}
@@ -200,7 +200,7 @@ const AuthForm = ({ type }: ICommonSignupLoginForm) => {
                 placeholder="Nhập email"
                 icon={{ name: "email" }}
                 input={{ className: "bg-white" }}
-                wrapperClassName={"bg-white border border-gray-700"}
+                wrapperClassName={"bg-white border border-gray-700 max-h-10"}
                 label={{ title: "Email" }}
                 validation={{
                   control
@@ -213,7 +213,7 @@ const AuthForm = ({ type }: ICommonSignupLoginForm) => {
                 placeholder="Nhập mật khẩu"
                 icon={{ name: "key" }}
                 input={{ className: "bg-white" }}
-                wrapperClassName={"bg-white border border-gray-700"}
+                wrapperClassName={"bg-white border border-gray-700 max-h-10"}
                 label={{ title: "Mật khẩu" }}
                 validation={{
                   control

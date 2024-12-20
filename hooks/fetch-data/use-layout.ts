@@ -32,7 +32,6 @@ const useLayout = () => {
         type: "authenticate",
         redirect: false
       });
-      console.log({ response });
       setLoading(false);
       if (response?.code && response.code === "Không thể kết nối đến máy chủ, vui lòng kiểm tra lại đường truyền hoặc thử lại sau") {
         toast.toast({

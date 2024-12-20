@@ -31,4 +31,5 @@ export type GetAllPostRequest = {
   page?: number;
   title?: string;
   type?: string;
+  isPinned?: boolean;
 };

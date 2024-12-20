@@ -4,6 +4,7 @@ import React from "react";
 import AppHeader from "./app-header";
 import AppFooter from "./app-footer";
 import useLayout from "@/hooks/fetch-data/use-layout";
+import Sidebar from "@/components/specific/Header/sidebar";
 
 const LayoutProvider = ({
                           children

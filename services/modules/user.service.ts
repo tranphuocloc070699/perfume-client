@@ -9,7 +9,6 @@ import { getClientOrServerUrl } from "@/lib/utils";
 class UserService extends HttpFactory {
   readonly PREFIX: string = "/user";
 
-
   async signup(requestData: ISignUpLoginForm) {
     return this.call<ResponseDto<ISignUpLoginResponse>>({
       method: "POST",

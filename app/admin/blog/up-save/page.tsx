@@ -1,5 +1,5 @@
 import React from "react";
-import UpsaveBlogContainer from "@/components/specific/Admin/Blog/UpsaveBlogContainer";
+import UpsaveBlogContainer from "@/components/specific/Admin/Blog/upsave-blog-container";
 
 const Page = () => {
   return (
