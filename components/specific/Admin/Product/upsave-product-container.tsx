@@ -27,6 +27,7 @@ import { convertToSlug } from "@/lib/utils";
 import { ProductNoteDto } from "@/types/product-note/product-note.model";
 import { ProductDto } from "@/types/product/product.model";
 import { dummyProductDto } from "@/types/product/product.data";
+import { ImageDir } from "@/types/common";
 
 
 const UpsaveProductContainer = () => {
@@ -176,7 +177,7 @@ const UpsaveProductContainer = () => {
 
   async function uploadImage(file: File) {
     if (!file) return;
-    const { body } = await mediaService.uploadImage(file);
+    const { body } = await mediaService.uploadImage(ImageDir.product, file);
     if (body.status == 200 && body.data) {
       return body.data;
     }

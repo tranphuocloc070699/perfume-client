@@ -16,9 +16,10 @@ class MediaService extends HttpFactory {
     });
   }
 
-  async uploadImage(file: File) {
+  async uploadImage(uploadDir: string, file: File) {
     const formData = new FormData();
     formData.append("image", file);
+    formData.append("uploadDir", uploadDir);
 
     return this.call<ResponseDto<string>>({
       method: "POST",

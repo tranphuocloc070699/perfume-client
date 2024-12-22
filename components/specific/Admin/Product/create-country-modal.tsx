@@ -16,6 +16,7 @@ import { CountryDto } from "@/types/country/country.model";
 import CountryService from "@/services/modules/country.service";
 import { dummyCountryDto } from "@/types/country/country.data";
 import MediaService from "@/services/modules/media.service";
+import { ImageDir } from "@/types/common";
 
 function dummyResolvePromise(dto: CountryDto) {
 
@@ -68,7 +69,7 @@ const CreateCountryModal = () => {
 
   async function uploadImage() {
     if (!imageUploader) return;
-    const { body } = await mediaService.uploadImage(imageUploader);
+    const { body } = await mediaService.uploadImage(ImageDir.country, imageUploader);
     if (body.status == 200 && body.data) {
       setDto({ ...dto, thumbnail: body.data });
     }

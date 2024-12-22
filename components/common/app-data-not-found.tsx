@@ -9,7 +9,7 @@ const AppDataNotFound = () => {
       </div>
       <h1 className="text-xl font-semibold">Không có dữ liệu</h1>
       <p className="mt-2 text-sm text-gray-500 text-center px-6">
-        Chúng tôi đang cập nhật dữ liệu mới mỗi ngày, bạn thử lại sau nhé.
+        Chúng tôi đang cập nhật dữ liệu mới, bạn thử lại sau nhé.
       </p>
     </div>
   );

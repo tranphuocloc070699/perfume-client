@@ -51,7 +51,7 @@ const page = () => {
       </div>
       <div className="mt-10">
         {loading && (
-          <CommonLoadDataSpinner loading={loading} text="Đang tải sản phẩm" />
+          <CommonLoadDataSpinner text="Đang tải sản phẩm" />
         )}
         {!loading && dataProcessor}
       </div>

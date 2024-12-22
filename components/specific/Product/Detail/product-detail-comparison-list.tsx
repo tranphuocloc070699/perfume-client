@@ -1,6 +1,5 @@
 import React from "react";
 import ProductDetailComparisonItem from "./product-detail-comparison-item";
-import { useModalStore } from "@/store/modal.store";
 import { ProductCompareDto } from "@/types/product-compare/product-compare.model";
 
 interface ProductDetailComparisonListProps {

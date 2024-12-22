@@ -9,6 +9,7 @@ import { useUserStore } from "@/store/user.store";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { CloudUpload } from "lucide-react";
+import { ImageDir } from "@/types/common";
 
 function dummyResolvePromise(data: string[]) {
 
@@ -75,7 +76,7 @@ const MediaUploaderModal = () => {
     const files = event.target.files;
     if (!files || files.length === 0) return;
     try {
-      const uploadPromises = Array.from(files).map(file => mediaService.uploadImage(file));
+      const uploadPromises = Array.from(files).map(file => mediaService.uploadImage(ImageDir.gallery, file));
       const responses = await Promise.all(uploadPromises);
       console.log("All files uploaded:", responses);
       if (responses.length > 0 && responses[0].body.status === 200) {

@@ -8,3 +8,13 @@ export type FormFieldProps = {
   error: FieldError | undefined;
   valueAsNumber?: boolean;
 };
+
+export const ImageDir = {
+  brand: "Brand",
+  country: "Country",
+  post: "Post",
+  notes: "Notes",
+  product: "Product",
+  gallery: "Gallery",
+  outfit: "Outfit"
+};

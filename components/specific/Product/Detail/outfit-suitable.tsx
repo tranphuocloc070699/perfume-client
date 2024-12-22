@@ -6,7 +6,6 @@ import {
   CarouselNext,
   CarouselPrevious
 } from "@/components/ui/carousel";
-import { fakeProductData } from "@/types/product/product.data";
 import NextImg from "next/image";
 import ProductCardBlock from "@/components/common/product-card-block";
 

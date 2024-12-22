@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
+import { ImageDir } from "@/types/common";
 
 
 function dummyResolvePromise(dto: BrandDto) {
@@ -82,7 +83,7 @@ const CreateBrandModal = () => {
 
   async function uploadImage() {
     if (!imageUploader) return;
-    const { body } = await mediaService.uploadImage(imageUploader);
+    const { body } = await mediaService.uploadImage(ImageDir.brand, imageUploader);
     if (body.status == 200 && body.data) {
       setDto({ ...dto, thumbnail: body.data });
       toast({ description: body.message });

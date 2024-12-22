@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import UpsaveThumbnail from "@/components/specific/Admin/Product/upsave-thumbnail";
 import MediaService from "@/services/modules/media.service";
 import { UpsaveProductDto } from "@/types/admin/admin.interface";
+import { ImageDir } from "@/types/common";
 
 function dummyResolvePromise(dto: IResolvePromise) {
 
@@ -46,7 +47,7 @@ const UpsaveNoteModal = () => {
 
   async function uploadImage(file: File) {
     if (!file) return;
-    const { body } = await mediaService.uploadImage(file);
+    const { body } = await mediaService.uploadImage(ImageDir.notes, file);
     if (body.status == 200 && body.data) {
       return body.data;
     }

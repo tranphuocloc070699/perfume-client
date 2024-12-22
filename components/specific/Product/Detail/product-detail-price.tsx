@@ -31,7 +31,7 @@ const ProductDetailPrice = (props: ProductDetailPriceProps) => {
             <ProductCardLine
               key={item.id}
               label={labelMapper(item)}
-              value={convertNumToPrice(item.value, item.priceType)}
+              value={convertNumToPrice(Number(item.value), item.priceType)}
               link={item.link}
             />
           ))}

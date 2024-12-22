@@ -17,6 +17,7 @@ import { dummyPostDto, postTypeList } from "@/types/post/post.data";
 import UpsaveSelect from "@/components/specific/Admin/Blog/upsave-select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSession } from "next-auth/react";
+import { ImageDir } from "@/types/common";
 
 
 const UpsaveBlogContainer = () => {
@@ -72,7 +73,7 @@ const UpsaveBlogContainer = () => {
 
   async function uploadImage(file: File) {
     if (!file) return;
-    const { body } = await mediaService.uploadImage(file);
+    const { body } = await mediaService.uploadImage(ImageDir.post, file);
     if (body.status == 200 && body.data) {
       return body.data;
     }
