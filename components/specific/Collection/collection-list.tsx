@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import CollectionItem from "@/components/specific/Collection/collection-item";
 import IconGalleryModal from "@/components/specific/Collection/icon-gallery-modal";
 import ProductGalleryModal from "@/components/specific/Collection/product-gallery-modal";
+import { ProductDto } from "@/types/product/product.model";
 
 const CollectionList = () => {
 
@@ -20,7 +21,13 @@ const CollectionList = () => {
 
   function openProductGalleryModal(index: number) {
     console.log({ index });
-    productGalleryModal.openModal({});
+    productGalleryModal.openModal({
+      onClick: (product: ProductDto) => onUpdateProduct(index, product)
+    });
+  }
+
+  function onUpdateProduct(index: number, product: ProductDto) {
+    console.log({ product });
   }
 
   function onUpdateIcon(index: number, key: string) {

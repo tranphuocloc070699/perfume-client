@@ -12,12 +12,13 @@ const ProductCollectionItem = ({ product, openProductGalleryModal }) => {
 
   return (
     <div
+      onClick={openProductGalleryModal}
       component-name="ProductCollectionItem"
       className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-gray-500 cursor-pointer h-40"
     >
       {!product ? (
         <div className="flex flex-col items-center justify-center h-full text-gray-500"
-             onClick={openProductGalleryModal}>
+        >
           <Plus className="w-8 h-8 mb-2" />
           <p className="text-sm">Add a product</p>
         </div>
