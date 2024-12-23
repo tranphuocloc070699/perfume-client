@@ -37,10 +37,15 @@ class UserService extends HttpFactory {
     });
   }
 
-  async logout() {
+  async logout(cookie?: string) {
     return this.call<ResponseDto<ISignUpLoginResponse>>({
       method: "PUT",
-      url: `${getClientOrServerUrl()}${this.PREFIX}/log-out`
+      url: `${getClientOrServerUrl()}${this.PREFIX}/log-out`,
+      fetchOptions: {
+        headers: {
+          ...(cookie ? { Cookie: cookie } : {})
+        }
+      }
     });
   }
 

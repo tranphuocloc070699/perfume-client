@@ -6,11 +6,6 @@ import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 
 
-function dummyResolvePromise() {
-
-}
-
-
 interface Props {
   title?: string;
   description?: string;

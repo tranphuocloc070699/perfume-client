@@ -23,7 +23,6 @@ export default async function Home() {
           icon="material-symbols-light:award-star-outline"
         >
           <ProductCardList data={body.data.content} />
-          <div></div>
         </AppTitle>
       </section>
     </main>

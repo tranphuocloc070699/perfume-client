@@ -32,3 +32,6 @@ export const dummyGetAllProductResponse: GetAllProductResponse = {
   totalElements: 0,
   totalPages: 0
 };
+
+
+

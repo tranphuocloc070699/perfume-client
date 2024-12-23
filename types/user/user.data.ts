@@ -115,6 +115,13 @@ export const adminList: ISidebarGroup = {
       type: "icon",
       link: "/admin/binh-luan",
       children: []
+    },
+    {
+      title: "Quản lý collection",
+      iconUrl: "bi:collection",
+      type: "icon",
+      link: "/admin/collection",
+      children: []
     }
   ]
 };

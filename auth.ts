@@ -26,6 +26,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           } else if (type === "authenticate") {
             response = await userService.authenticate(req?.headers.get("cookie"));
           }
+
           const setCookieHeader = response?.headers?.get("Set-Cookie");
 
           if (response?.body?.status === 400 && type === "login") {
@@ -34,9 +35,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (response?.body?.status === 400 && type === "signup") {
             throw new EmailAlreadyExists();
           }
-
           if (response?.body?.status === 404) {
             throw new EmailNotFoundError();
+          }
+          if (response?.body?.status === 500 && response?.body?.errors === "Token expired") {
+            await userService.logout(req?.headers.get("cookie"));
+            await signOut({ redirect: true });
           }
           const user = response?.body?.data?.data;
           if (response?.body?.status === 200 && user) {
