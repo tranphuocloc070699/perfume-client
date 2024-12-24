@@ -1,9 +1,14 @@
 import React from "react";
 import { Search } from "lucide-react";
+import { twMerge } from "tailwind-merge";
 
-const AppDataNotFound = () => {
+type AppDataNotFoundProps = {
+  className?: string;
+}
+
+const AppDataNotFound = ({ className }) => {
   return (
-    <div className="flex flex-col items-center justify-center h-full bg-gray-50 text-gray-800">
+    <div className={twMerge(`flex flex-col items-center justify-center h-full bg-gray-50 text-gray-800 ${className}`)}>
       <div className="flex items-center justify-center w-16 h-16 mb-4 bg-gray-200 rounded-full">
         <Search className="w-8 h-8 text-gray-600" />
       </div>

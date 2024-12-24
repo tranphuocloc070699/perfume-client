@@ -29,5 +29,5 @@ export const useProductGalleryData = (props: GetAllProductRequest) => {
     setLoading(false);
   };
 
-  return { data, loading };
+  return { data, loading, setLoading };
 };

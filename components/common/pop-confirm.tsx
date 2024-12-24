@@ -44,10 +44,11 @@ const PopConfirm = ({
       <PopoverContent className="p-4 space-y-4 w-56 bg-white rounded-md shadow-md border">
         <p className="text-sm text-gray-800">{message}</p>
         <div className="flex justify-end space-x-2">
-          <Button variant="ghost" onClick={handleCancel} className={"transition-all cursor-pointer hover:shadow-lg"}>
+          <Button size={"sm"} variant="ghost" onClick={handleCancel}
+                  className={"transition-all cursor-pointer hover:shadow-lg"}>
             {cancelText}
           </Button>
-          <Button variant="destructive" onClick={handleConfirm}
+          <Button size={"sm"} variant="destructive" onClick={handleConfirm}
                   className={"transition-all cursor-pointer hover:shadow-lg"}>
             {confirmText}
           </Button>

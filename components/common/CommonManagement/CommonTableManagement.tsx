@@ -38,7 +38,7 @@ const CommonTableManagement = (props: ICommonTableManagementProps) => {
     props.onSearching(inputValue);
   }
 
-  const debounceFn = useCallback(_debounce(handleDebounceFn, 1000), []);
+  const debounceFn = useCallback(_debounce(handleDebounceFn, 300), []);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setInput(event.target.value);
