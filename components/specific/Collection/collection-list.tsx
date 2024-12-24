@@ -85,15 +85,18 @@ const CollectionList = () => {
     };
 
     try {
+
+      let response;
       if (collection?.id) {
-        const response = await collectionService.update(collection.id, upsaveCollection);
-        console.log({ updateResponse: response });
+        response = await collectionService.update(collection.id, upsaveCollection);
       } else {
-        const response = await collectionService.create(upsaveCollection);
-        console.log({ createResponse: response });
+        response = await collectionService.create(upsaveCollection);
       }
 
-      console.log({ response });
+      if (response?.body?.status === 200) {
+        toast({ description: collection?.id ? "Chỉnh sửa Collection thành công" : "Tạo collection thành công" });
+        fetchCollections();
+      }
     } catch (e) {
       console.log({ createCollectionError: e });
     }
@@ -119,6 +122,7 @@ const CollectionList = () => {
     setCollections((prevCollections) => {
       const updatedCollections = [...prevCollections];
       const collection = updatedCollections[collectionIndex];
+
       collection.collectionProducts = [...collection.collectionProducts, {
         index: collection.collectionProducts.length,
         product: dummyProductDto
@@ -133,6 +137,12 @@ const CollectionList = () => {
       const updatedCollections = [...prevCollections];
       const collection = { ...updatedCollections[collectionIndex] };
       const updatedCollectionProducts = [...collection.collectionProducts];
+      const productAlreadyExists = updatedCollectionProducts.findIndex(item => item.product.id === product.id) !== -1;
+      if (productAlreadyExists) {
+        toast({ description: "Product already exist", variant: "destructive" });
+        return prevCollections;
+      }
+
       updatedCollectionProducts[collectionProductIndex] = {
         ...updatedCollectionProducts[collectionProductIndex],
         product
