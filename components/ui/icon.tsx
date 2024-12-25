@@ -27,7 +27,8 @@ import {
   Minus,
   SlidersHorizontal,
   Loader,
-  LogOut
+  LogOut,
+  Grip
 } from "lucide-react";
 
 // import { User as UserSolid } from "lucide-solid";
@@ -63,7 +64,7 @@ export const icons = {
   filters: <SlidersHorizontal />,
   spinner: <Loader />,
   logout: <LogOut />,
-  // user_solid: <UserSolid />,
+  grip: <Grip />,
   google_local: "/assets/images/google-icon.svg"
 } as const;
 

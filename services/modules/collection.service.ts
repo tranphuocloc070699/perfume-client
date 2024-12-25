@@ -1,7 +1,7 @@
 import type { ResponseDto } from "@/types/response";
 import HttpFactory from "../factory";
 import { getClientOrServerUrl } from "@/lib/utils";
-import { CollectionDto, UpsaveCollection } from "@/types/collection/collection.model";
+import { CollectionDto, UpdateCollectionIndex, UpsaveCollection } from "@/types/collection/collection.model";
 
 class CollectionService extends HttpFactory {
   readonly PREFIX: string = "/collection";
@@ -25,6 +25,14 @@ class CollectionService extends HttpFactory {
     return this.call<ResponseDto<CollectionDto>>({
       method: "PUT",
       url: `${getClientOrServerUrl()}${this.PREFIX}/${id}`,
+      body: request
+    });
+  }
+
+  async updateIndex(request: UpdateCollectionIndex[]) {
+    return this.call<ResponseDto<CollectionDto>>({
+      method: "PUT",
+      url: `${getClientOrServerUrl()}${this.PREFIX}/index`,
       body: request
     });
   }

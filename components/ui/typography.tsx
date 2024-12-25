@@ -59,7 +59,7 @@ const Typography = {
       <h4
         ref={ref}
         className={twMerge(
-          `scroll-m-20 font-merriweather text-xl font-medium ${defaultClassNames} ${className}`
+          `scroll-m-20 font-merriweather text-lg font-medium ${defaultClassNames} ${className}`
         )}
         {...props}
       >

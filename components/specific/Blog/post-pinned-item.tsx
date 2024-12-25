@@ -23,7 +23,7 @@ const PostCardItem = ({ className, post }: Props) => {
           className={twMerge(`shadow ${className}`)}>
       <NextImg src={thumbnailSource}
                alt={post.title} width={200} height={200}
-               className={"rounded w-full h-full"} />
+               className={"rounded w-full h-full md:max-h-[400px]"} />
     </Link>
   );
 };

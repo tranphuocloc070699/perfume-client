@@ -43,6 +43,7 @@ export interface ButtonProps
   loading?: boolean;
   icon?: keyof typeof icons | string;
   href?: string;
+  iconClassName?: string;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -57,7 +58,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       icon,
       children,
       disabled,
-
+      iconClassName,
       ...props
     },
     ref
@@ -76,7 +77,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {loading && <Icon name={"spinner"} className={"animate-spin"} />}
-        {icon && !loading && <Icon name={icon} size={16} />}
+        {icon && !loading && <Icon name={icon} size={16} className={iconClassName} />}
         {children}
       </Comp>
     );

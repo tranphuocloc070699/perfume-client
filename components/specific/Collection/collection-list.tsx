@@ -5,13 +5,22 @@ import CollectionItem from "@/components/specific/Collection/collection-item";
 import IconGalleryModal from "@/components/specific/Collection/icon-gallery-modal";
 import ProductGalleryModal from "@/components/specific/Collection/product-gallery-modal";
 import { ProductDto } from "@/types/product/product.model";
-import { CollectionDto, UpsaveCollection } from "@/types/collection/collection.model";
+import { CollectionDto, UpdateCollectionIndex, UpsaveCollection } from "@/types/collection/collection.model";
 import CollectionService from "@/services/modules/collection.service";
 import { Button } from "@/components/ui/button";
 import { dummyCollectionDto } from "@/types/collection/collection.data";
 import { dummyProductDto } from "@/types/product/product.data";
 import { useToast } from "@/hooks/use-toast";
-import collectionService from "@/services/modules/collection.service";
+import {
+  DndContext,
+  rectIntersection,
+  useSensor,
+  useSensors,
+  MouseSensor,
+  useDroppable,
+  TouchSensor
+} from "@dnd-kit/core";
+import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 
 
 const CollectionList = () => {
@@ -100,8 +109,6 @@ const CollectionList = () => {
     } catch (e) {
       console.log({ createCollectionError: e });
     }
-
-
   }
 
   function handleRemoveCollection(index: number) {
@@ -142,7 +149,7 @@ const CollectionList = () => {
         toast({ description: "Product already exist", variant: "destructive" });
         return prevCollections;
       }
-  
+
       updatedCollectionProducts[collectionProductIndex] = {
         ...updatedCollectionProducts[collectionProductIndex],
         product
@@ -194,34 +201,81 @@ const CollectionList = () => {
   }
 
 
+  const collectionIds = useMemo(() => {
+    return collections?.map(c => c.id);
+  }, [collections]);
+
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor)
+  );
+
+
+  async function updateCollectionIndex(updatedCollections: UpdateCollectionIndex[]) {
+    try {
+      const response = await collectionService.updateIndex(updatedCollections);
+      console.log({ response });
+      if (response.body.status === 200) {
+        toast({ description: "Cập nhật vị trí collection thành công" });
+      }
+    } catch (e) {
+      console.log({ updateCollectionIndexError: e });
+    }
+  }
+
+  const handleDragEnd = (event) => {
+
+    console.log({ collections });
+    const { active, over } = event;
+
+    if (active && over && active.id !== over.id) {
+      const oldIndex = collections.findIndex((c) => c.id === active.id);
+      const newIndex = collections.findIndex((c) => c.id === over.id);
+      const newCollections = arrayMove(collections, oldIndex, newIndex).map((c, index) => ({ ...c, index }));
+      const request = newCollections.map((c, index) => ({ collectionId: c.id, index }));
+      updateCollectionIndex(request);
+
+      setCollections(newCollections);
+
+
+    }
+  };
+
+
   const iconGalleryModal = IconGalleryModal();
   const productGalleryModal = ProductGalleryModal();
   return (
-    <>
-      {iconGalleryModal.content}
-      {productGalleryModal.content}
+    <DndContext sensors={sensors} collisionDetection={rectIntersection} onDragEnd={handleDragEnd}>
+      <>
+        {iconGalleryModal.content}
+        {productGalleryModal.content}
 
-      <div component-name="CollectionPage" className={"border border-gray-300 rounded-lg p-4 shadow-md"}>
-        <div className={"flex items-center gap-6 pb-4 w-full border-b border-gray-300"}>
-          <h4 className="text-xl font-semibold text-nowrap  ">Quản lý Collection</h4>
-          <Button icon={"plus"} size={"sm"} onClick={handleCreateCollection}>Thêm mới</Button>
+        <div component-name="CollectionPage" className={"border border-gray-300 rounded-lg p-4 shadow-md"}>
+          <div className={"flex items-center gap-6 pb-4 w-full border-b border-gray-300"}>
+            <h4 className="text-xl font-semibold text-nowrap  ">Quản lý Collection</h4>
+            <Button icon={"plus"} size={"sm"} onClick={handleCreateCollection}>Thêm mới</Button>
+          </div>
+          <div component-name="CollectionList" className={"flex flex-col gap-20 mt-6"}>
+            <SortableContext items={collectionIds}>
+              {collections.map((collection, index) => (
+                <CollectionItem index={index} onRemoveCollection={handleRemoveCollection}
+                                onSaveCollection={() => handleSaveCollection(index)} collection={collection} key={index}
+                                onRemoveProductCollection={(productCollectionIndex, event) => onRemoveProductCollection(index, productCollectionIndex, event)}
+                                onCreateCollectionProduct={() => onCreateCollectionProduct(index)}
+                                openIconGalleryModal={() => openIconGalleryModal(index)}
+                                onUpdateTitle={(event) => onUpdateTitle(index, event)}
+
+                                openProductGalleryModal={(collectionProductIndex) => openProductGalleryModal(index, collectionProductIndex)} />))}
+            </SortableContext>
+
+          </div>
         </div>
-        <div component-name="CollectionList" className={"flex flex-col gap-20 mt-6"}>
-          {collections.map((collection, index) => (
-            <CollectionItem index={index} onRemoveCollection={handleRemoveCollection}
-                            onSaveCollection={() => handleSaveCollection(index)} collection={collection} key={index}
-                            onRemoveProductCollection={(productCollectionIndex, event) => onRemoveProductCollection(index, productCollectionIndex, event)}
-                            onCreateCollectionProduct={() => onCreateCollectionProduct(index)}
-                            openIconGalleryModal={() => openIconGalleryModal(index)}
-                            onUpdateTitle={(event) => onUpdateTitle(index, event)}
-
-                            openProductGalleryModal={(collectionProductIndex) => openProductGalleryModal(index, collectionProductIndex)} />))}
-        </div>
-      </div>
-
-
-    </>
+      </>
+    </DndContext>
   );
 };
 
 export default CollectionList;
+
+
+

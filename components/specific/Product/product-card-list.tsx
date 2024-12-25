@@ -8,7 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious
 } from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
+
 import { ProductDto } from "@/types/product/product.model";
 import ProductCardItem from "./product-card-item";
 
