@@ -142,7 +142,7 @@ const CollectionList = () => {
         toast({ description: "Product already exist", variant: "destructive" });
         return prevCollections;
       }
-
+  
       updatedCollectionProducts[collectionProductIndex] = {
         ...updatedCollectionProducts[collectionProductIndex],
         product
