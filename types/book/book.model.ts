@@ -8,3 +8,11 @@ export type BookDto = {
   updatedAt: string;
 }
 
+export type UpsaveBookDto = Omit<BookDto, "createdAt" | "updatedAt">
+
+export type UpsaveBookValidation = {
+  name?: string;
+  link?: string;
+  description?: string;
+  thumbnailPreview?: File | null;
+}

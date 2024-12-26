@@ -22,7 +22,7 @@ const TiptapButton = ({
                       }: Props) => {
 
   const content = <button onClick={onClick} component-name="TiptapButton"
-                          className={twMerge("p-2 rounded bg-gray-100 text-gray-900 text-xs transition-all select-none", active && "bg-gray-900 text-gray-100")}>
+                          className={twMerge("p-2 rounded  text-gray-900 text-xs transition-all select-none", active && "bg-gray-900 text-gray-100")}>
     {children}
   </button>;
 

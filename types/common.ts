@@ -16,5 +16,6 @@ export const ImageDir = {
   notes: "Notes",
   product: "Product",
   gallery: "Gallery",
-  outfit: "Outfit"
+  outfit: "Outfit",
+  book: "Book"
 };

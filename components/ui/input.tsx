@@ -5,10 +5,14 @@ import Icon from "@/components/ui/icon";
 import lodashDebounce from "lodash/debounce";
 import { icons } from "./icon";
 import { ControllerFieldState, ControllerRenderProps, FieldValues, Controller } from "react-hook-form";
+import Link from "next/link";
+import { Slot } from "@radix-ui/react-slot";
+import { Textarea } from "@/components/ui/textarea";
 
 export interface LabelProps {
   title?: string;
   className?: string;
+  required?: boolean;
 }
 
 export interface IconProps {
@@ -54,12 +58,13 @@ export type InputProps = {
   defaultValue?: string | number;
   placeholder?: string;
   type?: string;
+  textarea?: boolean; // New prop to toggle textarea
   debounce?: DebounceProps;
   groupClassName?: string;
   wrapperClassName?: string;
   variant?: "solid";
   fieldState?: ControllerFieldState;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   field?: ControllerRenderProps<FieldValues, string>;
 } & (ControlledProps | UncontrolledProps);
 
@@ -152,11 +157,13 @@ const InputField = forwardRef<HTMLInputElement, InputProps>(
       }
       if (debounce) debouncedSearch(e);
     };
+
     return (
       <div className={twMerge(classNameProcessor.inputGroup)}>
         {label?.title && (
           <Typography.Label className={twMerge(classNameProcessor.label)}>
             {label.title}
+            {label?.required && <span className="text-red-500 ml-1">*</span>}
           </Typography.Label>
         )}
         <span className={twMerge(classNameProcessor.inputFieldWrapper)}>
@@ -186,7 +193,7 @@ const InputField = forwardRef<HTMLInputElement, InputProps>(
         </span>
 
         {field && (
-          <p
+          <Typography.H4
             className={twMerge(
               `mt-1 h-6 transform text-sm text-red-500 transition-all duration-300 ease-in-out`,
               fieldState?.error?.message
@@ -195,7 +202,7 @@ const InputField = forwardRef<HTMLInputElement, InputProps>(
             )}
           >
             {fieldState?.error?.message}
-          </p>
+          </Typography.H4>
         )}
       </div>
     );

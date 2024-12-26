@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useCustomState from "@/hooks/fetch-data/use-custom-state";
+import useCustomState from "@/hooks/use-custom-state";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 import { Button } from "@/components/ui/button";

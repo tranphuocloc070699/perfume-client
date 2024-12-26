@@ -9,7 +9,7 @@ import { useProductGalleryData } from "@/hooks/fetch-data/collection-page/usePro
 import NextImg from "next/image";
 import Typography from "@/components/ui/typography";
 import CommonPagination from "@/components/common/pagination";
-import useCustomState from "@/hooks/fetch-data/use-custom-state";
+import useCustomState from "@/hooks/use-custom-state";
 import DataLoadingSpinner from "@/components/common/data-loading-spinner";
 import Input from "@/components/ui/input";
 import AppDataNotFound from "@/components/common/app-data-not-found";

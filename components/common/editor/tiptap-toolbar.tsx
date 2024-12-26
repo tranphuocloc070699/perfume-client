@@ -30,11 +30,12 @@ import { ChainedCommands, Editor } from "@tiptap/core";
 import MediaUploaderModal from "@/components/specific/Admin/Product/media-uploader-modal";
 import { BubbleMenu } from "@tiptap/react";
 import LinkForm from "@/components/common/editor/link-form";
+import { twMerge } from "tailwind-merge";
 
 
 interface CommonTipTapToolbarProps {
   editor: Editor | null;
-
+  isErrored?: boolean;
 }
 
 const defaultSize = 16;
@@ -99,31 +100,31 @@ export const tools: ITool[] = [{
 const defaultOptionSize = 18;
 const defaultClass = "text-gray-600";
 export const headingOptions = [{
-  value: "p",
+  value: "Paragraph",
   icon: <Pilcrow size={defaultOptionSize} className={defaultClass} />
 },
   {
-    value: "h1",
+    value: "Heading 1",
     icon: <Heading1 size={defaultOptionSize} className={defaultClass} />
   },
   {
-    value: "h2",
+    value: "Heading 2",
     icon: <Heading2 size={defaultOptionSize} className={defaultClass} />
   },
   {
-    value: "h3",
+    value: "Heading 3",
     icon: <Heading3 size={defaultOptionSize} className={defaultClass} />
   },
   {
-    value: "h4",
+    value: "Heading 4",
     icon: <Heading4 size={defaultOptionSize} className={defaultClass} />
   },
   {
-    value: "h5",
+    value: "Heading 5",
     icon: <Heading5 size={defaultOptionSize} className={defaultClass} />
   },
   {
-    value: "h6",
+    value: "Heading 6",
     icon: <Heading6 size={defaultOptionSize} className={defaultClass} />
   }
 
@@ -133,7 +134,7 @@ export const headingOptions = [{
 export type TaskType = (typeof tools)[number]["task"]
 export type HeadingType = (typeof headingOptions)[number]["value"]
 
-const TiptapToolbar = ({ editor }: CommonTipTapToolbarProps) => {
+const TiptapToolbar = ({ editor, isErrored }: CommonTipTapToolbarProps) => {
 
   function chainMethods(editor: Editor | null, command: (chain: ChainedCommands) => ChainedCommands) {
     if (!editor) return;
@@ -208,19 +209,19 @@ const TiptapToolbar = ({ editor }: CommonTipTapToolbarProps) => {
 
   function handleHeadingSelection(optionValue: string) {
     switch (optionValue) {
-      case "p":
+      case "Paragraph":
         return chainMethods(editor, chain => chain.setParagraph());
-      case "h1":
+      case "Heading 1":
         return chainMethods(editor, chain => chain.toggleHeading({ level: 1 }));
-      case "h2":
+      case "Heading 2":
         return chainMethods(editor, chain => chain.toggleHeading({ level: 2 }));
-      case "h3":
+      case "Heading 3":
         return chainMethods(editor, chain => chain.toggleHeading({ level: 3 }));
-      case "h4":
+      case "Heading 4":
         return chainMethods(editor, chain => chain.toggleHeading({ level: 4 }));
-      case "h5":
+      case "Heading 5":
         return chainMethods(editor, chain => chain.toggleHeading({ level: 5 }));
-      case "h6":
+      case "Heading 6":
         return chainMethods(editor, chain => chain.toggleHeading({ level: 6 }));
     }
 
@@ -229,7 +230,7 @@ const TiptapToolbar = ({ editor }: CommonTipTapToolbarProps) => {
   return (
     <>
       <div component-name="TiptapToolbar"
-           className={"flex item-center justify-around border border-gray-300 p-4 rounded-t-lg"}>
+           className={twMerge(`flex item-center justify-around border border-gray-300 p-4 rounded-t transition-all ${isErrored && "border-red-500"}`)}>
         <BubbleMenu editor={editor} shouldShow={({ editor }) => editor.isActive("link")}>
           <div className={"bg-white z-50 shadow-lg rounded-lg px-4 py-2"}>
             <LinkForm onSubmit={handleLinkButtonSubmit} editMode={true} initialValue={getSelectedLink()}
@@ -237,14 +238,22 @@ const TiptapToolbar = ({ editor }: CommonTipTapToolbarProps) => {
           </div>
         </BubbleMenu>
 
-        <Select defaultValue={"p"} onValueChange={handleHeadingSelection}>
-          <SelectTrigger className="w-18">
-            <SelectValue placeholder="Heading" />
+        <Select defaultValue={"Paragraph"} onValueChange={handleHeadingSelection}>
+          <SelectTrigger
+            className="w-32 px-4 py-2 border bg-gray-100 border-gray-300 rounded-md shadow-sm hover:border-gray-400 focus:ring-2 ">
+            <SelectValue placeholder="Select Heading" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="mt-2 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto">
             <SelectGroup>
-              {headingOptions.map(option => <SelectItem key={option.value}
-                                                        value={option.value}>{option.icon}</SelectItem>)}
+              {headingOptions.map(option => (
+                <SelectItem
+                  key={option.value}
+                  value={option.value}
+                  className="px-4 py-2 hover:bg-blue-50 cursor-pointer transition-all "
+                >
+                  {option.value}
+                </SelectItem>
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>

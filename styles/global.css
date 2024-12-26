@@ -77,7 +77,8 @@
 
 .tiptap p.is-editor-empty:first-child::before {
     color: #adb5bd;
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 500;
     content: attr(data-placeholder);
     float: left;
     height: 0;
@@ -87,3 +88,5 @@
 .shadow-1 {
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
+
+

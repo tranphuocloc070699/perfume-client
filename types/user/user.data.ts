@@ -122,6 +122,13 @@ export const adminList: ISidebarGroup = {
       type: "icon",
       link: "/admin/collection",
       children: []
+    },
+    {
+      title: "Quản lý sách",
+      iconUrl: "heroicons:book-open",
+      type: "icon",
+      link: "/admin/book",
+      children: []
     }
   ]
 };

@@ -27,6 +27,8 @@ class MediaService extends HttpFactory {
       body: formData
     });
   }
+
+
 }
 
 export default MediaService;

@@ -51,9 +51,6 @@ const UpsaveBlogContainer = () => {
     }
   }
 
-
-  const { accessToken } = useUserStore();
-
   const mediaService = useMemo(() => {
     return new MediaService((data?.user as any)?.accessToken);
   }, [data]);
@@ -66,10 +63,6 @@ const UpsaveBlogContainer = () => {
     setDto({ ...dto, [key]: value });
   }
 
-
-  function validation() {
-
-  }
 
   async function uploadImage(file: File) {
     if (!file) return;
@@ -109,7 +102,8 @@ const UpsaveBlogContainer = () => {
   }
 
   return (<div className="grid grid-cols-12 gap-8">
-    <UpsaveThumbnail className={"space-y-4 col-span-4"} thumbnail={dto.thumbnail} preview={thumbnailUpload}
+    <UpsaveThumbnail name={"thumnailPreview"} className={"space-y-4 col-span-4"} thumbnail={dto.thumbnail}
+                     preview={thumbnailUpload}
                      setPreview={setThumbnailUpload} />
     <UpsaveInput type={"text"} label={"Title"} placeholder={"Nhập title"}
                  className={"col-span-4 flex flex-col gap-2"} value={dto.title}
