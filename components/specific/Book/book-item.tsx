@@ -18,7 +18,7 @@ const BookItem = ({ book, className }: Props) => {
         alt={book.name}
         width={200}
         height={200}
-        className="w-full h-auto object-cover rounded-md shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer"
+        className="w-full h-auto object-cover rounded shadow-lg transition-all duration-500 transform hover:scale-105 cursor-pointer"
       />
     </div>
   );

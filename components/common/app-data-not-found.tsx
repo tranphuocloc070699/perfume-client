@@ -6,7 +6,7 @@ type AppDataNotFoundProps = {
   className?: string;
 }
 
-const AppDataNotFound = ({ className }) => {
+const AppDataNotFound = ({ className }: AppDataNotFoundProps) => {
   return (
     <div className={twMerge(`flex flex-col items-center justify-center h-full bg-gray-50 text-gray-800 ${className}`)}>
       <div className="flex items-center justify-center w-16 h-16 mb-4 bg-gray-200 rounded-full">

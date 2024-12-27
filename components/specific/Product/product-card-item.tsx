@@ -14,6 +14,7 @@ import CountingIcon from "@/components/common/counting-icon";
 import TextIcon from "@/components/common/text-icon";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Typography from "@/components/ui/typography";
 
 interface IProps {
   data: ProductDto;
@@ -26,81 +27,41 @@ const ProductCardItem = ({ data, showIcon }: IProps) => {
   }
 
   return (
-    <div
-      className="w-full relative flex flex-col justify-between  bg-gradient-to-b from-gray-200 to-gray-50 rounded-xl ">
-      <section className="flex items-start justify-end  p-4 pb-0 rounded-2xl ">
-        {showIcon && (
-          <div
-            className="col-span-1 px-2 py-1 border border-gray-200 rounded-full flex items-center hover:shadow-md transition-all cursor-pointer bg-white">
-            <CountingIcon
-              data={{
-                icon: "ph:heart-light",
-                counting: 1,
-                onClick: onIconClick
-              }}
-            />
+    <Link href={`/nuoc-hoa/${data.slug}-${data.id}`} component-name="ProductCardItem"
+          className={"h-[230px] block relative"}>
+      <div
+        className={"absolute bottom-0 rounded-l-xl rounded-r-sm  w-full  h-[220px]  overflow-hidden flex transition-all duration-500 hover:translate-y-[-10px]"}>
+        <div className={"h-full min-w-3 w-3 rounded-l-md bg-gradient-to-r from-[#2e2e2e] via-[#3e3e3e] to-[#2e2e2e]"}>
+        </div>
+        <div
+          className={"px-4 py-6 h-full flex flex-col items-center w-full rounded-r-sm bg-gradient-to-br from-gray-100 to-gray-200 pb-3 pr-3 "}>
+          <NextImg
+            src={
+              data.thumbnail ||
+              "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
+            }
+            alt={data.name}
+            quality={100}
+            width={200}
+            height={200}
+            className="h-24 w-24 self-center object-cover  rounded-xl  cursor-pointer"
+          />
+
+          <Typography.H4
+            className={"mt-4 text-sm text-center text-gray-900 h-10 line-clamp-2"}>{data.name}</Typography.H4>
+
+          <div className={"mt-2 flex-1 w-full gap-4  flex items-center justify-end"}>
+            <CountingIcon icon={"emptyHeart"} counting={10} />
+            <CountingIcon icon={"messageCircle"} />
           </div>
-        )}
-      </section>
-      <Link href={`/nuoc-hoa/${data.slug}-${data.id}`} className={"flex flex-col justify-center"}>
-        <NextImg
-          src={
-            data.thumbnail ||
-            "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
-          }
-          alt={data.name}
-          quality={100}
-          width={200}
-          height={200}
-          className="h-32 w-32 self-center object-cover  rounded-xl  cursor-pointer"
-        />
-        <h4 className="text-base text-center leading-5  text-gray-900 mb-4 font-semibold  hover:underline">
-          {data.name}
 
-        </h4>
-      </Link>
-      {/* <div className="bg-white rounded-xl p-4 absolute w-full bottom-0 border border-gray-200 transition-all duration-300  h-0 opacity-0 hover:h-full hover:opacity-100">
-        <div className="space-y-2 mb-6">
-          <TextIcon
-            data={{
-              icon: "ph:shirt-folded-thin",
-              text: "Năng động, trẻ trung",
-            }}
-          />
-          <TextIcon
-            data={{
-              icon: "arcticons:broken-age",
-              text: "25 - 30 tuổi",
-            }}
-          />
-          <TextIcon
-            data={{
-              icon: "arcticons:timetree",
-              text: "Vani, Đậu tonka, Gỗ trầm hương, Hoa cam",
-            }}
-          />
         </div>
-        <div className="mb-6 grid grid-cols-2 gap-2">
-          {data.stylesThumbnail.map((item) => (
-            <NextImg
-              key={item}
-              src={item}
-              alt={item}
-              quality={70}
-              width={64}
-              height={64}
-              className="w-full h-20 object-cover col-span-1 "
-            />
-          ))}
-        </div>
-
-        <Button className="w-full">
-          Xem chi tiết
-          <Icon icon="ei:arrow-right" className="ml-2 h-7 w-7 text-white" />
-        </Button>
-      </div> */}
-    </div>
+      </div>
+    </Link>
   );
 };
 
 export default memo(ProductCardItem);
+
+
+

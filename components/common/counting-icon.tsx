@@ -1,24 +1,25 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
 import React from "react";
+import Icon, { icons } from "@/components/ui/icon";
+import Typography from "@/components/ui/typography";
 
 interface ICoutingIconProps {
-  icon: string;
-  counting: number;
-  onClick: (id: number) => void;
+  icon: keyof typeof icons | string;
+  counting?: number;
+  onClick?: (id: number) => void;
 }
 
-const CountingIcon = ({ data }: { data: ICoutingIconProps }) => {
+const CountingIcon = ({ icon, counting, onClick }: ICoutingIconProps) => {
   return (
     <span className="flex items-center gap-1">
       <Icon
-        icon={data.icon}
+        name={icon}
         className="text-slate-600 w-4 h-4 object-cover cursor-pointer"
-        onClick={() => data.onClick(5)}
+        onClick={() => onClick && onClick(5)}
       />
-      {data.counting > 0 ? (
-        <span className={"text-xs font-medium text-slate-700"}>
-          {data.counting}
-        </span>
+      {counting && counting > 0 ? (
+        <Typography.Label className={"text-xs font-semibold text-gray-700 mb-0"}>
+          {counting}
+        </Typography.Label>
       ) : (
         <></>
       )}

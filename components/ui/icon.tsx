@@ -28,7 +28,8 @@ import {
   SlidersHorizontal,
   Loader,
   LogOut,
-  Grip, Book
+  Grip, Book,
+  MessageCircle, GraduationCap
 } from "lucide-react";
 
 // import { User as UserSolid } from "lucide-solid";
@@ -66,6 +67,8 @@ export const icons = {
   logout: <LogOut />,
   grip: <Grip />,
   book: <Book />,
+  messageCircle: <MessageCircle />,
+  graduationCap: <GraduationCap />,
   google_local: "/assets/images/google-icon.svg"
 } as const;
 

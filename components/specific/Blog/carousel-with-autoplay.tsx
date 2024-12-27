@@ -10,7 +10,7 @@ const CarouselWithAutoplay = ({ children, delay }: { children: React.ReactNode, 
   return (
     <Carousel
       opts={{
-        align: "center",
+        align: "start",
         loop: true
       }}
       plugins={[autoplay]}

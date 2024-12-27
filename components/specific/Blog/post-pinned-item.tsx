@@ -21,9 +21,10 @@ const PostCardItem = ({ className, post }: Props) => {
   return (
     <Link href={`/blog/${post.excerpt}-${post.id}`} component-name="PostCardItem"
           className={twMerge(`shadow ${className}`)}>
-      <NextImg src={thumbnailSource}
-               alt={post.title} width={200} height={200}
-               className={"rounded w-full h-full md:max-h-[400px]"} />
+      <img src={thumbnailSource}
+
+           alt={post.title} width={200} height={200}
+           className={"md:rounded w-full h-full md:max-h-[400px] object-cover border border-gray-100"} />
     </Link>
   );
 };

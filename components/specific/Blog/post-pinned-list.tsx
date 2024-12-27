@@ -12,13 +12,15 @@ import CarouselWithAutoplay from "@/components/specific/Blog/carousel-with-autop
 const PostPinnedList = ({ data }: { data: PostDto[] }) => {
   return (
     <CarouselWithAutoplay delay={3000}>
-      <CarouselContent className="-ml-2">
+      <CarouselContent className="md:-ml-4 ">
         {data.map((item, index) => (
           <CarouselItem
             key={index}
-            className="md:basis-1/3  xl:basis-1/3 2xl:basis-1/4 pl-2"
+            className="md:basis-1/3  xl:basis-1/3 2xl:basis-1/4 md:pl-4"
           >
+
             <PostPinnedItem post={item} />
+
           </CarouselItem>
         ))}
       </CarouselContent>

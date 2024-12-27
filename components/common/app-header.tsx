@@ -13,15 +13,17 @@ const AppHeader = () => {
 
 
   return (
-    <header className={"flex items-center justify-between py-2 md:px-6 border-b border-gray-100"}>
-      <section className={"flex items-center gap-10"}>
-        <Logo />
-        <HeaderNav />
-      </section>
-      <section className={"flex items-center md:gap-6"}>
-        <HeaderSearching />
-        <HeaderAuth />
-      </section>
+    <header className={"  border-b border-gray-100 "}>
+      <div className={"container flex items-center justify-between py-2 px-4"}>
+        <section className={"flex items-center gap-10"}>
+          <Logo />
+          <HeaderNav />
+        </section>
+        <section className={"flex items-center md:gap-6"}>
+          <HeaderSearching />
+          <HeaderAuth />
+        </section>
+      </div>
     </header>
   );
 };

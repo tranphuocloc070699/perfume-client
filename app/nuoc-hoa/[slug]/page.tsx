@@ -11,6 +11,7 @@ import ProductDetailComment from "@/components/specific/Product/Detail/ProductDe
 import ProductService from "@/services/modules/product.service";
 import { extractIdFromUrl } from "@/lib/utils";
 import { IProductCardLineProps } from "@/components/common/product-card-line";
+import PageNavigation from "@/components/specific/Header/page-navigation";
 
 export const dynamicParams = true;
 const productService = new ProductService();
@@ -47,47 +48,8 @@ const PerfumeDetail = async (params: any) => {
   };
 
   return (
-    <div className="grid md:grid-cols-12">
-      <section className="md:col-span-12 flex flex-col gap-4">
-        <div className="mt-6">
-          <ProductDetailGallery galleries={data?.galleries} />
-        </div>
-        <h2 className="text-3xl text-slate-700 font-bold mt-6 px-4 md:px-0">
-          {data?.name}
-        </h2>
-        <div className="mt-6 gap-4 grid grid-cols-12 grid-flow-row">
-          <div className="2xl:col-span-4 md:col-span-6 col-span-12">
-            <ProductDetailInfo data={productDetailInfoData()} />
-          </div>
-          <div className="2xl:col-span-4 md:col-span-6 col-span-12">
-            <ProductDetailPrice prices={data?.prices} />
-          </div>
-
-          <div className="2xl:col-span-4 md:col-span-6 col-span-12">
-            <ProductDetailNotes
-              topNotes={data?.topNotes}
-              middleNotes={data?.middleNotes}
-              baseNotes={data?.baseNotes}
-            />
-          </div>
-
-          <div className="2xl:col-span-12 md:col-span-6 col-span-12">
-            <ProductDetailStory content={data?.description} />
-          </div>
-          <div className="col-span-12">
-            <OutfitSuitable outfits={data?.outfits} />
-          </div>
-          <div className="col-span-12">
-            <ProductDetailComparison productCompares={data?.productCompares} />
-          </div>
-          <div className="col-span-12">
-            <ProductDetailComment comments={data?.comments} />
-          </div>
-        </div>
-      </section>
-      {/* <section className="md:col-span-3">
-        <ProductRelated />
-      </section> */}
+    <div>
+      <PageNavigation />
     </div>
   );
 };

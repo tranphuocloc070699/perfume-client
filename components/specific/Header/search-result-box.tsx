@@ -19,7 +19,7 @@ const SearchResultItem = ({ title, link }: ISearchResultItem) => {
   return (
     <Link
       href={link}
-      className="rounded-full py-1 px-3 font-normal border border-gray-200  whitespace-nowrap text-sm hover:bg-gray-100 cursor-pointer transition-colors"
+      className="rounded-full py-1 px-3 font-normal border border-gray-200  whitespace-nowrap text-sm transition-colors duration-300 hover:bg-gray-100 cursor-pointer "
     >
       {title}
     </Link>
@@ -61,7 +61,7 @@ const SearchResultBox = ({ loading, data }: ISearchResultBoxProps) => {
         <DataLoadingSpinner text={"Đang tìm kiếm"} />
       </div>
 
-      {!loading && <>
+      {!loading && <div className={"absolute inset-0"}>
         {data[0].children.length > 0 ? (
           data.map((item) => (
             <div
@@ -76,7 +76,7 @@ const SearchResultBox = ({ loading, data }: ISearchResultBoxProps) => {
             <AppDataNotFound />
           </div>
         )}
-      </>}
+      </div>}
     </div>
   );
 };

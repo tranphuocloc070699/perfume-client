@@ -21,18 +21,18 @@ export default async function Home() {
   const { body: bookBody } = await bookService.getAll();
 
   return (
-    <main className={``}>
-      <div className={"mt-2"}>
+    <main>
+      <div className={"mt-4 md:px-4"}>
         <PostPinnedList data={postPinnedBody.data.content} />
       </div>
-      <section>
-        <div className={"flex flex-col gap-10"}>
+      <section className={"px-4 container"}>
+        <div className={"flex flex-col gap-10 mt-10"}>
           {
             collectionBody.data.map((collection) => <AppTitle
               key={collection.id}
               loading={false}
               title={collection.title}
-              icon={collection.icon}
+              // icon={collection.icon}
             >
               <ProductCardList
                 data={collection.collectionProducts.map(collectionProduct => collectionProduct.product)} />
@@ -40,9 +40,10 @@ export default async function Home() {
           }
         </div>
 
-        <div className={"grid grid-cols-4"}>
-          <PostPageList posts={postBody.data.content} className={"md:col-span-3"} />
-          <BookList books={bookBody.data} className={"md:col-span-1"} />
+        <div className={"grid grid-cols-5 mt-10 gap-10 px-4 "}>
+          <PostPageList posts={postBody.data.content} className={"md:col-span-4 col-span-5 "} />
+          <BookList books={bookBody.data}
+                    className={"md:col-span-1 col-span-5 md:border-l md:border-gray-300 md:pl-10"} />
         </div>
 
 

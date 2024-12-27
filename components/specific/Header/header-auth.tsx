@@ -26,7 +26,7 @@ const HeaderAuth = () => {
       {
         data ? <div className={"relative group"}>
           <Icon name={"user"}
-                fill={"#000"}
+                
                 className={"w-6 h-6 "} />
           <div
             className={"absolute z-10 shadow-xl bg-white rounded-lg top-[100%] right-0 min-w-[200px]  p-4 border border-gray-300 hidden group-hover:block"}>

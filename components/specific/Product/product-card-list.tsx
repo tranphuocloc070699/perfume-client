@@ -17,21 +17,21 @@ const ProductCardList = ({ data }: { data: ProductDto[] }) => {
     <Carousel
       opts={{
         align: "start",
-        slidesToScroll: 4
+        slidesToScroll: 2
       }}
     >
-      <CarouselContent className="-ml-8">
+      <CarouselContent className="-ml-6">
         {data.map((item, index) => (
           <CarouselItem
             key={index}
-            className="md:basis-1/2  xl:basis-1/4 2xl:basis-1/6 pl-8"
+            className="basis-1/2  xl:basis-1/6 2xl:basis-1/6 pl-6"
           >
             <ProductCardItem data={item} showIcon />
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="rounded-sm -left-4 bg-white" />
-      <CarouselNext className="rounded-sm -right-4 bg-white" />
+      <CarouselPrevious className="rounded-sm -left-4  bg-white " />
+      <CarouselNext className="rounded-sm -right-4 bg-white disabled:hidden" />
     </Carousel>
   );
 };

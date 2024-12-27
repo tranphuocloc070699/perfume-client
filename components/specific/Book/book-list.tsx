@@ -25,9 +25,11 @@ const BookList = ({ books, className }: Props) => {
         icon={"book"}
       >
 
-        {books.map((book) => (
-          <BookItem key={book.id} book={book} />
-        ))}
+        <div className={"flex flex-col gap-6"}>
+          {books.map((book) => (
+            <BookItem key={book.id} book={book} />
+          ))}
+        </div>
       </AppTitle>
 
     </div>
