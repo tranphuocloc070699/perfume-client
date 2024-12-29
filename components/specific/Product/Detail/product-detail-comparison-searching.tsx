@@ -11,14 +11,12 @@ const ProductDetailComparisonSearching = () => {
   }
 
   return (
-    <div className="mb-8">
-      <ProductCompareSearchingInput
-        value={searchValue}
-        onChange={handleSearchValueChange}
-        name="search-input"
-        placeholder="Tìm kiếm sản phẩm..."
-      />
-    </div>
+    <ProductCompareSearchingInput
+      value={searchValue}
+      onChange={handleSearchValueChange}
+      name="search-input"
+      placeholder="Tìm kiếm sản phẩm..."
+    />
   );
 };
 

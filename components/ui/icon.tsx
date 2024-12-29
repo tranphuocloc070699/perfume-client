@@ -29,7 +29,7 @@ import {
   Loader,
   LogOut,
   Grip, Book,
-  MessageCircle, GraduationCap
+  MessageCircle, GraduationCap, Vote, Send
 } from "lucide-react";
 
 // import { User as UserSolid } from "lucide-solid";
@@ -69,6 +69,8 @@ export const icons = {
   book: <Book />,
   messageCircle: <MessageCircle />,
   graduationCap: <GraduationCap />,
+  vote: <Vote />,
+  send: <Send />,
   google_local: "/assets/images/google-icon.svg"
 } as const;
 

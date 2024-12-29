@@ -4,9 +4,9 @@ import React from "react";
 
 const CommentWriter = () => {
   return (
-    <div className="flex items-start gap-6">
-      <Textarea placeholder="Nhập bình luận..." />
-      <Button>Gửi</Button>
+    <div className="flex items-start gap-6 mt-4">
+      <Textarea rows={5} placeholder="Chia sẻ trải nghiệm của tôi..." />
+      <Button size={"icon"} icon={"send"} className={"bg-red-700"}></Button>
     </div>
   );
 };

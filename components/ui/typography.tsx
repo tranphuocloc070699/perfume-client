@@ -111,7 +111,7 @@ const Typography = {
       <Label
         ref={ref}
         className={twMerge(
-          `relative mb-1 rounded font-merriweather text-sm font-normal  leading-4 ${defaultClassNames} ${className}`
+          `relative mb-1  font-merriweather text-sm font-normal  leading-4 ${defaultClassNames} ${className}`
         )}
         {...props}
       >
@@ -124,7 +124,7 @@ const Typography = {
       <span
         ref={ref}
         className={twMerge(
-          `relative rounded font-montserrat text-base font-medium leading-6 ${defaultClassNames} ${className}`
+          `font-merriweather text-base font-medium leading-6 ${defaultClassNames} ${className}`
         )}
         {...props}
       >

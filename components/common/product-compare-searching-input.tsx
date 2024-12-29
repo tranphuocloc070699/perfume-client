@@ -12,7 +12,7 @@ interface IAppInputProps {
 const ProductCompareSearchingInput = (props: IAppInputProps) => {
   return (
     <>
-      <div className="input_wrapp">
+      <div className="max-w-[320px]">
         <Input
           type={props.type || "text"}
           placeholder={props.placeholder}

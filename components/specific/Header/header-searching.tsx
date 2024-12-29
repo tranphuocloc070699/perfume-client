@@ -6,8 +6,10 @@ import { useClickOutSide } from "@/hooks/useClickOutside";
 import Icon from "@/components/ui/icon";
 import Typography from "@/components/ui/typography";
 import { twMerge } from "tailwind-merge";
+import { usePathname } from "next/navigation";
 
 const HeaderSearching = () => {
+  const pathname = usePathname();
 
   const { data, loading, setLoading, execute } = useSearchBoxData();
   const [isShowSearchResultBox, setIsShowSearchResultBox] = useState(false);
@@ -23,7 +25,6 @@ const HeaderSearching = () => {
       closeSearchResultBox();
       return;
     }
-
     execute({ searchInput: e.target.value });
   }
 
@@ -41,6 +42,7 @@ const HeaderSearching = () => {
   }
 
   const searchResultRef = useClickOutSide(() => {
+    if (window.innerWidth <= 768) return;
     closeSearchResultBox();
   });
 
@@ -70,6 +72,12 @@ const HeaderSearching = () => {
       document.body.style.overflow = "";
     };
   }, [openSearchOnMobile]);
+
+
+  useEffect(() => {
+    if (openSearchOnMobile) toggleSearchOnMobile();
+    if (isShowSearchResultBox) closeSearchResultBox();
+  }, [pathname]);
 
   return (
     <div component-name="HeaderSearching">

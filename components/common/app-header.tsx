@@ -10,21 +10,18 @@ import { useSession } from "next-auth/react";
 import HeaderAuth from "@/components/specific/Header/header-auth";
 
 const AppHeader = () => {
-
-
   return (
-    <header className={"  border-b border-gray-100 "}>
-      <div className={"container flex items-center justify-between py-2 px-4"}>
-        <section className={"flex items-center gap-10"}>
-          <Logo />
-          <HeaderNav />
-        </section>
-        <section className={"flex items-center md:gap-6"}>
-          <HeaderSearching />
-          <HeaderAuth />
-        </section>
-      </div>
+    <header className={" flex items-center justify-between py-2 px-4 border-b border-gray-100"}>
+      <section className={"flex items-center gap-10"}>
+        <Logo />
+        <HeaderNav />
+      </section>
+      <section className={"flex items-center md:gap-6"}>
+        <HeaderSearching />
+        <HeaderAuth />
+      </section>
     </header>
+
   );
 };
 

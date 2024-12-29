@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Icon, { icons } from "@/components/ui/icon";
 import Typography from "@/components/ui/typography";

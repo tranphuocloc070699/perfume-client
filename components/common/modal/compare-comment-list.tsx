@@ -8,7 +8,7 @@ interface CompareCommentList {
 
 const CompareCommentList = (props: CompareCommentList) => {
   return (
-    <div className="flex flex-col gap-4  overflow-y-auto">
+    <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
       {props?.comments?.map((comment, index) => (
         <CompareCommentItem key={index} data={comment} />
       ))}

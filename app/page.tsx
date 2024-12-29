@@ -25,7 +25,7 @@ export default async function Home() {
       <div className={"mt-4 md:px-4"}>
         <PostPinnedList data={postPinnedBody.data.content} />
       </div>
-      <section className={"px-4 container"}>
+      <section className={"px-4 "}>
         <div className={"flex flex-col gap-10 mt-10"}>
           {
             collectionBody.data.map((collection) => <AppTitle
@@ -40,7 +40,7 @@ export default async function Home() {
           }
         </div>
 
-        <div className={"grid grid-cols-5 mt-10 gap-10 px-4 "}>
+        <div className={"grid grid-cols-5 mt-10 gap-10 "}>
           <PostPageList posts={postBody.data.content} className={"md:col-span-4 col-span-5 "} />
           <BookList books={bookBody.data}
                     className={"md:col-span-1 col-span-5 md:border-l md:border-gray-300 md:pl-10"} />

@@ -1,11 +1,11 @@
 "use client";
 
-import ProductCardBlock from "@/components/common/product-card-block";
 import React from "react";
 import ProductDetailComparisonSearching from "./product-detail-comparison-searching";
 import { Button } from "@/components/ui/button";
 import ProductDetailComparisonList from "./product-detail-comparison-list";
 import { ProductCompareDto } from "@/types/product-compare/product-compare.model";
+import Typography from "@/components/ui/typography";
 
 interface ProductDetailComparisonProps {
   productCompares: ProductCompareDto[];
@@ -13,15 +13,16 @@ interface ProductDetailComparisonProps {
 
 const ProductDetailComparison = (props: ProductDetailComparisonProps) => {
   return (
-    <>
-      <ProductCardBlock title="Bảng so sánh">
-        <div className="flex items-center space-x-2 absolute top-0 right-0 space-y-1.5 p-6">
-          <Button>Tạo so sánh mới</Button>
+    <div className={"pt-4 border-t border-gray-300"}>
+      <div className={"flex items-center justify-between gap-4"}>
+        <div className={"flex items-center gap-4"}>
+          <Typography.H4 className={"text-base"}>So sánh với</Typography.H4>
+          <ProductDetailComparisonSearching />
         </div>
-        <ProductDetailComparisonSearching />
-        <ProductDetailComparisonList productCompares={props.productCompares} />
-      </ProductCardBlock>
-    </>
+        <Button size={"icon"} icon={"plus"} className={"bg-red-700"}></Button>
+      </div>
+      <ProductDetailComparisonList productCompares={props.productCompares} />
+    </div>
   );
 };
 

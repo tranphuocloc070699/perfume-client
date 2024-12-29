@@ -37,11 +37,8 @@ const ProductDetailComparisonItem = ({ data }: { data: ProductCompareDto }) => {
       </h4>
       <div className="absolute top-4 right-4">
         <CountingIcon
-          data={{
-            icon: "material-symbols-light:how-to-vote-outline",
-            counting: data?.totalVotes,
-            onClick: onIconClick
-          }}
+          icon={"vote"}
+          counting={data.totalVotes}
         />
       </div>
 
