@@ -12,17 +12,19 @@ interface IUpsaveMultiSelectProps {
   options: ProductNoteDto[],
   updateUpsaveProductValue: (key: keyof UpsaveProductDto, value: any) => void
   id: keyof UpsaveProductDto,
-  values: ProductNoteDto[]
+  values: ProductNoteDto[],
+  placeholder?: string
 }
 
-const UpsaveMultiSelect = ({
+const UpsaveNotesSelect = ({
                              className,
                              label,
                              openModal,
                              options,
                              updateUpsaveProductValue,
                              id,
-                             values
+                             values,
+                             placeholder
                            }: IUpsaveMultiSelectProps) => {
 
 
@@ -56,7 +58,7 @@ const UpsaveMultiSelect = ({
 
 
   return (
-    <div component-name="UpsaveMultiSelect" className={className}>
+    <div component-name="UpsaveNotesSelect" className={className}>
       <div className="flex items-center justify-between">
         <Label>{label}</Label>
         <span
@@ -71,7 +73,7 @@ const UpsaveMultiSelect = ({
       </div>
       <MultiSelect
         options={dataOptionsProcessor}
-        placeholder="Chọn nốt hương..."
+        placeholder={placeholder || "Select"}
         defaultValue={valuesProcessor}
         onValueChange={onNoteSelectChange}
         variant="inverted"
@@ -83,4 +85,4 @@ const UpsaveMultiSelect = ({
   );
 };
 
-export default UpsaveMultiSelect;
+export default UpsaveNotesSelect;

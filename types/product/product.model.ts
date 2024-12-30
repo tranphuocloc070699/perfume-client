@@ -6,12 +6,14 @@ import { ProductNoteDto } from "../product-note/product-note.model";
 import { ProductPriceDto } from "../product-price/product-price.model";
 import { UserDto } from "../user/user.model";
 import { YearDto } from "../year/year.model";
+import { ColorDto } from "@/types/color/color.model";
 
 export type ProductDto = {
   id: string;
   name: string;
   slug: string;
   description: string;
+  fengShui: string;
   thumbnail: string;
   votes: UserDto[];
   comments: CommentDto[];
@@ -22,10 +24,10 @@ export type ProductDto = {
   brand: BrandDto;
   country: CountryDto;
   galleries: string[];
-
   topNotes: ProductNoteDto[];
   middleNotes: ProductNoteDto[];
   baseNotes: ProductNoteDto[];
+  colors: ColorDto[];
   productCompares: ProductCompareDto[];
   dateReleased: YearDto;
 };

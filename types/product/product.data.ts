@@ -8,10 +8,26 @@ export const dummyProductDto: ProductDto = {
   name: "",
   slug: "",
   description: "",
+  fengShui: "",
   thumbnail: "",
   votes: [],
   comments: [],
-  prices: [],
+  prices: [
+    {
+      "labelType": "VIETNAM_MARKET",
+      "priceType": "VND",
+      "value": "",
+      "isSearch": true,
+      "link": ""
+    },
+    {
+      "labelType": "LISTED",
+      "priceType": "USD",
+      "value": "",
+      "isSearch": true,
+      "link": ""
+    }
+  ],
   createdAt: "",
   updatedAt: "",
   outfits: [],
@@ -21,6 +37,7 @@ export const dummyProductDto: ProductDto = {
   topNotes: [],
   middleNotes: [],
   baseNotes: [],
+  colors: [],
   productCompares: [],
   dateReleased: dummyYearDto
 };

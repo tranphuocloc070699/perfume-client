@@ -5,7 +5,7 @@ export type ProductPriceDto = {
   value: string;
   isSearch: boolean;
   link: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 };
 

@@ -15,7 +15,7 @@ import UpsaveInput from "@/components/specific/Admin/Product/upsave-input";
 import UpsaveProductSelect from "@/components/specific/Admin/Product/upsave-product-select";
 import MediaList from "@/components/specific/Admin/Product/media-list";
 import UpsaveNoteModal from "@/components/specific/Admin/Product/upsave-note-modal";
-import UpsaveMultiSelect from "@/components/specific/Admin/Product/upsave-multi-select";
+import UpsaveNotesSelect from "@/components/specific/Admin/Product/upsave-notes-select";
 import UpsaveThumbnail from "@/components/specific/Admin/Product/upsave-thumbnail";
 import TiptapEditor from "@/components/common/editor/tiptap-editor";
 import { Button } from "@/components/ui/button";
@@ -28,6 +28,7 @@ import { ProductNoteDto } from "@/types/product-note/product-note.model";
 import { ProductDto } from "@/types/product/product.model";
 import { dummyProductDto } from "@/types/product/product.data";
 import { ImageDir } from "@/types/common";
+import UpsaveColor from "@/components/specific/Admin/Product/upsave-color";
 
 
 const UpsaveProductContainer = () => {
@@ -46,6 +47,8 @@ const UpsaveProductContainer = () => {
     if (id) {
       fetchProductOnUpdateMode(id);
       setEditMode(true);
+    } else {
+      setUpsaveProduct(dummyProductDto);
     }
   }, [searchParams]);
 
@@ -60,7 +63,18 @@ const UpsaveProductContainer = () => {
     }
   }
 
-  const { years, addYear, brands, addBrand, countries, addCountry, notes, addNote } = useAdminDashboardPageData();
+  const {
+    years,
+    addYear,
+    brands,
+    addBrand,
+    countries,
+    addCountry,
+    notes,
+    addNote,
+    colors,
+    addColor
+  } = useAdminDashboardPageData();
   const { accessToken } = useUserStore();
 
   const mediaService = useMemo(() => {
@@ -72,13 +86,13 @@ const UpsaveProductContainer = () => {
   }, [accessToken]);
 
   const priceInVND = useMemo(() => {
-    console.log({ upsaveProduct });
+
     const index = upsaveProduct.prices.findIndex(item => item.priceType === "VND");
     return upsaveProduct.prices[index];
   }, [upsaveProduct]);
 
   const priceInUSD = useMemo(() => {
-    console.log({ upsaveProduct });
+
 
     const index = upsaveProduct.prices.findIndex(item => item.priceType === "USD");
     return upsaveProduct.prices[index];
@@ -112,6 +126,7 @@ const UpsaveProductContainer = () => {
     const prices = [...upsaveProduct.prices];
     const index = upsaveProduct.prices.findIndex(item => item.priceType === type);
     const price = prices[index];
+    console.log({ price, index, prices });
     price.value = value;
     prices[index] = price;
     updateUpsaveProductValue("prices", prices);
@@ -185,6 +200,10 @@ const UpsaveProductContainer = () => {
 
   async function onSubmit() {
     const req = { ...upsaveProduct };
+    //
+    // console.log({ req });
+    //
+    // return;
 
     if (thumbnailUpload) {
       const path = await uploadImage(thumbnailUpload);
@@ -201,8 +220,9 @@ const UpsaveProductContainer = () => {
       } else {
         response = await productService.createProduct(req);
       }
-      if (response.status === 200 && response.data) {
-        toast({ description: response.message });
+      console.log({ response });
+      if (response?.body?.status === 200 && response?.body.data) {
+        toast({ description: response?.body?.message });
         router.push("/admin/nuoc-hoa");
       }
     } catch (e) {
@@ -240,31 +260,40 @@ const UpsaveProductContainer = () => {
                          value={upsaveProduct.country.id ? `${upsaveProduct.country.id}` : ""}
                          onValueChange={onCountryChange} type={"Country"} />
 
-    <UpsaveMultiSelect className={"col-span-4"} label={"Top Notes"} options={notes} openModal={openNoteModal}
+    <UpsaveColor className={"col-span-4 flex flex-col gap-2"} options={colors}
+                 values={upsaveProduct.colors}
+                 addColor={addColor}
+                 onValuesChange={updateUpsaveProductValue}
+    />
+
+
+    <UpsaveNotesSelect className={"col-span-4"} label={"Top Notes"} options={notes} openModal={openNoteModal}
                        updateUpsaveProductValue={updateUpsaveProductValue}
                        values={upsaveProduct.topNotes}
                        id={"topNotes"}
+                       placeholder={"Chọn Top Notes"}
     />
-    <UpsaveMultiSelect className={"col-span-4"} label={"Middle Notes"} options={notes} openModal={openNoteModal}
+    <UpsaveNotesSelect className={"col-span-4"} label={"Middle Notes"} options={notes} openModal={openNoteModal}
                        updateUpsaveProductValue={updateUpsaveProductValue}
                        values={upsaveProduct.middleNotes}
                        id={"middleNotes"}
+                       placeholder={"Chọn Middle Notes"}
     />
-    <UpsaveMultiSelect className={"col-span-4"} label={"Base Notes"} options={notes} openModal={openNoteModal}
+    <UpsaveNotesSelect className={"col-span-4"} label={"Base Notes"} options={notes} openModal={openNoteModal}
                        updateUpsaveProductValue={updateUpsaveProductValue}
                        values={upsaveProduct.baseNotes}
                        id={"baseNotes"}
+                       placeholder={"Chọn Base Notes"}
     />
     <MediaList className={"col-span-6 flex flex-col gap-2 w-full"}
                data={upsaveProduct.galleries} updateUpsaveProductValue={updateUpsaveProductValue}
                id={"galleries"} label={"Galleries"} />
-    <MediaList className={"col-span-6 flex flex-col gap-2 w-full"}
-               data={upsaveProduct.outfits} updateUpsaveProductValue={updateUpsaveProductValue}
-               id={"outfits"} label={"Outfits"} />
 
-    <TiptapEditor label={"Câu chuyện"} className={"col-span-12 mt-4"} content={upsaveProduct.description}
+    <TiptapEditor label={"Câu chuyện"} className={"col-span-12 "} content={upsaveProduct.description}
                   onChange={(content) => updateUpsaveProductValue("description", content)} editMode={editMode} />
-    <div className={"flex item-center justify-end mt-4 col-span-12"}>
+    <TiptapEditor label={"Phong thủy"} className={"col-span-12 "} content={upsaveProduct.fengShui}
+                  onChange={(content) => updateUpsaveProductValue("fengShui", content)} editMode={editMode} />
+    <div className={"flex item-center justify-end  col-span-12"}>
       <Button onClick={onSubmit}>{editMode ? "Cập nhật sản phẩm" : "Tạo sản phẩm"}</Button>
     </div>
     {createYearModal.content}
